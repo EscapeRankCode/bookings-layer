@@ -1,0 +1,7 @@
+{
+  "modules": {
+    "calendar": {
+      "getCalendarData": "/getCalendarData"
+    }
+  }
+}

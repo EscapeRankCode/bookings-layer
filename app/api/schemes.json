@@ -1,0 +1,16 @@
+{
+  "modules": {
+    "calendar": {
+      "getCalendarData": {
+        "request": {
+          "start" : "date",
+          "end": "date",
+          "escape_id": "int"
+        },
+        "response": {
+          "calendar": "TODO"
+        }
+      }
+    }
+  }
+}
