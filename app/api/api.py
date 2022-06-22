@@ -15,6 +15,7 @@ routes = GeneralUtils.get_routes()
 
 
 # INITIALIZE MODULES
+# -- CALENDAR MODULE
 calendar_module = ApiCalendar()
 calendar_module_middleware = ApiCalendarMiddleware()
 
@@ -23,7 +24,7 @@ calendar_module_middleware = ApiCalendarMiddleware()
 rest = Flask(__name__)
 
 
-# DEFINE API ROUTES
+# DEFINE ENDPOINTS FOR EACH MODULE
 # -- CALENDAR MODULE
 @rest.route(routes['modules']['calendar']['getCalendarData'])
 def get_calendar_data():
