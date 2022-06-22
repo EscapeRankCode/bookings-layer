@@ -16,7 +16,7 @@ class ApiCalendarMiddlewareMeta(type):
         return cls._instances[cls]
 
 
-class ApiCalendarMiddleware(ApiCalendarMiddlewareMeta):
+class ApiCalendarMiddleware(metaclass=ApiCalendarMiddlewareMeta):
 
     def __init__(cls):
         super().__init__()
