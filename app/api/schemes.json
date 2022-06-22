@@ -8,7 +8,7 @@
           "escape_id": "int"
         },
         "response": {
-          "calendar": "TODO"
+          "calendar": "model"
         }
       }
     }

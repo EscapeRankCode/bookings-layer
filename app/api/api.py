@@ -1,22 +1,17 @@
 # GENERAL IMPORTS
 from flask import Flask
+from flask import request
 import json
 
 
 # MODULES IMPORT
-from .modules.api_calendar import ApiCalendar
+from app.api.modules.calendar.api_calendal_middleware import ApiCalendarMiddleware
+from app.api.modules.calendar.api_calendar import ApiCalendar
+from app.api.utils import GeneralUtils
 
 
-# CONSTANTS
-ROUTES_FILE_PATH = "./app/api/routes.json"
-SCHEMES_FILE_PATH = "./app/api/schemes.json"
-
-
-# LOAD CONFIGS
-with open(ROUTES_FILE_PATH, 'r') as routes_file:
-    routes = json.loads(routes_file.read())
-with open(SCHEMES_FILE_PATH, 'r') as schemes_file:
-    schemes = json.loads(schemes_file.read())
+# GET ROUTES CONFIG
+routes = GeneralUtils.get_routes()
 
 
 # INITIALIZE MODULES
@@ -31,5 +26,6 @@ rest = Flask(__name__)
 # -- CALENDAR MODULE
 @rest.route(routes['modules']['calendar']['getCalendarData'])
 def get_calendar_data():
-    return calendar_module.get_calendar_data()
+    ApiCalendarMiddleware.capture(request, 'getCalendarData')
+    return calendar_module.get_calendar_data(request)
 
