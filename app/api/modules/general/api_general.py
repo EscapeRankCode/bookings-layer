@@ -1,4 +1,5 @@
-class ApiCalendarMeta(type):
+
+class ApiGeneralMeta(type):
     _instances = {}
 
     def __call__(cls, *args, **kwargs):
@@ -8,6 +9,6 @@ class ApiCalendarMeta(type):
         return cls._instances[cls]
 
 
-class ApiCalendar(metaclass=ApiCalendarMeta):
-    def get_calendar_data(self, api_request) -> str:
-        return "{Hello World}"
+class ApiGeneral(metaclass=ApiGeneralMeta):
+    def get_booking_system(self, api_request) -> str:
+        return "{TuriTop}"
