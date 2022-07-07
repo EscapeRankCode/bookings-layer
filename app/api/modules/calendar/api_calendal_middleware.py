@@ -3,7 +3,7 @@ from flask import Flask
 from flask import request
 import json
 # PROJECT IMPORTS
-from app.api.utils import GeneralUtils
+from app.api.utils import general_utils
 
 
 class ApiCalendarMiddlewareMeta(type):
@@ -20,7 +20,7 @@ class ApiCalendarMiddleware(metaclass=ApiCalendarMiddlewareMeta):
 
     def __init__(cls):
         super().__init__()
-        cls.schemes = GeneralUtils.get_schemes()
+        cls.schemes = general_utils.get_schemes()
 
     def capture(self, api_request, endpoint: str):
         if endpoint is "getCalendarData":

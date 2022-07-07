@@ -1,10 +1,7 @@
 {
   "modules": {
     "calendar": {
-      "getCalendarData": "/getCalendarData"
-    },
-    "general": {
-      "getBookingSystem": "/getBookingSystem"
+      "getCalendarAvailability": "/calendar_availability"
     }
   }
 }
