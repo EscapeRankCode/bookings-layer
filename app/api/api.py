@@ -26,7 +26,7 @@ rest = Flask(__name__)
 
 # DEFINE ENDPOINTS FOR EACH MODULE
 # -- CALENDAR MODULE
-@rest.route(routes['modules']['calendar']['getCalendarAvailability'])
+@rest.route(routes['modules']['calendar']['getCalendarAvailability'], methods=['POST'])
 def get_calendar_availability():
     return calendar_module.get_calendar_availability(request)
 
