@@ -23,10 +23,12 @@ class ApiCalendar(metaclass=ApiCalendarMeta):
         # print(params)
 
         print("--------")
-        print("Directly:")
-        bs_config_direct = api_request.json['bs_config']
-        print(bs_config_direct)
-
+        print("ARGS:")
+        print(api_request.args)
+        print("GET JSON:")
+        print(api_request.get_json())
+        print("JSON:")
+        print(api_request.json)
         print("--------")
         # bs_config = params.get('bs_config', -1, 'int')
         # start_date = params.get('start_date', -1, 'str')
