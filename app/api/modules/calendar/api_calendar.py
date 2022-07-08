@@ -16,12 +16,11 @@ class ApiCalendarMeta(type):
 class ApiCalendar(metaclass=ApiCalendarMeta):
     def get_calendar_availability(self, api_request: request) -> str:
         # $booking_system_id, $bs_config_id, $start_date, $end_date
-        params = api_request.form
+        params = api_request.get_json()
         # booking_system_id = params.get('booking_system_id', -1, 'int')
         print("--------")
         print("Params:")
         print(params)
-        booking_system_id = 1
 
         print("--------")
         print("Directly:")
