@@ -35,9 +35,9 @@ class ApiCalendar(metaclass=ApiCalendarMeta):
         # print(start_date)
         # print(end_date)
 
-        if booking_system_id == general_utils.BS_ID_MAXIMUM:
-            print("--------")
-            print("MAXIMUM ESCAPE detected")
-            pass
+        # if booking_system_id == general_utils.BS_ID_MAXIMUM:
+        #    print("--------")
+        #    print("MAXIMUM ESCAPE detected")
+        #    pass
 
         return "{Hello World}"
