@@ -25,7 +25,7 @@ class ApiCalendar(metaclass=ApiCalendarMeta):
         print("--------")
         bs_config = params.get('bs_config', -1, 'int')
         start_date = params.get('start_date', -1, 'str')
-        end_date = params.get('end_date', -1, 'int')
+        end_date = params.get('end_date', -1, 'str')
         print(bs_config)
         print(start_date)
         print(end_date)
