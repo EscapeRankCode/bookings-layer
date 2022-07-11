@@ -1,13 +1,13 @@
 import requests
 import json
 
-from app.api.modules.calendar.api_calendar_interface import ApiCalendarInterface
+from app.api.modules.calendar.api_calendar import ApiCalendar
 from app.models.requests.calendar_availability_request import CalendarAvailabilityRequest
 from datetime import datetime, date
 from app.api.utils import general_utils
 
 
-class MaximumApiCalendar(ApiCalendarInterface):
+class MaximumApiCalendar(ApiCalendar):
     def get_calendar_availability(self, calendar_availability_request: CalendarAvailabilityRequest):
 
         actual_day = date.today()

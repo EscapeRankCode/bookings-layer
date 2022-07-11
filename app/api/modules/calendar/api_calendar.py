@@ -4,6 +4,7 @@ from app.api.modules.calendar.adapters.maximum.maximum_calendar import MaximumAp
 from app.api.utils import general_utils
 from app.models.requests.calendar_availability_request import CalendarAvailabilityRequest
 
+
 class ApiCalendarMeta(type):
     _instances = {}
 
