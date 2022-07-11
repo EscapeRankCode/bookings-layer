@@ -22,9 +22,6 @@ class ApiCalendar(metaclass=ApiCalendarMeta):
         # print("Params:")
         # print(params)
 
-        print("--------")
-        print("ARGS:")
-        print(api_request.args)
         print("JSON:")
         print(api_request.json)
         print("GET JSON:")
