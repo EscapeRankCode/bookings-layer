@@ -5,9 +5,19 @@ from app.api.exceptions.general_exception import GeneralException
 # PATH CONSTANTS
 ROUTES_FILE_PATH = "./app/api/routes.json"
 SCHEMES_FILE_PATH = "./app/api/schemes.json"
+
+# DATE AND TIME_FORMAT
+DATE_FORMAT = "%d/%m/%Y"
+
+# --------- BOOKING SYSTEMS CONSTANTS ---------
 # BOOKING_SYSTEMS CONSTANTS
 BS_ID_TURITOP = 1
 BS_ID_MAXIMUM = 2
+
+# MAXIMUM HOST
+MAXIMUM_BS_HOST = 'http://dev.terraquesta.com'
+MAXIMUM_BS_ENDPOINT_calendar_availability = '/api/schedule_with_offset'
+
 
 # METHODS
 def get_schemes():

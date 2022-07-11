@@ -1,7 +1,8 @@
 from flask import Flask, request
 
+from app.api.modules.calendar.adapters.maximum.maximum_calendar import MaximumApiCalendar
 from app.api.utils import general_utils
-
+from app.models.requests.calendar_availability_request import CalendarAvailabilityRequest
 
 class ApiCalendarMeta(type):
     _instances = {}
@@ -14,29 +15,36 @@ class ApiCalendarMeta(type):
 
 
 class ApiCalendar(metaclass=ApiCalendarMeta):
-    def get_calendar_availability(self, api_request: request) -> str:
-        # $booking_system_id, $bs_config_id, $start_date, $end_date
-        # params = api_request.args
-        # booking_system_id = params.get('booking_system_id', -1, 'int')
-        # print("--------")
-        # print("Params:")
-        # print(params)
 
+    def __init__(self):
+        self.maximum_api_calendar = MaximumApiCalendar()
+
+    """
+    Endpoint: /calendar_availability
+    Data:
+    [
+        'start_date' : date - string format %d/%m/%Y
+        'end_date' : date - string format %d/%m/%Y
+        'booking_system_id' : booking system identifier - int
+            // defined in general utils
+        'bs_config' : date in string format
+            --> Maximum:
+            [
+                'config_id' : int - escaperank configuration id
+                'room' : int - maximum escape id
+                'city_id' : int - maximum location id (city)
+            ]
+    ]
+    """
+    def get_calendar_availability(self, api_request: request) -> str:
         print("JSON:")
         print(api_request.json)
-        print("GET JSON:")
-        print(api_request.get_json())
-        print("--------")
-        # bs_config = params.get('bs_config', -1, 'int')
-        # start_date = params.get('start_date', -1, 'str')
-        # end_date = params.get('end_date', -1, 'str')
-        # print(bs_config)
-        # print(start_date)
-        # print(end_date)
+        calendar_availability_request = CalendarAvailabilityRequest(api_request.json['data'])
 
-        # if booking_system_id == general_utils.BS_ID_MAXIMUM:
-        #    print("--------")
-        #    print("MAXIMUM ESCAPE detected")
-        #    pass
+        availability = None
+        # Depending on the booking system
+        if calendar_availability_request.booking_system_id == general_utils.BS_ID_MAXIMUM:
+            print("MAXIMUM ESCAPE detected")
+            availability = self.maximum_api_calendar.get_calendar_availability(calendar_availability_request)
 
-        return "{Hello World}"
+        return availability
