@@ -1,6 +1,6 @@
 from flask import Flask, request
 
-from . import MaximumApiCalendar
+from app.api.modules.calendar.adapters.maximum.maximum_calendar import MaximumApiCalendar
 from app.api.utils import general_utils
 from app.models.requests.calendar_availability_request import CalendarAvailabilityRequest
 
