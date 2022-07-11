@@ -37,7 +37,7 @@ class ApiCalendar(metaclass=ApiCalendarMeta):
             ]
     ]
     """
-    def get_calendar_availability(self, api_request: request) -> str:
+    def get_calendar_availability(self, api_request: request):
         print("JSON:")
         print(api_request.json)
         calendar_availability_request = CalendarAvailabilityRequest(api_request.json['data'])
