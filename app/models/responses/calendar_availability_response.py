@@ -1,3 +1,6 @@
+import json
+from json import JSONEncoder
+
 class Event:
     def __init__(self, time, event_id: int, availability: int):
         self.time = time
@@ -26,3 +29,7 @@ class CalendarAvailabilityResponse:
         self.bs_config_id = bs_config_id
         self.calendar = calendar
 
+
+class CalendarAvailabilityResponseEncoder(JSONEncoder):
+    def default(self, o):
+        return o.__dict__

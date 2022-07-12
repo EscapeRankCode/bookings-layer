@@ -1,8 +1,11 @@
+import json
+
 from flask import Flask, request, jsonify
 
 from app.api.modules.calendar.adapters.maximum.maximum_calendar import MaximumApiCalendar
 from app.api.utils import general_utils
 from app.models.requests.calendar_availability_request import CalendarAvailabilityRequest
+from app.models.responses.calendar_availability_response import CalendarAvailabilityResponseEncoder
 
 
 class ApiCalendarMeta(type):
@@ -34,6 +37,8 @@ class ApiCalendar(metaclass=ApiCalendarMeta):
                 'config_id' : int - escaperank configuration id
                 'room' : int - maximum escape id
                 'city_id' : int - maximum location id (city)
+                'timezone' : string - timezone of the escape
+                'min_hours_anticipation' : int - minimum time (in hours) required to be able to book
             ]
     ]
     """
@@ -43,6 +48,6 @@ class ApiCalendar(metaclass=ApiCalendarMeta):
         # Depending on the booking system
         if calendar_availability_request.booking_system_id == general_utils.BS_ID_MAXIMUM:
             availability = self.maximum_api_calendar.get_calendar_availability(calendar_availability_request)
-            return jsonify(availability)
+            return json.dumps(availability, indent=4, cls=CalendarAvailabilityResponseEncoder)
 
         return "Calendar availability error", 400
