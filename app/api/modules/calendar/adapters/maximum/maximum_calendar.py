@@ -30,12 +30,9 @@ class MaximumApiCalendar(ApiCalendarInterface):
 
         response = requests.request("POST", url, headers=headers, data=payload)
 
-        print(response.text)
         maximum_availability = json.loads(response.text)
 
         response = self.encapsulate_calendar_availability(maximum_availability, calendar_availability_request)
-        print('---------------- RESPONSE -----------------')
-        print(response)
         return response
 
     def encapsulate_calendar_availability(self, maximum_availability, request: CalendarAvailabilityRequest) -> CalendarAvailabilityResponse :

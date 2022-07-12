@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, jsonify
 
 from app.api.modules.calendar.adapters.maximum.maximum_calendar import MaximumApiCalendar
 from app.api.utils import general_utils
@@ -38,14 +38,11 @@ class ApiCalendar(metaclass=ApiCalendarMeta):
     ]
     """
     def get_calendar_availability(self, api_request: request):
-        print("JSON:")
-        print(api_request.json)
         calendar_availability_request = CalendarAvailabilityRequest(api_request.json['data'])
 
-        availability = None
         # Depending on the booking system
         if calendar_availability_request.booking_system_id == general_utils.BS_ID_MAXIMUM:
-            print("MAXIMUM ESCAPE detected")
             availability = self.maximum_api_calendar.get_calendar_availability(calendar_availability_request)
+            return jsonify(availability)
 
-        return availability
+        return "Calendar availability error", 400
