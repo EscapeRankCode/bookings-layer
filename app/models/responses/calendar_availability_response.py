@@ -2,7 +2,7 @@ import json
 from json import JSONEncoder
 
 class Event:
-    def __init__(self, time, event_id: int, availability: int):
+    def __init__(self, time, event_id: str, availability: int):
         self.time = time
         self.event_id = event_id
         self.availability = availability

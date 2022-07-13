@@ -68,7 +68,7 @@ class MaximumApiCalendar(ApiCalendarInterface):
                             free_events += 1
 
                     # Build the event object
-                    event_object = Event(time, event['id'], availability_status)
+                    event_object = Event(time, str(event['id']), availability_status)
                     day_events.append(event_object)
 
             # After treating all events of a day, we set the day availability
