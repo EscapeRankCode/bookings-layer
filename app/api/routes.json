@@ -2,6 +2,9 @@
   "modules": {
     "calendar": {
       "getCalendarAvailability": "/calendar_availability"
+    },
+    "events": {
+      "getEventTickets": "/event_tickets"
     }
   }
 }

@@ -1,6 +1,6 @@
 import json
 
-from flask import Flask, request, jsonify
+from flask import request
 
 from app.api.modules.calendar.adapters.maximum.maximum_calendar import MaximumApiCalendar
 from app.api.utils import general_utils

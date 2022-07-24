@@ -7,7 +7,7 @@ ROUTES_FILE_PATH = "./app/api/routes.json"
 SCHEMES_FILE_PATH = "./app/api/schemes.json"
 
 # DATE AND TIME_FORMAT
-DATE_FORMAT = "%d/%m/%Y"
+MAXIMUM_DATE_FORMAT = "%d/%m/%Y"
 
 # EVENT AVAILABILITY CONSTANTS
 EVENT_AVAILABILITY_CLOSED = 1
@@ -28,6 +28,8 @@ BS_ID_MAXIMUM = 2
 # MAXIMUM HOST
 MAXIMUM_BS_HOST = 'http://dev.terraquesta.com'
 MAXIMUM_BS_ENDPOINT_calendar_availability = '/api/schedule_with_offset'
+MAXIMUM_BS_ENDPOINT_time_table = '/api/time_table'
+MAXIMUM_BS_ENDPOINT_event_form = '/api/fields'
 
 
 # METHODS

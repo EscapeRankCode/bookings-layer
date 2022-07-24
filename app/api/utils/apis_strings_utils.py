@@ -1,0 +1,1 @@
+BS_MAXIMUM_TICKET_PEOPLE = " Personas"

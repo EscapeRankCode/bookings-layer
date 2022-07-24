@@ -11,8 +11,8 @@ class MaximumApiCalendar(ApiCalendarInterface):
     def get_calendar_availability(self, calendar_availability_request: CalendarAvailabilityRequest):
 
         actual_day = date.today()
-        start_date = (datetime.strptime(calendar_availability_request.start_date, general_utils.DATE_FORMAT)).date()
-        end_date = (datetime.strptime(calendar_availability_request.end_date, general_utils.DATE_FORMAT)).date()
+        start_date = (datetime.strptime(calendar_availability_request.start_date, general_utils.MAXIMUM_DATE_FORMAT)).date()
+        end_date = (datetime.strptime(calendar_availability_request.end_date, general_utils.MAXIMUM_DATE_FORMAT)).date()
 
         offset = (start_date - actual_day).days
         total_days = (end_date - start_date).days
@@ -86,7 +86,6 @@ class MaximumApiCalendar(ApiCalendarInterface):
         # All days treated
         calendar = Calendar(request.bs_config['timezone'], calendar_days)
         return CalendarAvailabilityResponse(request.booking_system_id, request.bs_config['config_id'], calendar)
-
 
     def event_availability(self, event, bs_config, day_string) -> int:
         if event['expired']:
