@@ -49,7 +49,7 @@ class MaximumApiEvents(ApiEventsInterface):
 
         return None
 
-    def get_event_tickets(self, api_request: EventTicketsRequest):
+    def get_event_tickets(self, api_request: EventTicketsRequest) -> EventTicketsResponse:
         event_date = datetime.strptime(api_request.event_date, general_utils.MAXIMUM_DATE_FORMAT)
 
         get_event_info_date = event_date.strftime("%d.%m.%Y")

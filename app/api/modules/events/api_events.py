@@ -4,7 +4,7 @@ from flask import request
 from app.api.modules.events.adapters.maximum.maximum_events import MaximumApiEvents
 from app.api.utils import general_utils
 from app.models.requests.event_tickets_request import EventTicketsRequest
-from app.models.responses.event_tickets_response import EventTicketsResponseEncoder
+from app.models.responses.event_tickets_response import EventTicketsResponseEncoder, EventTicketsResponse
 
 
 class ApiEventsMeta(type):
@@ -27,6 +27,10 @@ class ApiEvents(metaclass=ApiEventsMeta):
         # Depending on the booking system
         if event_tickets_request.booking_system_id == general_utils.BS_ID_MAXIMUM:
             tickets = self.maximum_api_events.get_event_tickets(event_tickets_request)
+            print("dir of the class:")
+            print(dir(EventTicketsResponse))
+            print("dir of the variable:")
+            print(dir(tickets))
             return json.dumps(tickets, indent=4, cls=EventTicketsResponseEncoder)
 
         return "Event Tickets Error", 400
