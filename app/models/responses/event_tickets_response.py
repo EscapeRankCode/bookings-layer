@@ -5,13 +5,13 @@ from json import JSONEncoder
 
 
 class TotalRules:
-    def __init__(self, counter_min_units, counter_max_units, check_min_units, check_max_units, option_min_units, option_max_units):
-        self.counter_min_units = counter_min_units
-        self.counter_max_units = counter_max_units
-        self.check_min_units = check_min_units
-        self.check_max_units = check_max_units
-        self.option_min_units = option_min_units
-        self.option_max_units = option_max_units
+    def __init__(self, counter_min_units: int, counter_max_units: int, check_min_units: int, check_max_units: int, option_min_units: int, option_max_units: int):
+        self.counter_min_units = counter_min_units  # int
+        self.counter_max_units = counter_max_units  # int
+        self.check_min_units = check_min_units  # int
+        self.check_max_units = check_max_units  # int
+        self.option_min_units = option_min_units  # int
+        self.option_max_units = option_max_units  # int
 
 
 class TicketInfo:
@@ -19,7 +19,7 @@ class TicketInfo:
 
 
 class TicketInfoOption(TicketInfo):
-    def __init__(self, default, single_unit_value, price_per_unit, currency):
+    def __init__(self, default: bool, single_unit_value: int, price_per_unit: float, currency: str):
         self.default = default  # bool
         self.single_unit_value = single_unit_value  # int
         self.price_per_unit = price_per_unit  # float
@@ -27,7 +27,7 @@ class TicketInfoOption(TicketInfo):
 
 
 class TicketInfoCheck(TicketInfo):
-    def __init__(self, default, single_unit_value, price_per_unit, currency):
+    def __init__(self, default: bool, single_unit_value: int, price_per_unit: float, currency: str):
         self.default = default  # bool
         self.single_unit_value = single_unit_value  # int
         self.price_per_unit = price_per_unit  # float
@@ -35,7 +35,7 @@ class TicketInfoCheck(TicketInfo):
 
 
 class TicketInfoCounter(TicketInfo):
-    def __init__(self, min_option, max_option, default, single_unit_value, price_per_unit, currency):
+    def __init__(self, min_option: int, max_option: int, default: int, single_unit_value: int, price_per_unit: float, currency: str):
         self.min_option = min_option  # int
         self.max_option = max_option  # int
         self.default = default  # int
@@ -51,7 +51,7 @@ class TicketType(Enum):
 
 
 class Ticket:
-    def __init__(self, ticket_name, ticket_type, ticket_info):
+    def __init__(self, ticket_name: str, ticket_type: TicketType, ticket_info: TicketInfo):
         self.ticket_name = ticket_name  # string
         self.ticket_type = ticket_type  # int (enum)
         self.ticket_info = ticket_info  # (TicketInfo) : TicketInfoOption / TicketInfoCheck / TicketInfoCounter
@@ -64,7 +64,7 @@ class TicketsGroup:
 
 
 class EventTicketsResponse:
-    def __init__(self, event_id, tickets_groups: [TicketsGroup]) -> None:
+    def __init__(self, event_id: str, tickets_groups: [TicketsGroup]) -> None:
         self.event_id = event_id  # string
         self.tickets_groups = tickets_groups  # list of TicketsGroup
 
