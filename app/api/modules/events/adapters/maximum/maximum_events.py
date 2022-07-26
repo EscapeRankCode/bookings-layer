@@ -69,10 +69,6 @@ class MaximumApiEvents(ApiEventsInterface):
         print("-- Response first ticket type:")
         print(str(response.tickets_groups[0].tickets[0].ticket_type))
 
-        print("-- Response first ticket info . min_option:")
-        print(str(response.tickets_groups[0].tickets[0].ticket_info.min_option))
-        print("-- Response first ticket info . max_option:")
-        print(str(response.tickets_groups[0].tickets[0].ticket_info.max_option))
         print("-- Response first ticket info . default:")
         print(str(response.tickets_groups[0].tickets[0].ticket_info.default))
         print("-- Response first ticket info . single_unit_value:")
