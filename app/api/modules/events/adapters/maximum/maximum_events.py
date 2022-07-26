@@ -34,13 +34,9 @@ class MaximumApiEvents(ApiEventsInterface):
 
         response = requests.request("POST", url, headers=headers, data=payload)
 
-        print("response")
-
         time_table = json.loads(response.text)
 
-        print(time_table)
-
-        day = time_table['schedule_day']
+        day = time_table['scheduleDay']
         price_blocks = day['proposalPriceRangeBlocks']
         for block in price_blocks:
             events = block['proposals']
