@@ -76,7 +76,7 @@ class MaximumApiEvents(ApiEventsInterface):
         print("-- Response first ticket info . price_per_unit:")
         print(str(response.tickets_groups[0].tickets[0].ticket_info.price_per_unit))
         print("-- Response first ticket info . currency:")
-        print(response.tickets_groups[0].tickets[0].ticket_info.min_option)
+        print(response.tickets_groups[0].tickets[0].ticket_info.currency)
 
         return response
 
