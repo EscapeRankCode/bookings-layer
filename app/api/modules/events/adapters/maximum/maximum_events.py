@@ -32,6 +32,9 @@ class MaximumApiEvents(ApiEventsInterface):
             'Content-Type': 'application/json'
         }
 
+        print("Quest id:")
+        print(quest_id)
+
         response = requests.request("POST", url, headers=headers, data=payload)
 
         time_table = json.loads(response.text)
