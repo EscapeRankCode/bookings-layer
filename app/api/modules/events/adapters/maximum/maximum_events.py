@@ -48,11 +48,17 @@ class MaximumApiEvents(ApiEventsInterface):
 
     def get_event_tickets(self, api_request: EventTicketsRequest):
         event_date = datetime.strptime(api_request.event_date, general_utils.MAXIMUM_DATE_FORMAT)
+        print("-- Event date:")
+        print(event_date)
         get_event_info_date = event_date.strftime("%d.%m.%Y")
 
         event = self.get_event_info(api_request.bs_config['room'], get_event_info_date)
+        print("-- Event:")
+        print(event)
 
         response = self.encapsulate_event_tickets(event, api_request)
+        print("-- Encapsulate response:")
+        print(response)
 
         return response
 
@@ -60,7 +66,7 @@ class MaximumApiEvents(ApiEventsInterface):
 
         # TODO: What happens if 'special' or 'multiSlot' are true (maximum)
 
-        print("Event info:")
+        print("-- Event info:")
         print(event)
 
         if not event['multiSlot']:
@@ -71,6 +77,8 @@ class MaximumApiEvents(ApiEventsInterface):
             # "3": 70.0
             # "4": 70.0
             prices = event['prices']
+            print("-- Prices:")
+            print(prices)
 
             for price in prices:
                 ticket_info = TicketInfoOption(False, 1, float(prices[price]), "€")
