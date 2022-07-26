@@ -60,6 +60,9 @@ class MaximumApiEvents(ApiEventsInterface):
 
         # TODO: What happens if 'special' or 'multiSlot' are true (maximum)
 
+        print("Event info:")
+        print(event)
+
         if not event['multiSlot']:
 
             tickets = []
