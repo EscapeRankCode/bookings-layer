@@ -50,7 +50,7 @@ class MaximumApiEvents(ApiEventsInterface):
         for block in price_blocks:
             events = block['proposals']
             for event in events:
-                print("Event id for: " + event['id'])
+                print("Event id for: " + str(event['id']))
                 if event['id'] == event_ticket_request.event_id:
                     return event
 
