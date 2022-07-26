@@ -15,17 +15,17 @@ from app.models.responses.event_tickets_response import EventTicketsResponse, Ti
 class MaximumApiEvents(ApiEventsInterface):
 
     # --------- EVENT TICKETS ---------
-    def get_event_info(self, quest_id, date_string, event_id):
+    def get_event_info(self, event_ticket_request: EventTicketsRequest, date_string):
         """
         Returns the event (slot) information looking at the
-        :param quest_id: int (room id)
+        :param event_ticket_request: object received in the request
         :param date_string: day where the event belongs to, in format %d.%m.%y
         :return:
         """
         url = general_utils.MAXIMUM_BS_HOST + general_utils.MAXIMUM_BS_ENDPOINT_time_table
 
         payload = json.dumps({
-            "id": quest_id,
+            "id": event_ticket_request.bs_config['room'],
             "date": date_string
         })
         headers = {
@@ -33,10 +33,10 @@ class MaximumApiEvents(ApiEventsInterface):
         }
 
         print("Quest id:")
-        print(quest_id)
+        print(event_ticket_request.bs_config['room'])
 
         print("Event id:")
-        print(event_id)
+        print(event_ticket_request.event_id)
 
         response = requests.request("POST", url, headers=headers, data=payload)
 
@@ -50,7 +50,8 @@ class MaximumApiEvents(ApiEventsInterface):
         for block in price_blocks:
             events = block['proposals']
             for event in events:
-                if event['id'] == event_id:
+                print("Event id for: " + event['id'])
+                if event['id'] == event_ticket_request.event_id:
                     return event
 
         return None
@@ -61,7 +62,7 @@ class MaximumApiEvents(ApiEventsInterface):
         print(event_date)
         get_event_info_date = event_date.strftime("%d.%m.%Y")
 
-        event = self.get_event_info(api_request.bs_config['room'], get_event_info_date, api_request.event_id)
+        event = self.get_event_info(api_request.bs_config, get_event_info_date, api_request.event_id)
         print("-- Event:")
         print(event)
 

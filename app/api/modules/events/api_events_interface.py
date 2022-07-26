@@ -5,7 +5,7 @@ from app.models.responses.event_tickets_response import EventTicketsResponse
 
 
 class ApiEventsInterface:
-    def get_event_info(self, event_id, date_string):
+    def get_event_info(self, event_ticket_request: EventTicketsRequest, date_string):
         pass
 
     def get_event_tickets(self, api_request: request):
