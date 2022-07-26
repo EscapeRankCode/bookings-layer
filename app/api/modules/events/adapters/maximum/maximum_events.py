@@ -62,7 +62,7 @@ class MaximumApiEvents(ApiEventsInterface):
         print(event_date)
         get_event_info_date = event_date.strftime("%d.%m.%Y")
 
-        event = self.get_event_info(api_request.bs_config, get_event_info_date, api_request.event_id)
+        event = self.get_event_info(api_request, get_event_info_date)
         print("-- Event:")
         print(event)
 
