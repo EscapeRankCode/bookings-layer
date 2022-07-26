@@ -53,13 +53,13 @@ class MaximumApiEvents(ApiEventsInterface):
         event = self.get_event_info(api_request.bs_config['room'], get_event_info_date)
 
         response = self.encapsulate_event_tickets(event, api_request)
+
         return response
 
-    def encapsulate_event_tickets(self, event, event_tickets_request: EventTicketsRequest) -> EventTicketsResponse:
+    def encapsulate_event_tickets(self, event, event_tickets_request: EventTicketsRequest) -> EventTicketsResponse | None:
 
         if event['multiSlot']:
-            # TODO: puede seleccionar más de uno
-            pass
+            return None  # TODO: What happens if 'special' or 'multiSlot' are true (maximum)
 
         else:
 
