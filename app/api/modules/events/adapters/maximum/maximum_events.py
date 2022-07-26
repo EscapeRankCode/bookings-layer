@@ -37,6 +37,7 @@ class MaximumApiEvents(ApiEventsInterface):
 
         print("Event id:")
         print(event_ticket_request.event_id)
+        to_find_id = int(event_ticket_request.event_id)
 
         response = requests.request("POST", url, headers=headers, data=payload)
 
@@ -51,7 +52,7 @@ class MaximumApiEvents(ApiEventsInterface):
             events = block['proposals']
             for event in events:
                 print("Event id for: " + str(event['id']))
-                if event['id'] == event_ticket_request.event_id:
+                if event['id'] == to_find_id:
                     return event
 
         return None
