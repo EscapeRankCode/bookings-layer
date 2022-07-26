@@ -35,7 +35,7 @@ class MaximumApiCalendar(ApiCalendarInterface):
         response = self.encapsulate_calendar_availability(maximum_availability, calendar_availability_request)
         return response
 
-    def encapsulate_calendar_availability(self, maximum_availability, request: CalendarAvailabilityRequest) -> CalendarAvailabilityResponse :
+    def encapsulate_calendar_availability(self, maximum_availability, request: CalendarAvailabilityRequest) -> CalendarAvailabilityResponse:
 
         calendar_days = []
 

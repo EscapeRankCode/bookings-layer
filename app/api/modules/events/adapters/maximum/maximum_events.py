@@ -56,12 +56,11 @@ class MaximumApiEvents(ApiEventsInterface):
 
         return response
 
-    def encapsulate_event_tickets(self, event, event_tickets_request: EventTicketsRequest) -> EventTicketsResponse | None:
+    def encapsulate_event_tickets(self, event, event_tickets_request: EventTicketsRequest) -> EventTicketsResponse:
 
-        if event['multiSlot']:
-            return None  # TODO: What happens if 'special' or 'multiSlot' are true (maximum)
+        # TODO: What happens if 'special' or 'multiSlot' are true (maximum)
 
-        else:
+        if not event['multiSlot']:
 
             tickets = []
 
@@ -81,10 +80,6 @@ class MaximumApiEvents(ApiEventsInterface):
             tick_groups = [tickets_group]
 
             return EventTicketsResponse(event['id'], tick_groups)
-
-
-
-
 
 # TODO:
 '''
