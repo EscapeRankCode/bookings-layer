@@ -69,8 +69,8 @@ class MaximumApiEvents(ApiEventsInterface):
         print("-- Response first ticket type:")
         print(str(response.tickets_groups[0].tickets[0].ticket_type))
 
-        print("-- Response first ticket info . default:")
-        print(str(response.tickets_groups[0].tickets[0].ticket_info.default))
+        print("-- Response first ticket info . default_value:")
+        print(str(response.tickets_groups[0].tickets[0].ticket_info.default_value))
         print("-- Response first ticket info . single_unit_value:")
         print(str(response.tickets_groups[0].tickets[0].ticket_info.single_unit_value))
         print("-- Response first ticket info . price_per_unit:")
