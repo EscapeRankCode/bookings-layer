@@ -64,7 +64,7 @@ class TicketsGroup:
 
 
 class EventTicketsResponse:
-    def __init__(self, event_id, tickets_groups: [TicketsGroup]):
+    def __init__(self, event_id, tickets_groups: [TicketsGroup]) -> None:
         self.event_id = event_id  # string
         self.tickets_groups = tickets_groups  # list of TicketsGroup
 
