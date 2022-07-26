@@ -15,7 +15,7 @@ from app.models.responses.event_tickets_response import EventTicketsResponse, Ti
 class MaximumApiEvents(ApiEventsInterface):
 
     # --------- EVENT TICKETS ---------
-    def get_event_info(self, quest_id, date_string):
+    def get_event_info(self, quest_id, date_string, event_id):
         """
         Returns the event (slot) information looking at the
         :param quest_id: int (room id)
@@ -35,6 +35,9 @@ class MaximumApiEvents(ApiEventsInterface):
         print("Quest id:")
         print(quest_id)
 
+        print("Event id:")
+        print(event_id)
+
         response = requests.request("POST", url, headers=headers, data=payload)
 
         time_table = json.loads(response.text)
@@ -47,7 +50,7 @@ class MaximumApiEvents(ApiEventsInterface):
         for block in price_blocks:
             events = block['proposals']
             for event in events:
-                if event['id'] == quest_id:
+                if event['id'] == event_id:
                     return event
 
         return None
@@ -58,7 +61,7 @@ class MaximumApiEvents(ApiEventsInterface):
         print(event_date)
         get_event_info_date = event_date.strftime("%d.%m.%Y")
 
-        event = self.get_event_info(api_request.bs_config['room'], get_event_info_date)
+        event = self.get_event_info(api_request.bs_config['room'], get_event_info_date, api_request.event_id)
         print("-- Event:")
         print(event)
 
