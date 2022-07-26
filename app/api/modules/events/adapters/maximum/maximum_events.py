@@ -32,26 +32,18 @@ class MaximumApiEvents(ApiEventsInterface):
             'Content-Type': 'application/json'
         }
 
-        print("Quest id:")
-        print(event_ticket_request.bs_config['room'])
-
-        print("Event id:")
-        print(event_ticket_request.event_id)
         to_find_id = int(event_ticket_request.event_id)
 
         response = requests.request("POST", url, headers=headers, data=payload)
 
         time_table = json.loads(response.text)
 
-        print("Time-table: ")
-        print(time_table)
 
         day = time_table['scheduleDay']
         price_blocks = day['proposalPriceRangeBlocks']
         for block in price_blocks:
             events = block['proposals']
             for event in events:
-                print("Event id for: " + str(event['id']))
                 if event['id'] == to_find_id:
                     return event
 
@@ -59,17 +51,20 @@ class MaximumApiEvents(ApiEventsInterface):
 
     def get_event_tickets(self, api_request: EventTicketsRequest):
         event_date = datetime.strptime(api_request.event_date, general_utils.MAXIMUM_DATE_FORMAT)
-        print("-- Event date:")
-        print(event_date)
+
         get_event_info_date = event_date.strftime("%d.%m.%Y")
 
         event = self.get_event_info(api_request, get_event_info_date)
-        print("-- Event:")
-        print(event)
 
         response = self.encapsulate_event_tickets(event, api_request)
         print("-- Encapsulate response:")
         print(response)
+
+        print("-- Response.event_id:")
+        print(response.event_id)
+
+        print("-- Response.tickets_groups:")
+        print(response.tickets_groups[0])
 
         return response
 
@@ -101,7 +96,7 @@ class MaximumApiEvents(ApiEventsInterface):
             tickets_group = TicketsGroup(tickets, total_rules)
             tick_groups = [tickets_group]
 
-            return EventTicketsResponse(event['id'], tick_groups)
+            return EventTicketsResponse(str(event['id']), tick_groups)
 
 # TODO:
 '''

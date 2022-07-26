@@ -58,15 +58,15 @@ class Ticket:
 
 
 class TicketsGroup:
-    def __init__(self, tickets, total_rules):
-        self.tickets = tickets
-        self.total_rules = total_rules
+    def __init__(self, tickets: [Ticket], total_rules: TotalRules):
+        self.tickets = tickets  # List of Ticket
+        self.total_rules = total_rules  # object of TotalRules
 
 
 class EventTicketsResponse:
-    def __init__(self, event_id, tickets_groups):
+    def __init__(self, event_id, tickets_groups: [TicketsGroup]):
         self.event_id = event_id  # string
-        self.tickets_groups = tickets_groups
+        self.tickets_groups = tickets_groups  # list of TicketsGroup
 
 
 class EventTicketsResponseEncoder(JSONEncoder):
