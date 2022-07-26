@@ -19,26 +19,26 @@ class TicketInfo:
 
 
 class TicketInfoOption(TicketInfo):
-    def __init__(self, default: bool, single_unit_value: int, price_per_unit: float, currency: str):
-        self.default = default  # bool
+    def __init__(self, default_value: bool, single_unit_value: int, price_per_unit: float, currency: str):
+        self.default_value = default_value  # bool
         self.single_unit_value = single_unit_value  # int
         self.price_per_unit = price_per_unit  # float
         self.currency = currency  # string
 
 
 class TicketInfoCheck(TicketInfo):
-    def __init__(self, default: bool, single_unit_value: int, price_per_unit: float, currency: str):
-        self.default = default  # bool
+    def __init__(self, default_value: bool, single_unit_value: int, price_per_unit: float, currency: str):
+        self.default_value = default_value  # bool
         self.single_unit_value = single_unit_value  # int
         self.price_per_unit = price_per_unit  # float
         self.currency = currency  # string
 
 
 class TicketInfoCounter(TicketInfo):
-    def __init__(self, min_option: int, max_option: int, default: int, single_unit_value: int, price_per_unit: float, currency: str):
+    def __init__(self, min_option: int, max_option: int, default_value: int, single_unit_value: int, price_per_unit: float, currency: str):
         self.min_option = min_option  # int
         self.max_option = max_option  # int
-        self.default = default  # int
+        self.default_value = default_value  # int
         self.single_unit_value = single_unit_value  # int
         self.price_per_unit = price_per_unit  # float
         self.currency = currency  # string
