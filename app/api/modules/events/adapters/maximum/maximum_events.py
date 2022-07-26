@@ -63,8 +63,11 @@ class MaximumApiEvents(ApiEventsInterface):
         print("-- Response.event_id:")
         print(response.event_id)
 
-        print("-- Response.tickets_groups:")
-        print(response.tickets_groups[0])
+        print("-- Response first ticket name:")
+        print(response.tickets_groups[0].tickets[0].name)
+
+        print("-- Response first ticket type:")
+        print(str(response.tickets_groups[0].tickets[0].ticket_type))
 
         return response
 
