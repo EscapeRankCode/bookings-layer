@@ -18,7 +18,7 @@ class MaximumApiEvents(ApiEventsInterface):
     def get_event_info(self, quest_id, date_string):
         """
         Returns the event (slot) information looking at the
-        :param quest_id:
+        :param quest_id: int (room id)
         :param date_string: day where the event belongs to, in format %d.%m.%y
         :return:
         """
@@ -35,6 +35,9 @@ class MaximumApiEvents(ApiEventsInterface):
         response = requests.request("POST", url, headers=headers, data=payload)
 
         time_table = json.loads(response.text)
+
+        print("Time-table: ")
+        print(time_table)
 
         day = time_table['scheduleDay']
         price_blocks = day['proposalPriceRangeBlocks']
