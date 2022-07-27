@@ -55,7 +55,7 @@ class Calendar:
         yield from{
             "timezone": self.timezone,
             "days": self.days
-        }
+        }.items()
 
     def __str__(self):
         return json.dumps(dict(self), ensure_ascii=False)
@@ -75,7 +75,7 @@ class CalendarAvailabilityResponse:
             "booking_system_id": self.booking_system_id,
             "bs_config_id": self.bs_config_id,
             "calendar": self.calendar
-        }
+        }.items()
 
     def __str__(self):
         return json.dumps(dict(self), ensure_ascii=False)
