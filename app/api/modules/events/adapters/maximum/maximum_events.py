@@ -38,9 +38,6 @@ class MaximumApiEvents(ApiEventsInterface):
 
         time_table = json.loads(response.text)
 
-        print("TimeTable")
-        print(time_table)
-
         day = time_table['scheduleDay']
         price_blocks = day['proposalPriceRangeBlocks']
         for block in price_blocks:
@@ -60,49 +57,16 @@ class MaximumApiEvents(ApiEventsInterface):
 
         response = self.encapsulate_event_tickets(event, api_request)
 
-        """
-        print("-- Encapsulate response:")
-        print(response)
-
-        print("-- Response.event_id:")
-        print(response.event_id)
-
-        print("-- Response first ticket name:")
-        print(response.tickets_groups[0].tickets[0].ticket_name)
-
-        print("-- Response first ticket type:")
-        print(str(response.tickets_groups[0].tickets[0].ticket_type))
-
-        print("-- Response first ticket info . default_value:")
-        print(str(response.tickets_groups[0].tickets[0].ticket_info.default_value))
-        print("-- Response first ticket info . single_unit_value:")
-        print(str(response.tickets_groups[0].tickets[0].ticket_info.single_unit_value))
-        print("-- Response first ticket info . price_per_unit:")
-        print(str(response.tickets_groups[0].tickets[0].ticket_info.price_per_unit))
-        print("-- Response first ticket info . currency:")
-        print(response.tickets_groups[0].tickets[0].ticket_info.currency)
-
-        """
-
         return response
 
     def encapsulate_event_tickets(self, event, event_tickets_request: EventTicketsRequest) -> EventTicketsResponse:
 
         # TODO: What happens if 'special' or 'multiSlot' are true (maximum)
 
-        print("-- Event info:")
-        print(event)
-
         if not event['multiSlot']:
 
             tickets = []
-
-            # "2": 70.0
-            # "3": 70.0
-            # "4": 70.0
             prices = event['prices']
-            print("-- Prices:")
-            print(prices)
 
             for price in prices:
                 ticket_info = TicketInfoOption(False, 1, float(prices[price]), "€")
@@ -115,12 +79,6 @@ class MaximumApiEvents(ApiEventsInterface):
             tick_groups = [tickets_group]
 
             return EventTicketsResponse(str(event['id']), tick_groups)
-
-# TODO:
-'''
-    - A partir de los datos de get event info, encapsular los precios (dentro de la respuesta "event")
-    - NO HACE FALTA HACER NINGUNA OTRA LLAMADA
-'''
 
 '''
     def get_event_form(self, api_request: EventFormRequest):
