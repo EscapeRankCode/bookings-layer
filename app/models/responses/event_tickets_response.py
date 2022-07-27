@@ -23,17 +23,25 @@ class TotalRules:
         }.items()
 
     def __str__(self):
-        return json.dumps(dict(self), ensure_ascii=False)
+        return json.dumps(self.to_json())
 
     def __repr__(self):
         return self.__str__()
 
     def to_json(self):
-        return self.__str__()
+        return {
+            "counter_min_units": self.counter_min_units,
+            "counter_max_units": self.counter_max_units,
+            "check_min_units": self.check_min_units,
+            "check_max_units": self.check_max_units,
+            "option_min_units": self.option_min_units,
+            "option_max_units": self.option_max_units
+        }
 
 
 class TicketInfo:
-    pass
+    def to_json(self):
+        pass
 
 
 class TicketInfoOption(TicketInfo):
@@ -52,13 +60,18 @@ class TicketInfoOption(TicketInfo):
         }.items()
 
     def __str__(self):
-        return json.dumps(dict(self), ensure_ascii=False)
+        return json.dumps(self.to_json())
 
     def __repr__(self):
         return self.__str__()
 
     def to_json(self):
-        return self.__str__()
+        return {
+            "default_value": self.default_value,
+            "single_unit_value": self.single_unit_value,
+            "price_per_unit": self.price_per_unit,
+            "currency": self.currency
+        }
 
 
 class TicketInfoCheck(TicketInfo):
@@ -77,13 +90,18 @@ class TicketInfoCheck(TicketInfo):
         }.items()
 
     def __str__(self):
-        return json.dumps(dict(self), ensure_ascii=False)
+        return json.dumps(self.to_json())
 
     def __repr__(self):
         return self.__str__()
 
     def to_json(self):
-        return self.__str__()
+        return {
+            "default_value": self.default_value,
+            "single_unit_value": self.single_unit_value,
+            "price_per_unit": self.price_per_unit,
+            "currency": self.currency
+        }
 
 
 class TicketInfoCounter(TicketInfo):
@@ -106,13 +124,20 @@ class TicketInfoCounter(TicketInfo):
         }.items()
 
     def __str__(self):
-        return json.dumps(dict(self), ensure_ascii=False)
+        return json.dumps(self.to_json())
 
     def __repr__(self):
         return self.__str__()
 
     def to_json(self):
-        return self.__str__()
+        return {
+            "min_option": self.min_option,
+            "max_option": self.max_option,
+            "default_value": self.default_value,
+            "single_unit_value": self.single_unit_value,
+            "price_per_unit": self.price_per_unit,
+            "currency": self.currency
+        }
 
 
 class TicketType(Enum):
@@ -135,13 +160,17 @@ class Ticket:
         }.items()
 
     def __str__(self):
-        return json.dumps(dict(self), ensure_ascii=False)
+        return json.dumps(self.to_json())
 
     def __repr__(self):
         return self.__str__()
 
     def to_json(self):
-        return self.__str__()
+        return {
+            "ticket_name": self.ticket_name,
+            "ticket_type": self.ticket_type,
+            "ticket_info": self.ticket_info.to_json()
+        }
 
 
 class TicketsGroup:
@@ -156,13 +185,21 @@ class TicketsGroup:
         }.items()
 
     def __str__(self):
-        return json.dumps(dict(self), ensure_ascii=False)
+        return json.dumps(self.to_json())
 
     def __repr__(self):
         return self.__str__()
 
     def to_json(self):
-        return self.__str__()
+        tickets_json = []
+
+        for t in self.tickets:
+            tickets_json.append(t.to_json())
+
+        return {
+            "tickets": tickets_json,
+            "total_rules": self.total_rules.to_json()
+        }
 
 
 class EventTicketsResponse:
@@ -177,13 +214,20 @@ class EventTicketsResponse:
         }.items()
 
     def __str__(self):
-        return json.dumps(dict(self), ensure_ascii=False)
+        return json.dumps(self.to_json())
 
     def __repr__(self):
         return self.__str__()
 
     def to_json(self):
-        return self.__str__()
+        tickets_groups_json = []
+        for tick_g in self.tickets_groups:
+            tickets_groups_json.append(tick_g.to_json())
+
+        return {
+            "event_id": self.event_id,
+            "tickets_groups": tickets_groups_json
+        }
 
 
 class EventTicketsResponseEncoder(JSONEncoder):

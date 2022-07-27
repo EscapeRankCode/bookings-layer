@@ -34,6 +34,6 @@ class ApiEvents(metaclass=ApiEventsMeta):
             # print("Dict value 2:")
             # print(json.dumps(tickets.__dict__))
             # return json.dumps(tickets, indent=4, cls=EventTicketsResponseEncoder)
-            # return json.dumps(tickets)
+            return json.dumps(tickets)
 
         return "Event Tickets Error", 400
