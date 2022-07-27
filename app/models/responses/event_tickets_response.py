@@ -3,8 +3,6 @@ from enum import Enum
 from json import JSONEncoder
 
 # START READING FROM THE BOTTOM
-
-
 class TotalRules:
     def __init__(self, counter_min_units: int, counter_max_units: int, check_min_units: int, check_max_units: int, option_min_units: int, option_max_units: int):
         self.counter_min_units = counter_min_units  # int
@@ -28,6 +26,9 @@ class TotalRules:
         return json.dumps(dict(self), ensure_ascii=False)
 
     def __repr__(self):
+        return self.__str__()
+
+    def to_json(self):
         return self.__str__()
 
 
@@ -56,6 +57,9 @@ class TicketInfoOption(TicketInfo):
     def __repr__(self):
         return self.__str__()
 
+    def to_json(self):
+        return self.__str__()
+
 
 class TicketInfoCheck(TicketInfo):
     def __init__(self, default_value: bool, single_unit_value: int, price_per_unit: float, currency: str):
@@ -76,6 +80,9 @@ class TicketInfoCheck(TicketInfo):
         return json.dumps(dict(self), ensure_ascii=False)
 
     def __repr__(self):
+        return self.__str__()
+
+    def to_json(self):
         return self.__str__()
 
 
@@ -104,6 +111,9 @@ class TicketInfoCounter(TicketInfo):
     def __repr__(self):
         return self.__str__()
 
+    def to_json(self):
+        return self.__str__()
+
 
 class TicketType(Enum):
     counter = 1
@@ -130,6 +140,9 @@ class Ticket:
     def __repr__(self):
         return self.__str__()
 
+    def to_json(self):
+        return self.__str__()
+
 
 class TicketsGroup:
     def __init__(self, tickets: [Ticket], total_rules: TotalRules):
@@ -148,6 +161,9 @@ class TicketsGroup:
     def __repr__(self):
         return self.__str__()
 
+    def to_json(self):
+        return self.__str__()
+
 
 class EventTicketsResponse:
     def __init__(self, event_id: str, tickets_groups: [TicketsGroup]) -> None:
@@ -164,6 +180,9 @@ class EventTicketsResponse:
         return json.dumps(dict(self), ensure_ascii=False)
 
     def __repr__(self):
+        return self.__str__()
+
+    def to_json(self):
         return self.__str__()
 
 
