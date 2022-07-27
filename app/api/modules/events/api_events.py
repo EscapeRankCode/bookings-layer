@@ -5,6 +5,7 @@ from flask import request
 from app.api.modules.events.adapters.maximum.maximum_events import MaximumApiEvents
 from app.api.utils import general_utils
 from app.models.requests.event_tickets_request import EventTicketsRequest
+from app.models.responses.calendar_availability_response import CalendarAvailabilityResponseEncoder
 from app.models.responses.event_tickets_response import EventTicketsResponseEncoder, EventTicketsResponse
 
 
@@ -30,8 +31,7 @@ class ApiEvents(metaclass=ApiEventsMeta):
             tickets = self.maximum_api_events.get_event_tickets(event_tickets_request)
 
             print("Encoded value:")
-            print(EventTicketsResponseEncoder().encode(tickets))
-            # return json.dumps(tickets, indent=4, cls=EventTicketsResponseEncoder)
-            return json.dumps(tickets)
+            return json.dumps(tickets, indent=4, cls=CalendarAvailabilityResponseEncoder)
+            # return json.dumps(tickets)
 
         return "Event Tickets Error", 400
