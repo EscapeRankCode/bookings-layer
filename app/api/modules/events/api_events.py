@@ -29,8 +29,8 @@ class ApiEvents(metaclass=ApiEventsMeta):
         if event_tickets_request.booking_system_id == general_utils.BS_ID_MAXIMUM:
             tickets = self.maximum_api_events.get_event_tickets(event_tickets_request)
 
-            print("Dict value 1:")
-            print(tickets.__dict__)
+            # print("Dict value 1:")
+            # print(tickets.__dict__)
             print("Dict value 2:")
             print(json.dumps(tickets.__dict__))
             # return json.dumps(tickets, indent=4, cls=EventTicketsResponseEncoder)
