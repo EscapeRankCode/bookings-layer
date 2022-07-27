@@ -1,4 +1,5 @@
 import json
+
 from flask import request
 
 from app.api.modules.events.adapters.maximum.maximum_events import MaximumApiEvents
@@ -31,6 +32,7 @@ class ApiEvents(metaclass=ApiEventsMeta):
             print(dir(EventTicketsResponse))
             print("dir of the variable:")
             print(dir(tickets))
-            return json.dumps(tickets, indent=4, cls=EventTicketsResponseEncoder)
+            # return json.dumps(tickets, indent=4, cls=EventTicketsResponseEncoder)
+            return json.dumps(tickets)
 
         return "Event Tickets Error", 400
