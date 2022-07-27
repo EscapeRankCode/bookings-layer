@@ -30,7 +30,7 @@ class ApiEvents(metaclass=ApiEventsMeta):
             tickets = self.maximum_api_events.get_event_tickets(event_tickets_request)
 
             print("Encoded value:")
-            print(EventTicketsResponseEncoder.encode(tickets))
+            print(EventTicketsResponseEncoder().encode(tickets))
             # return json.dumps(tickets, indent=4, cls=EventTicketsResponseEncoder)
             return json.dumps(tickets)
 
