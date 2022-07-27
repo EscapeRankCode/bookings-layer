@@ -1,5 +1,5 @@
 import json
-from enum import Enum
+from enum import IntEnum
 from json import JSONEncoder
 
 # START READING FROM THE BOTTOM
@@ -140,7 +140,7 @@ class TicketInfoCounter(TicketInfo):
         }
 
 
-class TicketType(Enum):
+class TicketType(IntEnum):
     counter = 1
     check = 2
     option = 3
