@@ -60,6 +60,30 @@ class MaximumApiEvents(ApiEventsInterface):
 
         response = self.encapsulate_event_tickets(event, api_request)
 
+        """
+        print("-- Encapsulate response:")
+        print(response)
+
+        print("-- Response.event_id:")
+        print(response.event_id)
+
+        print("-- Response first ticket name:")
+        print(response.tickets_groups[0].tickets[0].ticket_name)
+
+        print("-- Response first ticket type:")
+        print(str(response.tickets_groups[0].tickets[0].ticket_type))
+
+        print("-- Response first ticket info . default_value:")
+        print(str(response.tickets_groups[0].tickets[0].ticket_info.default_value))
+        print("-- Response first ticket info . single_unit_value:")
+        print(str(response.tickets_groups[0].tickets[0].ticket_info.single_unit_value))
+        print("-- Response first ticket info . price_per_unit:")
+        print(str(response.tickets_groups[0].tickets[0].ticket_info.price_per_unit))
+        print("-- Response first ticket info . currency:")
+        print(response.tickets_groups[0].tickets[0].ticket_info.currency)
+
+        """
+
         return response
 
     def encapsulate_event_tickets(self, event, event_tickets_request: EventTicketsRequest) -> EventTicketsResponse:
