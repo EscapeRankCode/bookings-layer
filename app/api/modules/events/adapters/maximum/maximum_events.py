@@ -38,6 +38,8 @@ class MaximumApiEvents(ApiEventsInterface):
 
         time_table = json.loads(response.text)
 
+        print("TimeTable")
+        print(time_table)
 
         day = time_table['scheduleDay']
         price_blocks = day['proposalPriceRangeBlocks']
