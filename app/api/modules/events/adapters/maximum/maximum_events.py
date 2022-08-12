@@ -19,7 +19,7 @@ class MaximumApiEvents(ApiEventsInterface):
         """
         Returns the event (slot) information looking at the
         :param event_ticket_request: object received in the request
-        :param date_string: day where the event belongs to, in format %d.%m.%y
+        :param date_string: day when the event belongs to, in format %d.%m.%y
         :return:
         """
         url = general_utils.MAXIMUM_BS_HOST + general_utils.MAXIMUM_BS_ENDPOINT_time_table
