@@ -71,12 +71,12 @@ class MaximumApiEvents(ApiEventsInterface):
             for price in prices:
 
                 # TODO: HARDCODED TICKET INFO
-                ticket_info = TicketInfoOption(False, 1, float(prices[price]), "€")
-                # ticket_info = TicketInfoCounter(0, 4, 0, 1, 1, "€")
+                # ticket_info = TicketInfoOption(False, 1, float(prices[price]), "€")
+                ticket_info = TicketInfoCounter(0, 4, 0, 1, 1, "€")
 
                 # TODO HARDCODED TICKET TYPE ticket = Ticket(price + apis_strings.BS_MAXIMUM_TICKET_PEOPLE, TicketType.option, ticket_info)
-                ticket = Ticket(price + apis_strings.BS_MAXIMUM_TICKET_PEOPLE, TicketType.option, ticket_info)
-                # ticket = Ticket(price + apis_strings.BS_MAXIMUM_TICKET_PEOPLE, TicketType.counter, ticket_info)
+                # ticket = Ticket(price + apis_strings.BS_MAXIMUM_TICKET_PEOPLE, TicketType.option, ticket_info)
+                ticket = Ticket(price + apis_strings.BS_MAXIMUM_TICKET_PEOPLE, TicketType.counter, ticket_info)
 
                 tickets.append(ticket)
 
