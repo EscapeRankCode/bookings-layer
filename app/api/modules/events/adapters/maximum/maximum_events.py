@@ -82,7 +82,8 @@ class MaximumApiEvents(ApiEventsInterface):
 
                 tickets.append(ticket)
 
-            total_rules = TotalRules(0, 0, 0, 0, 1, 1)
+            # total_rules = TotalRules(0, 0, 0, 0, 1, 1)  # Good one
+            total_rules = TotalRules(1, 2, 1, 2, 1, 2)
 
             tickets_group = TicketsGroup(tickets, total_rules)
             tick_groups = [tickets_group]
