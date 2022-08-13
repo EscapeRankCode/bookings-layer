@@ -9,7 +9,7 @@ from app.api.utils import general_utils
 import app.api.utils.apis_strings_utils as apis_strings
 from app.models.requests.event_tickets_request import EventTicketsRequest
 from app.models.responses.event_tickets_response import EventTicketsResponse, TicketInfoOption, Ticket, TicketType, \
-    TotalRules, TicketsGroup
+    TotalRules, TicketsGroup, TicketInfoCounter
 
 
 class MaximumApiEvents(ApiEventsInterface):
@@ -69,8 +69,10 @@ class MaximumApiEvents(ApiEventsInterface):
             prices = event['prices']
 
             for price in prices:
-                ticket_info = TicketInfoOption(False, 1, float(prices[price]), "€")
-                ticket = Ticket(price + apis_strings.BS_MAXIMUM_TICKET_PEOPLE, TicketType.option, ticket_info)
+                # TODO: HARDCODED TICKET INFO ticket_info = TicketInfoOption(False, 1, float(prices[price]), "€")
+                ticket_info = TicketInfoCounter(0, 4, 0, 1, 1, "€")
+                # TODO HARDCODED TICKET TYPE ticket = Ticket(price + apis_strings.BS_MAXIMUM_TICKET_PEOPLE, TicketType.option, ticket_info)
+                ticket = Ticket(price + apis_strings.BS_MAXIMUM_TICKET_PEOPLE, TicketType.counter, ticket_info)
                 tickets.append(ticket)
 
             total_rules = TotalRules(0, 0, 0, 0, 1, 1)
