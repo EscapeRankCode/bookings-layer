@@ -9,7 +9,7 @@ from app.api.utils import general_utils
 import app.api.utils.apis_strings_utils as apis_strings
 from app.models.requests.event_tickets_request import EventTicketsRequest
 from app.models.responses.event_tickets_response import EventTicketsResponse, TicketInfoOption, Ticket, TicketType, \
-    TotalRules, TicketsGroup, TicketInfoCounter
+    TotalRules, TicketsGroup, TicketInfoCounter, TicketInfoCheck
 
 
 class MaximumApiEvents(ApiEventsInterface):
@@ -71,12 +71,14 @@ class MaximumApiEvents(ApiEventsInterface):
             for price in prices:
 
                 # TODO: HARDCODED TICKET INFO
-                # ticket_info = TicketInfoOption(False, 1, float(prices[price]), "€")
-                ticket_info = TicketInfoCounter(0, 4, 0, 1, 1, "€")
+                # ticket_info = TicketInfoOption(False, 1, float(prices[price]), "€")  # Good one (counter)
+                # ticket_info = TicketInfoCounter(0, 4, 0, 1, 1, "€")  # Counter
+                ticket_info = TicketInfoCheck(False, 1, 1, "€")  # Check
 
-                # TODO HARDCODED TICKET TYPE ticket = Ticket(price + apis_strings.BS_MAXIMUM_TICKET_PEOPLE, TicketType.option, ticket_info)
-                # ticket = Ticket(price + apis_strings.BS_MAXIMUM_TICKET_PEOPLE, TicketType.option, ticket_info)
-                ticket = Ticket(price + apis_strings.BS_MAXIMUM_TICKET_PEOPLE, TicketType.counter, ticket_info)
+                # TODO HARDCODED TICKET INFO
+                # ticket = Ticket(price + apis_strings.BS_MAXIMUM_TICKET_PEOPLE, TicketType.option, ticket_info)  # Good one (counter)
+                # ticket = Ticket(price + apis_strings.BS_MAXIMUM_TICKET_PEOPLE, TicketType.counter, ticket_info)  # Counter
+                ticket = Ticket(price + apis_strings.BS_MAXIMUM_TICKET_PEOPLE, TicketType.check, ticket_info)  # Check
 
                 tickets.append(ticket)
 
