@@ -4,6 +4,7 @@ from flask import request
 
 from app.api.modules.events.adapters.maximum.maximum_events import MaximumApiEvents
 from app.api.utils import general_utils
+from app.models.requests.event_form_request import EventFormRequest
 from app.models.requests.event_tickets_request import EventTicketsRequest
 from app.models.responses.event_tickets_response import EventTicketsResponseEncoder, EventTicketsResponse
 
@@ -31,3 +32,15 @@ class ApiEvents(metaclass=ApiEventsMeta):
             return json.dumps(tickets.to_json())
 
         return "Event Tickets Error", 400
+
+    def get_event_form(self, api_request: request):
+        event_form_request = EventFormRequest(api_request.json['data'])
+
+        # Depending on the booking system
+        if event_form_request.booking_system_id == general_utils.BS_ID_MAXIMUM:
+            form = self.maximum_api_events.get_event_form(event_form_request)
+            return json.dumps(form.to_json())
+
+        return "Event Form Error", 400
+
+

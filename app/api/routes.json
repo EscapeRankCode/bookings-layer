@@ -4,7 +4,8 @@
       "getCalendarAvailability": "/calendar_availability"
     },
     "events": {
-      "getEventTickets": "/event_tickets"
+      "getEventTickets": "/event_tickets",
+      "getEventForm": "/event_form"
     }
   }
 }
