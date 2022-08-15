@@ -9,7 +9,7 @@ from app.api.utils import general_utils
 import app.api.utils.apis_strings_utils as apis_strings
 from app.models.requests.event_form_request import EventFormRequest
 from app.models.requests.event_tickets_request import EventTicketsRequest
-from app.models.responses.event_form_response import EventFormResponse, Field, FieldType
+from app.models.responses.event_form_response import EventFormResponse, Field, FieldType, FieldOption
 from app.models.responses.event_tickets_response import EventTicketsResponse, TicketInfoOption, Ticket, TicketType, \
     TotalRules, TicketsGroup, TicketInfoCounter, TicketInfoCheck
 
@@ -116,6 +116,7 @@ class MaximumApiEvents(ApiEventsInterface):
 
         maximum_form = json.loads(response.text)['client_form']
         form = self.encapsulate_event_form(maximum_form, event_form_request)
+        return form
 
 
     """
@@ -130,9 +131,27 @@ class MaximumApiEvents(ApiEventsInterface):
     """
 
     def encapsulate_event_form(self, form, event_form_request: EventFormRequest) -> EventFormResponse:
-        fields = []
+        fields = [Field]
         for maximum_field in form:
-            field = Field()
+
+            field_type = self.translate_type(maximum_field['type'])
+
+            if self.field_has_to_enter_in_form(maximum_field, field_type):
+
+                if field_type == FieldType.check:
+                    new_field = self.encapsulate_field_type_check(maximum_field, None)
+                    fields.append(new_field)
+
+                if field_type == FieldType.text:
+                    new_field = self.encapsulate_field_type_text(maximum_field, None)
+                    fields.append(new_field)
+
+                if field_type == FieldType.select:
+                    new_field = self.encapsulate_field_type_select(maximum_field, None)
+                    fields.append(new_field)
+
+        return EventFormResponse(event_form_request.event_id, fields)
+
 
     def translate_type(self, bs_type: str) -> FieldType:
         if bs_type == "text":
@@ -144,6 +163,29 @@ class MaximumApiEvents(ApiEventsInterface):
 
         # If type not matches with any defined type, we name it like 'unknown'
         return FieldType.unknown
+
+    def field_has_to_enter_in_form(self, bs_field, field_type: FieldType) -> bool:
+        if field_type == FieldType.unknown:
+            return False
+        if bs_field['key'] == "playersCount":
+            return False
+        if bs_field['disabled']:
+            return False
+        return True
+
+    def encapsulate_field_type_check(self, bs_field, extra_info) -> Field:
+        return Field(FieldType.check, bs_field['required'], bs_field['key'], bs_field['name'], "", [])
+
+    def encapsulate_field_type_text(self, bs_field, extra_info) -> Field:
+        return Field(FieldType.text, bs_field['required'], bs_field['key'], bs_field['name'], "", [])
+
+    def encapsulate_field_type_select(self, bs_field, extra_info) -> Field:
+        field_options = []
+
+        for option in bs_field['options']:
+            field_options.append(FieldOption(option['text'], option['value'], {}))
+
+        return Field(FieldType.select, bs_field['required'], bs_field['key'], bs_field['name'], "", field_options)
 
 
 '''
