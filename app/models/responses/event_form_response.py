@@ -62,13 +62,17 @@ class Field:
         return self.__str__()
 
     def to_json(self):
+        options_json = []
+        for option in self.field_options:
+            options_json.append(option.to_json())
+
         return {
             "field_type": self.field_type,
             "field_required": self.field_required,
             "field_key": self.field_key,
             "field_text": self.field_text,
             "field_default_value": self.field_default_value,
-            "field_options": self.field_options.to_json()
+            "field_options": options_json
         }
 
 class EventFormResponse:
