@@ -63,7 +63,7 @@ class Field:
 
     def to_json(self):
         return {
-            "field_type": self.field_type.value(),
+            "field_type": self.field_type,
             "field_required": self.field_required,
             "field_key": self.field_key,
             "field_text": self.field_text,
