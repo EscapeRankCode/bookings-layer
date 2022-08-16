@@ -16,6 +16,23 @@ class FieldOption:
         self.option_value = option_value  # str
         self.option_others_map = option_others_map  # map {}
 
+    def __iter__(self):
+        yield from {
+            "option_text": self.option_text,
+            "option_value": self.option_value,
+            "option_others_map": self.option_others_map
+        }.items()
+
+    def __repr__(self):
+        return self.__str__()
+
+    def to_json(self):
+        return {
+            "option_text": self.option_text,
+            "option_value": self.option_value,
+            "option_others_map": self.option_others_map
+        }
+
 class Field:
     def __init__(self, field_type: FieldType, field_required: bool, field_key: str, field_text: str, field_default_value: str, field_options: [FieldOption]):
         self.field_type = field_type  # FieldType
