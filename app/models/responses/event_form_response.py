@@ -11,7 +11,7 @@ class FieldType(IntEnum):
     unknown = 6
 
 class FieldOption:
-    def __init__(self, option_text: str, option_value: str, option_others_map):
+    def __init__(self, option_text: str, option_value: str, option_others_map: map):
         self.option_text = option_text  # str
         self.option_value = option_value  # str
         self.option_others_map = option_others_map  # map {}
