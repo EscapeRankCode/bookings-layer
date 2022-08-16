@@ -38,7 +38,7 @@ class FieldOption:
 
 class Field:
     def __init__(self, field_type: FieldType, field_required: bool, field_key: str, field_text: str, field_default_value: str, field_options: [FieldOption]):
-        self.field_type = field_type  # FieldType
+        self.field_type = field_type.value()  # FieldType
         self.field_required = field_required  # bool
         self.field_key = field_key  # str
         self.field_text = field_text  # str
