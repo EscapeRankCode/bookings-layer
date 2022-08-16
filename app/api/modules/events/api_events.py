@@ -41,7 +41,8 @@ class ApiEvents(metaclass=ApiEventsMeta):
             form = self.maximum_api_events.get_event_form(event_form_request)
             print("FORM TO JSON")
             print(str(form.to_json()))
-            return json.dumps(form.to_json())
+            return form.to_json()
+            #  return json.dumps(form.to_json())
 
         return "Event Form Error", 400
 
