@@ -39,6 +39,8 @@ class ApiEvents(metaclass=ApiEventsMeta):
         # Depending on the booking system
         if event_form_request.booking_system_id == general_utils.BS_ID_MAXIMUM:
             form = self.maximum_api_events.get_event_form(event_form_request)
+            print("FORM TO JSON")
+            print(form.to_json())
             return json.dumps(form.to_json())
 
         return "Event Form Error", 400
