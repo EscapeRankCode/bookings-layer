@@ -33,7 +33,7 @@ class FieldOption:
         return {
             "option_text": self.option_text,
             "option_value": self.option_value,
-            "option_others_map": self.option_others_map
+            "option_others_map": json.dumps(dict(self.option_others_map), ensure_ascii=False)
         }
 
 class Field:
