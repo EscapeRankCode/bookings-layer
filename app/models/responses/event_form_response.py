@@ -33,7 +33,7 @@ class FieldOption:
         return {
             "option_text": self.option_text,
             "option_value": self.option_value,
-            "option_others_map": json.dumps(list(self.option_others_map))
+            "option_others_map": json.dumps(self.option_others_map)
         }
 
 class Field:
@@ -68,7 +68,7 @@ class Field:
             "field_key": self.field_key,
             "field_text": self.field_text,
             "field_default_value": self.field_default_value,
-            "field_options": self.field_options
+            "field_options": self.field_options.to_json()
         }
 
 class EventFormResponse:
