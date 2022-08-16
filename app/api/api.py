@@ -34,3 +34,7 @@ def get_calendar_availability():
 @rest.route(routes['modules']['events']['getEventTickets'], methods=['POST'])
 def get_event_tickets():
     return events_module.get_event_tickets(request)
+
+@rest.route(routes['modules']['events']['getEventForm'], methods=['POST'])
+def get_event_form():
+    return events_module.get_event_form(request)
