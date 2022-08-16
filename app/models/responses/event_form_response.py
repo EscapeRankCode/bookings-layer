@@ -23,6 +23,9 @@ class FieldOption:
             "option_others_map": self.option_others_map
         }.items()
 
+    def __str__(self):
+        return json.dumps(dict(self), ensure_ascii=False)
+
     def __repr__(self):
         return self.__str__()
 
@@ -52,6 +55,9 @@ class Field:
             "field_options": self.field_options
         }.items()
 
+    def __str__(self):
+        return json.dumps(dict(self), ensure_ascii=False)
+
     def __repr__(self):
         return self.__str__()
 
@@ -77,7 +83,7 @@ class EventFormResponse:
         }.items()
 
     def __str__(self):
-        return json.dumps(self.to_json())
+        return json.dumps(dict(self), ensure_ascii=False)
 
     def __repr__(self):
         return self.__str__()
