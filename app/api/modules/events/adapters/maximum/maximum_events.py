@@ -131,7 +131,7 @@ class MaximumApiEvents(ApiEventsInterface):
     """
 
     def encapsulate_event_form(self, form, event_form_request: EventFormRequest) -> EventFormResponse:
-        fields = [Field]
+        fields = []
         for maximum_field in form:
 
             field_type = self.translate_type(maximum_field['type'])
