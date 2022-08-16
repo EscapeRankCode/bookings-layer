@@ -152,7 +152,6 @@ class MaximumApiEvents(ApiEventsInterface):
 
         return EventFormResponse(event_form_request.event_id, fields)
 
-
     def translate_type(self, bs_type: str) -> FieldType:
         if bs_type == "text":
             return FieldType.text

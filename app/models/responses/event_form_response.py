@@ -24,7 +24,7 @@ class FieldOption:
         }.items()
 
     def __str__(self):
-        return json.dumps(dict(self), ensure_ascii=False)
+        return json.dumps(self.to_json())
 
     def __repr__(self):
         return self.__str__()
@@ -56,7 +56,7 @@ class Field:
         }.items()
 
     def __str__(self):
-        return json.dumps(dict(self), ensure_ascii=False)
+        return json.dumps(self.to_json())
 
     def __repr__(self):
         return self.__str__()
@@ -83,7 +83,7 @@ class EventFormResponse:
         }.items()
 
     def __str__(self):
-        return json.dumps(dict(self), ensure_ascii=False)
+        return json.dumps(self.to_json())
 
     def __repr__(self):
         return self.__str__()
