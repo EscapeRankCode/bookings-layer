@@ -175,7 +175,7 @@ class MaximumApiEvents(ApiEventsInterface):
         for option in bs_field['options']:
             field_options.append(FieldOption(option['text'], option['value'], {}))
 
-        return Field(FieldType.select, True, bs_field['key'], bs_field['name'], "", field_options)  # TODO: TEST ONLY
+        return Field(FieldType.number, True, bs_field['key'], bs_field['name'], "", field_options)  # TODO: TEST ONLY
         # return Field(FieldType.select, bs_field['required'], bs_field['key'], bs_field['name'], "", field_options)
 
 
