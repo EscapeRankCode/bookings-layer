@@ -119,17 +119,6 @@ class MaximumApiEvents(ApiEventsInterface):
         return form
 
 
-    """
-    {
-        "key": "phone",
-        "name": "Número de teléfono",
-        "type": "text",
-        "required": true,
-        "options": null,
-        "disabled": false
-    }
-    """
-
     def encapsulate_event_form(self, form, event_form_request: EventFormRequest) -> EventFormResponse:
         fields = []
         for maximum_field in form:
@@ -169,7 +158,7 @@ class MaximumApiEvents(ApiEventsInterface):
         if bs_field['key'] == "playersCount":
             return False
         if bs_field['disabled']:
-            return False
+            return True  # False TODO
         return True
 
     def encapsulate_field_type_check(self, bs_field, extra_info) -> Field:
