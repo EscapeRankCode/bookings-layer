@@ -162,7 +162,10 @@ class MaximumApiEvents(ApiEventsInterface):
         return True
 
     def encapsulate_field_type_check(self, bs_field, extra_info) -> Field:
-        return Field(FieldType.check, bs_field['required'], bs_field['key'], bs_field['name'], "", [])
+        text = bs_field['name']
+        text = text.replace('<a href="', '')
+        text = text.replace('" target="_blank">')
+        return Field(FieldType.check, bs_field['required'], bs_field['key'], text, "", [])
 
     def encapsulate_field_type_text(self, bs_field, extra_info) -> Field:
         return Field(FieldType.text, bs_field['required'], bs_field['key'], bs_field['name'], "", [])
