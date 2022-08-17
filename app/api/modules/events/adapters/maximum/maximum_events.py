@@ -162,13 +162,12 @@ class MaximumApiEvents(ApiEventsInterface):
         return True
 
     def encapsulate_field_type_check(self, bs_field, extra_info) -> Field:
-        # text = bs_field['name']
-        # text = text.replace('<a href="', '')
-        # text = text.replace('" target="_blank">', ' ')
-        return Field(FieldType.check, bs_field['required'], bs_field['key'], bs_field['name'], "", [])
+        return Field(FieldType.check, True, bs_field['key'], bs_field['name'], "", [])  # TODO: TEST ONLY
+        # return Field(FieldType.check, bs_field['required'], bs_field['key'], bs_field['name'], "", [])
 
     def encapsulate_field_type_text(self, bs_field, extra_info) -> Field:
-        return Field(FieldType.text, bs_field['required'], bs_field['key'], bs_field['name'], "", [])
+        return Field(FieldType.text, True, bs_field['key'], bs_field['name'], "", [])  # TODO: TEST ONLY
+        # return Field(FieldType.text, bs_field['required'], bs_field['key'], bs_field['name'], "", [])
 
     def encapsulate_field_type_select(self, bs_field, extra_info) -> Field:
         field_options = []
@@ -176,7 +175,8 @@ class MaximumApiEvents(ApiEventsInterface):
         for option in bs_field['options']:
             field_options.append(FieldOption(option['text'], option['value'], {}))
 
-        return Field(FieldType.select, bs_field['required'], bs_field['key'], bs_field['name'], "", field_options)
+        return Field(FieldType.select, True, bs_field['key'], bs_field['name'], "", field_options)  # TODO: TEST ONLY
+        # return Field(FieldType.select, bs_field['required'], bs_field['key'], bs_field['name'], "", field_options)
 
 
 '''
