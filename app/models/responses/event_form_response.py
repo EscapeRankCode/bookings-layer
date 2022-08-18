@@ -2,6 +2,32 @@ import json
 from enum import IntEnum
 from json import JSONEncoder
 
+class UserInput:
+    def __init__(self, user_input_text: str, user_input_value: str, user_input_others_map: dict):
+        self.user_input_text = user_input_text
+        self.user_input_value = user_input_value
+        self.user_input_others_map = user_input_others_map
+
+    def __iter__(self):
+        yield from {
+            "user_input_text": self.user_input_text,
+            "user_input_value": self.user_input_value,
+            "user_input_others_map": self.user_input_others_map
+        }.items()
+
+    def __str__(self):
+        return json.dumps(self.to_json())
+
+    def __repr__(self):
+        return self.__str__()
+
+    def to_json(self):
+        return {
+            "user_input_text": self.user_input_text,
+            "user_input_value": self.user_input_value,
+            "user_input_others_map": json.dumps(self.user_input_others_map)
+        }
+
 class FieldType(IntEnum):
     check = 1
     text = 2
@@ -37,13 +63,14 @@ class FieldOption:
         }
 
 class Field:
-    def __init__(self, field_type: FieldType, field_required: bool, field_key: str, field_text: str, field_default_value: str, field_options: [FieldOption]):
+    def __init__(self, field_type: FieldType, field_required: bool, field_key: str, field_text: str, field_default_value: str, field_options: [FieldOption], user_input: UserInput):
         self.field_type = field_type  # FieldType
         self.field_required = field_required  # bool
         self.field_key = field_key  # str
         self.field_text = field_text  # str
         self.field_default_value = field_default_value  # str
         self.field_options = field_options  # list of [FieldOption]
+        self.user_input = user_input  # UserInput
 
     def __iter__(self):
         yield from {
@@ -52,7 +79,8 @@ class Field:
             "field_key": self.field_key,
             "field_text": self.field_text,
             "field_default_value": self.field_default_value,
-            "field_options": self.field_options
+            "field_options": self.field_options,
+            "user_input": self.user_input
         }.items()
 
     def __str__(self):
@@ -72,7 +100,8 @@ class Field:
             "field_key": self.field_key,
             "field_text": self.field_text,
             "field_default_value": self.field_default_value,
-            "field_options": options_json
+            "field_options": options_json,
+            "user_input": self.user_input.to_json()
         }
 
 class EventFormResponse:
