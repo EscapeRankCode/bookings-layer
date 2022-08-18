@@ -90,6 +90,12 @@ class Field:
         return self.__str__()
 
     def to_json(self):
+
+        if self.user_input == None:
+            user_input_json = None
+        else:
+            user_input_json = self.user_input.to_json()
+
         options_json = []
         for option in self.field_options:
             options_json.append(option.to_json())
@@ -101,7 +107,7 @@ class Field:
             "field_text": self.field_text,
             "field_default_value": self.field_default_value,
             "field_options": options_json,
-            "user_input": self.user_input.to_json()
+            "user_input": user_input_json
         }
 
 class EventFormResponse:
