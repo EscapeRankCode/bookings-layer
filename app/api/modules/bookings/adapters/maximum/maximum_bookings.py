@@ -52,35 +52,40 @@ class MaximumApiBookings(ApiBookingsInterface):
             error += "Field 'email' not found in booking form\n"
             error_exists = True
         else:
-            email = email_field['user_input']['user_input_value']
+            user_input = json.loads(name_field['user_input'])
+            email = user_input['user_input_value']
 
         phone_field = self.search_field(book_first_step_request.event_fields, 'phone')
         if phone_field is None:
             error += "Field 'phone' not found in booking form\n"
             error_exists = True
         else:
-            phone = phone_field['user_input']['user_input_value']
+            user_input = json.loads(name_field['user_input'])
+            phone = user_input['user_input_value']
 
         comment_field = self.search_field(book_first_step_request.event_fields, 'comment')
         if comment_field is None:
             error += "Field 'comment' not found in booking form\n"
             error_exists = True
         else:
-            comment = comment_field['user_input']['user_input_value']
+            user_input = json.loads(name_field['user_input'])
+            comment = user_input['user_input_value']
 
         gameLanguage_field = self.search_field(book_first_step_request.event_fields, 'gameLanguage')
         if gameLanguage_field is None:
             error += "Field 'gameLanguage' not found in booking form\n"
             error_exists = True
         else:
-            gameLanguage = gameLanguage_field['user_input']['user_input_value']
+            user_input = json.loads(name_field['user_input'])
+            gameLanguage = user_input['user_input_value']
 
         couponCode_field = self.search_field(book_first_step_request.event_fields, 'gameLanguage')
         if couponCode_field is None:
             couponCode = ""
             # error += "Field 'couponCode' not found in booking form\n"
         else:
-            couponCode = couponCode_field['user_input']['user_input_value']
+            user_input = json.loads(name_field['user_input'])
+            couponCode = user_input['user_input_value']
 
 
         if error_exists:
@@ -88,6 +93,7 @@ class MaximumApiBookings(ApiBookingsInterface):
             print(error)
             return self.__build_error(error)
 
+        #  PLAYERS COUNT comes from the selected ticket previously
         playersCount = self.players_count_from_tickets(book_first_step_request.event_tickets)
         if playersCount <= 0:
             return self.__build_error("Tickets selected error")
