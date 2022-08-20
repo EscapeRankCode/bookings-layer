@@ -144,6 +144,7 @@ class MaximumApiBookings(ApiBookingsInterface):
 
 
     def encapsulate_book_first_step_result(self, result, request: BookFirstStepRequest) -> BookFirstStepResponse:
+        print("------- JSON EVENT: " + json.dumps(result))
         pre_booked = True
         error = ""
         total_price = result['price']
