@@ -17,6 +17,8 @@ class MaximumApiBookings(ApiBookingsInterface):
         :return:
         """
 
+        print("MAXIMUM BOOK SETP 1 REQUEST: " + book_first_step_request.to_json())
+
         error_exists = False
 
         date_split = book_first_step_request.event_date.split('/')

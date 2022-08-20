@@ -1,3 +1,5 @@
+import json
+
 
 class BookFirstStepRequest:
 
@@ -10,3 +12,24 @@ class BookFirstStepRequest:
         self.event_tickets = request_data['event_tickets']  # list<objects>
         self.event_fields = request_data['event_fields']  # list<objects>
         self.booking_bs_info = request_data['booking_bs_info']  # map with BS related info to make the booking
+
+    def to_json(self):
+        tickets_json = []
+        fields_json = []
+
+        for ticket in self.event_tickets:
+            tickets_json.append(ticket.to_json())
+
+        for field in self.event_fields:
+            fields_json.append(field.to_json())
+
+        return {
+            "booking_system_id": self.booking_system_id,
+            "bs_config": self.bs_config,
+            "event_date": self.event_date,
+            "event_time": self.event_time,
+            "event_id": self.event_id,
+            "event_tickets": tickets_json,
+            "event_fields": fields_json,
+            "booking_bs_info": json.dumps(self.booking_bs_info)
+        }
