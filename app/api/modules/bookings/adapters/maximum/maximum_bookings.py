@@ -166,7 +166,7 @@ class MaximumApiBookings(ApiBookingsInterface):
             return -1
         else:
             print("Tickets selected num: " + str(len(selected_tickets)))
-            ticket = json.loads(selected_tickets[0])
+            ticket = json.dumps(selected_tickets[0])
             print("selected ticket: " + ticket)
             ticket_name = ticket['ticket_name']
             print("ticket selected was: " + ticket_name)
