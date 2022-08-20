@@ -17,7 +17,7 @@ class MaximumApiBookings(ApiBookingsInterface):
         :return:
         """
 
-        print("MAXIMUM BOOK SETP 1 REQUEST: " + book_first_step_request.to_json())
+        print("MAXIMUM BOOK SETP 1 REQUEST: " + json.dumps(book_first_step_request.to_json()))
 
         error_exists = False
 
