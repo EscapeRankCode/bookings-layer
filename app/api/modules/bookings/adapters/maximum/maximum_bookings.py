@@ -36,6 +36,7 @@ class MaximumApiBookings(ApiBookingsInterface):
         couponCode = None
 
         url = general_utils.MAXIMUM_BS_HOST + general_utils.MAXIMUM_BS_ENDPOINT_time_table
+        print("URL BOOK 1 IS: " + url)
 
         error = ""
 
