@@ -159,8 +159,7 @@ class MaximumApiBookings(ApiBookingsInterface):
 
         # ONLY ONE GROUP HAS TO BE HERE, AND ONLY ONE TICKET
         for ticket in event_tickets:
-            ticket_json = json.loads(ticket)
-            selected_tickets.append(ticket_json)
+            selected_tickets.append(ticket)
 
         if len(selected_tickets) > 1:
             print("So many tickets selected")
