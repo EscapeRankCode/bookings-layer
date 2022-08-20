@@ -166,6 +166,7 @@ class MaximumApiBookings(ApiBookingsInterface):
             return -1
         else:
             ticket = selected_tickets[0]
+            print("selected ticket: " + ticket)
             ticket_name = ticket['ticket_name']
             print("ticket selected was: " + ticket_name)
             return int(ticket_name.split(' ')[0])
