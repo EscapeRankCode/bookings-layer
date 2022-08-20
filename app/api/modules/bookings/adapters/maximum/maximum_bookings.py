@@ -120,6 +120,9 @@ class MaximumApiBookings(ApiBookingsInterface):
 
         response = requests.request("POST", url, headers=headers, data=payload)
 
+        print("MAXIMUM BOOK STEP 1 RESPONSE:")
+        print(response.text)
+
         maximum_first_step_result = json.loads(response.text)['event']
         print(maximum_first_step_result)
 
