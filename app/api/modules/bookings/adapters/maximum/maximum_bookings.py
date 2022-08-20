@@ -115,33 +115,32 @@ class MaximumApiBookings(ApiBookingsInterface):
             'Content-Type': 'application/json'
         }
 
-        print("PAYLOAD TO BOOK STEP 1 MAXIMUM IS:")
-        print(payload)
+        #  print("PAYLOAD TO BOOK STEP 1 MAXIMUM IS:")
+        #  print(payload)
 
         response = requests.request("POST", url, headers=headers, data=payload)
 
-        print("MAXIMUM BOOK STEP 1 RESPONSE STATUS CODE:")
-        print(response.status_code)
+        #  print("MAXIMUM BOOK STEP 1 RESPONSE STATUS CODE:")
+        #  print(response.status_code)
 
-        if response.status_code == 200 and json.loads(response.text)['event'] is not None:
-            print(response.text)
+        try:
+            if response.status_code == 200 and json.loads(response.text)['event'] is not None:
+                print("------- HAS 'EVENT' AND CODE IS 200")
+                print(response.text)
 
-            try:
-                maximum_first_step_result = json.loads(response.text)['event']
-                if 'error' in maximum_first_step_result.keys():
-                    print("Error in maximum booking request: " + maximum_first_step_result['error'])
-                    return self.__build_error(maximum_first_step_result['error'])
+                try:
+                    print("------- JSON LOADS")
+                    maximum_first_step_result = json.loads(response.text)['event']
+                    print("------- ENCAPSULATE RESULT")
+                    return self.encapsulate_book_first_step_result(maximum_first_step_result['event'], book_first_step_request)
 
-                else:
-                    return self.encapsulate_book_first_step_result(maximum_first_step_result['event'],
-                                                                   book_first_step_request)
-            except:
+                except:
+                    return self.__build_error("Request error")
+
+            else:
                 return self.__build_error("Request error")
-
-        else:
+        except:
             return self.__build_error("Request error")
-
-
 
 
     def encapsulate_book_first_step_result(self, result, request: BookFirstStepRequest) -> BookFirstStepResponse:
@@ -155,6 +154,7 @@ class MaximumApiBookings(ApiBookingsInterface):
             "unicId": result['unicId'],
             'link': result['link']
         }
+        print("------- BOOKING INFO TO RETURN: " + json.dumps(booking_info))
         return BookFirstStepResponse(pre_booked, error, total_price, deposit_price, currency, booking_info)
 
     def __build_error(self, error: str) -> BookFirstStepResponse:
