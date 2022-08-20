@@ -35,7 +35,7 @@ class BookFirstStepRequest:
             "event_date": self.event_date,
             "event_time": self.event_time,
             "event_id": self.event_id,
-            "event_tickets": self.event_tickets,
-            "event_fields": self.event_fields,
+            "event_tickets": json.dumps(self.event_tickets),
+            "event_fields": json.dumps(self.event_fields),
             "booking_bs_info": json.dumps(self.booking_bs_info)
         }
