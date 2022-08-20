@@ -155,18 +155,23 @@ class MaximumApiBookings(ApiBookingsInterface):
         return None
 
     def players_count_from_tickets(self, event_tickets):
-        selected_tickets = []
+        selected = []
 
         # ONLY ONE GROUP HAS TO BE HERE, AND ONLY ONE TICKET
-        for ticket in event_tickets:
-            selected_tickets.append(ticket)
+        for group in event_tickets:
+            tickets_selection = json.loads(group['tickets_selection'])
+            selected_tickets = json.loads(tickets_selection['selected_tickets'])
+            for ticket_item in selected_tickets:
+                selected.append(ticket_item)
 
-        if len(selected_tickets) > 1:
+        if len(selected) > 1:
             print("So many tickets selected")
             return -1
+        elif len(selected) == 0:
+            print("No ticket selected")
+            return -1
         else:
-            print("Tickets selected num: " + str(len(selected_tickets)))
-            ticket = json.dumps(selected_tickets[0])
+            ticket = selected[0]
             print("selected ticket: " + ticket)
             ticket_name = ticket['ticket_name']
             print("ticket selected was: " + ticket_name)
