@@ -101,7 +101,7 @@ class MaximumApiBookings(ApiBookingsInterface):
         payload = json.dumps({
             "partner_id": partner_id,
             "quest_id": quest_id,
-            "proposal_id": proposal_id,
+            "proposal_id": int(proposal_id),
             "date": date,  # "2022-08-15"
             "name": name,
             "email": email,
