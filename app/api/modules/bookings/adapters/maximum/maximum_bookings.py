@@ -132,7 +132,7 @@ class MaximumApiBookings(ApiBookingsInterface):
                     print("------- JSON LOADS")
                     maximum_first_step_result = json.loads(response.text)['event']
                     print("------- ENCAPSULATE RESULT")
-                    return self.encapsulate_book_first_step_result(maximum_first_step_result['event'], book_first_step_request)
+                    return self.encapsulate_book_first_step_result(maximum_first_step_result, book_first_step_request)
 
                 except:
                     return self.__build_error("Request error")
