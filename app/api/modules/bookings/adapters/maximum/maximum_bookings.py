@@ -87,7 +87,6 @@ class MaximumApiBookings(ApiBookingsInterface):
             user_input = json.loads(name_field['user_input'])
             couponCode = user_input['user_input_value']
 
-
         if error_exists:
             print("Error in fields not found:")
             print(error)
@@ -101,7 +100,7 @@ class MaximumApiBookings(ApiBookingsInterface):
         payload = json.dumps({
             "partner_id": partner_id,
             "quest_id": quest_id,
-            "proposal_id": proposal_id,
+            "proposal_id": int(proposal_id),
             "date": date,  # "2022-08-15"
             "name": name,
             "email": email,
@@ -123,8 +122,12 @@ class MaximumApiBookings(ApiBookingsInterface):
         # print("MAXIMUM BOOK STEP 1 RESPONSE:")
         # print(response.text)
 
-        maximum_first_step_result = json.loads(response.text)['event']
-        print(maximum_first_step_result)
+        try:
+            maximum_first_step_result = json.loads(response.text)['event']
+            print(maximum_first_step_result)
+
+        except:
+            return self.__build_error("Request error")
 
         if 'error' in maximum_first_step_result.keys():
             print("Error in maximum booking request: " + maximum_first_step_result['error'])
@@ -132,7 +135,6 @@ class MaximumApiBookings(ApiBookingsInterface):
 
         else:
             return self.encapsulate_book_first_step_result(maximum_first_step_result['event'], book_first_step_request)
-
 
     def encapsulate_book_first_step_result(self, result, request: BookFirstStepRequest) -> BookFirstStepResponse:
         pre_booked = True
@@ -146,7 +148,6 @@ class MaximumApiBookings(ApiBookingsInterface):
             'link': result['link']
         }
         return BookFirstStepResponse(pre_booked, error, total_price, deposit_price, currency, booking_info)
-
 
     def __build_error(self, error: str) -> BookFirstStepResponse:
         return BookFirstStepResponse(False, error, 0, 0, "", {})
@@ -179,4 +180,3 @@ class MaximumApiBookings(ApiBookingsInterface):
             ticket_name = ticket['ticket_name']
             print("ticket selected was: " + ticket_name)
             return int(ticket_name.split(' ')[0])
-
