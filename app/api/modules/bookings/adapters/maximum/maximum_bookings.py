@@ -44,7 +44,8 @@ class MaximumApiBookings(ApiBookingsInterface):
             error += "Field 'name' not found in booking form\n"
             error_exists = True
         else:
-            name = name_field['user_input']['user_input_value']
+            user_input = json.loads(name_field['user_input'])
+            name = user_input['user_input_value']
 
         email_field = self.search_field(book_first_step_request.event_fields, 'email')
         if email_field is None:
