@@ -1,5 +1,7 @@
 import json
 
+from app.models.responses.event_tickets_response import Ticket
+
 
 class BookFirstStepRequest:
 
@@ -17,11 +19,15 @@ class BookFirstStepRequest:
         tickets_json = []
         fields_json = []
 
+
+        """
         for ticket in self.event_tickets:
             tickets_json.append(ticket.to_json())
 
         for field in self.event_fields:
             fields_json.append(field.to_json())
+        """
+
 
         return {
             "booking_system_id": self.booking_system_id,
@@ -29,7 +35,7 @@ class BookFirstStepRequest:
             "event_date": self.event_date,
             "event_time": self.event_time,
             "event_id": self.event_id,
-            "event_tickets": tickets_json,
-            "event_fields": fields_json,
+            "event_tickets": self.event_tickets,
+            "event_fields": self.event_fields,
             "booking_bs_info": json.dumps(self.booking_bs_info)
         }
