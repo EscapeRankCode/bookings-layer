@@ -1,0 +1,12 @@
+
+class BookFirstStepRequest:
+
+    def __init__(self, request_data):
+        self.booking_system_id = request_data['booking_system_id']  # int
+        self.bs_config = request_data['bs_config']  # object
+        self.event_date = request_data['event_date']  # dd/mm/yyyy (string)
+        self.event_time = request_data['event_time']  # HH:MM (string)
+        self.event_id = request_data['event_id']  # string
+        self.event_tickets = request_data['event_tickets']  # list<objects>
+        self.event_fields = request_data['event_fields']  # list<objects>
+        self.booking_bs_info = request_data['booking_bs_info']  # map with BS related info to make the booking

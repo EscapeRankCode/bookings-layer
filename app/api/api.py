@@ -2,7 +2,7 @@
 from flask import Flask
 from flask import request
 
-
+from app.api.modules.bookings.api_bookings import ApiBookings
 # MODULES IMPORT
 from app.api.modules.calendar.api_calendar import ApiCalendar
 from app.api.modules.events.api_events import ApiEvents
@@ -17,6 +17,7 @@ routes = general_utils.get_routes()
 # -- CALENDAR MODULE
 calendar_module = ApiCalendar()
 events_module = ApiEvents()
+bookings_module = ApiBookings()
 # calendar_module_middleware = ApiCalendarMiddleware()
 
 
@@ -38,3 +39,8 @@ def get_event_tickets():
 @rest.route(routes['modules']['events']['getEventForm'], methods=['POST'])
 def get_event_form():
     return events_module.get_event_form(request)
+
+@rest.route(routes['modules']['booking']['bookFirstStep'], methods=['POST'])
+def book_first_step():
+    return bookings_module.book_first_step(request)
+

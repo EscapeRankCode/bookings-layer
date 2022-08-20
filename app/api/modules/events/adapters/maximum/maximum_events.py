@@ -11,7 +11,7 @@ from app.models.requests.event_form_request import EventFormRequest
 from app.models.requests.event_tickets_request import EventTicketsRequest
 from app.models.responses.event_form_response import EventFormResponse, Field, FieldType, FieldOption
 from app.models.responses.event_tickets_response import EventTicketsResponse, TicketInfoOption, Ticket, TicketType, \
-    TotalRules, TicketsGroup, TicketInfoCounter, TicketInfoCheck
+    TotalRules, TicketsGroup, TicketInfoCounter, TicketInfoCheck, TicketsSelection
 
 
 class MaximumApiEvents(ApiEventsInterface):
@@ -85,7 +85,7 @@ class MaximumApiEvents(ApiEventsInterface):
             total_rules = TotalRules(0, 0, 0, 0, 1, 1)  # Good one
             # total_rules = TotalRules(1, 2, 1, 2, 1, 2)
 
-            tickets_group = TicketsGroup(tickets, total_rules)
+            tickets_group = TicketsGroup(tickets, total_rules, TicketsSelection(0, 0, 0, []))
             tick_groups = [tickets_group]
 
             return EventTicketsResponse(str(event['id']), tick_groups)

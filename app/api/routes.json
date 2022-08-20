@@ -6,6 +6,9 @@
     "events": {
       "getEventTickets": "/event_tickets",
       "getEventForm": "/event_form"
+    },
+    "booking":  {
+      "bookFirstStep": "/book_first_step"
     }
   }
 }

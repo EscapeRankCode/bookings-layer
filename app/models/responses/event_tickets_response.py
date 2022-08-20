@@ -172,16 +172,51 @@ class Ticket:
             "ticket_info": self.ticket_info.to_json()
         }
 
+class TicketsSelection:
+    def __init__(self, counter_selected_units: int, check_selected_units: int, option_selected_units: int, selected_tickets: [Ticket]):
+        self.counter_selected_units = counter_selected_units  # int
+        self.check_selected_units = check_selected_units  # int
+        self.option_selected_units = option_selected_units  # int
+        self.selected_tickets = selected_tickets  # list of Ticket
+
+    def __iter__(self):
+        yield from{
+            "counter_selected_units": self.counter_selected_units,
+            "check_selected_units": self.check_selected_units,
+            "option_selected_units": self.option_selected_units,
+            "selected_tickets": self.selected_tickets
+        }.items()
+
+    def __str__(self):
+        return json.dumps(self.to_json())
+
+    def __repr__(self):
+        return self.__str__()
+
+    def to_json(self):
+        selected_tickets_json = []
+
+        for t in self.selected_tickets:
+            selected_tickets_json.append(t.to_json())
+
+        return {
+            "counter_selected_units": self.counter_selected_units,
+            "check_selected_units": self.check_selected_units,
+            "option_selected_units": self.option_selected_units,
+            "selected_tickets": selected_tickets_json
+        }
 
 class TicketsGroup:
-    def __init__(self, tickets: [Ticket], total_rules: TotalRules):
+    def __init__(self, tickets: [Ticket], total_rules: TotalRules, tickets_selection: TicketsSelection):
         self.tickets = tickets  # List of Ticket
         self.total_rules = total_rules  # object of TotalRules
+        self.tickets_selection = tickets_selection  # object of TicketsSelection
 
     def __iter__(self):
         yield from {
             "tickets": self.tickets,
-            "total_rules": self.total_rules
+            "total_rules": self.total_rules,
+            "tickets_selection": self.tickets_selection
         }.items()
 
     def __str__(self):
@@ -198,7 +233,8 @@ class TicketsGroup:
 
         return {
             "tickets": tickets_json,
-            "total_rules": self.total_rules.to_json()
+            "total_rules": self.total_rules.to_json(),
+            "tickets_selection": self.tickets_selection.to_json()
         }
 
 
