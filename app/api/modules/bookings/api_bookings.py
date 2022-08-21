@@ -26,7 +26,9 @@ class ApiBookings(metaclass=ApiBookingsMeta):
         # Depending on the booking system
         if book_first_step_request.booking_system_id == general_utils.BS_ID_MAXIMUM:
             first_step_result = self.maximum_api_bookings.book_first_step(book_first_step_request)
-            return json.dumps(first_step_result.to_json())
+            return first_step_result.to_json()
+            #  return json.dumps(first_step_result.to_json())
+
 
         return "Book First Step Error", 400
 
