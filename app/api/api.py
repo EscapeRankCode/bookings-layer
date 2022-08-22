@@ -45,7 +45,7 @@ def book_first_step():
     return bookings_module.book_first_step(request)
 
 @rest.route(routes['modules']['booking']['bookSecondStep'], methods=['POST'])
-def book_first_step():
+def book_second_step():
     return bookings_module.book_second_step(request)
 
 
