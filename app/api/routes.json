@@ -8,7 +8,8 @@
       "getEventForm": "/event_form"
     },
     "booking":  {
-      "bookFirstStep": "/book_first_step"
+      "bookFirstStep": "/book_first_step",
+      "bookSecondStep": "/book_second_step"
     }
   }
 }

@@ -3,7 +3,7 @@ import json
 from app.models.responses.event_tickets_response import Ticket
 
 
-class BookFirstStepRequest:
+class BookRequest:
 
     def __init__(self, request_data):
         self.booking_system_id = request_data['booking_system_id']  # int
