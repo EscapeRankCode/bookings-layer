@@ -208,6 +208,13 @@ class MaximumApiBookings(ApiBookingsInterface):
         }
         """
 
+        date_split = book_second_step_request.event_date.split('/')
+
+        partner_id = book_second_step_request.booking_bs_info['partner_id']
+        quest_id = book_second_step_request.bs_config['room']
+        proposal_id = book_second_step_request.event_id
+        date = date_split[2] + "-" + date_split[1] + "-" + date_split[0]  # "2022-08-15"
+
         error_exists = False
 
         partner_id = book_second_step_request.booking_bs_info['partner_id']
@@ -286,6 +293,8 @@ class MaximumApiBookings(ApiBookingsInterface):
         playersCount = self.players_count_from_tickets(book_second_step_request.event_tickets)
         if playersCount <= 0:
             return self.__build_first_step_error("Tickets selected error")
+
+        date = ""
 
         payload = json.dumps({
             "partner_id": partner_id,
