@@ -21,6 +21,8 @@ class ApiBookings(metaclass=ApiBookingsMeta):
         self.maximum_api_bookings = MaximumApiBookings()
 
     def book_first_step(self, api_request: request):
+        print("BOOK 1ST STEP REQUEST")
+        print(request)
         book_first_step_request = BookRequest(api_request.json['data'])
 
         # Depending on the booking system
