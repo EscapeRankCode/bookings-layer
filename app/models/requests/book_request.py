@@ -7,6 +7,8 @@ class BookRequest:
 
     def __init__(self, request_data):
         self.booking_system_id = request_data['booking_system_id']  # int
+        self.escaperoom_id = request_data['escaperoom_id']  # int
+        self.company_id = request_data['company_id']  # int
         self.bs_config = request_data['bs_config']  # object
         self.event_date = request_data['event_date']  # dd/mm/yyyy (string)
         self.event_time = request_data['event_time']  # HH:MM (string)
@@ -31,6 +33,8 @@ class BookRequest:
 
         return {
             "booking_system_id": self.booking_system_id,
+            "escaperoom_id": self.escaperoom_id,
+            "company_id": self.company_id,
             "bs_config": self.bs_config,
             "event_date": self.event_date,
             "event_time": self.event_time,
