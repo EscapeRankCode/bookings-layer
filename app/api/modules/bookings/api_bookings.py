@@ -37,7 +37,7 @@ class ApiBookings(metaclass=ApiBookingsMeta):
 
         # Depending on the booking system
         if book_second_step_request.booking_system_id == general_utils.BS_ID_MAXIMUM:
-            second_step_result = self.maximum_api_bookings.book_first_step(book_second_step_request)
+            second_step_result = self.maximum_api_bookings.book_second_step(book_second_step_request)
             return second_step_result.to_json()
             #  return json.dumps(first_step_result.to_json())
 
