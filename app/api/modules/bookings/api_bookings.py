@@ -22,7 +22,7 @@ class ApiBookings(metaclass=ApiBookingsMeta):
 
     def book_first_step(self, api_request: request):
         print("BOOK 1ST STEP REQUEST")
-        print(request)
+        print(request.json)
         book_first_step_request = BookRequest(api_request.json['data'])
 
         # Depending on the booking system
