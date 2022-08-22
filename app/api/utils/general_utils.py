@@ -31,6 +31,7 @@ MAXIMUM_BS_ENDPOINT_calendar_availability = '/api/schedule_with_offset'
 MAXIMUM_BS_ENDPOINT_time_table = '/api/time_table'
 MAXIMUM_BS_ENDPOINT_event_form = '/api/fields'
 MAXIMUM_BS_ENDPOINT_booking_first_step = '/api/process'
+MAXIMUM_BS_ENDPOINT_booking_second_step = '/api/update'
 
 
 # METHODS

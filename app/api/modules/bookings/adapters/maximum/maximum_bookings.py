@@ -6,6 +6,7 @@ from app.api.modules.bookings.api_bookings_interface import ApiBookingsInterface
 from app.api.utils import general_utils
 from app.models.requests.book_request import BookRequest
 from app.models.responses.book_first_step_response import BookFirstStepResponse
+from app.models.responses.book_second_step_response import BookSecondStepResponse
 from app.models.responses.event_tickets_response import TicketsGroup, Ticket
 
 
@@ -189,15 +190,13 @@ class MaximumApiBookings(ApiBookingsInterface):
             print("ticket selected was: " + ticket_name)
             return int(ticket_name.split(' ')[0])
 
-
+    # SECOND STEP BOOKING
     def book_second_step(self, book_second_step_request: BookRequest):
         """
         Returns the confirmation of the booking, if it's correct, otherwise, in 'error' field, shows the error
         :param book_second_step_request:
         :return:
         """
-
-        print("MAXIMUM BOOK SETP 2 REQUEST: " + json.dumps(book_second_step_request.to_json()))
 
         """
         {
@@ -208,134 +207,32 @@ class MaximumApiBookings(ApiBookingsInterface):
         }
         """
 
-        date_split = book_second_step_request.event_date.split('/')
+        booking_info = book_second_step_request.booking_bs_info
 
-        partner_id = book_second_step_request.booking_bs_info['partner_id']
-        quest_id = book_second_step_request.bs_config['room']
-        proposal_id = book_second_step_request.event_id
-        date = date_split[2] + "-" + date_split[1] + "-" + date_split[0]  # "2022-08-15"
+        url = general_utils.MAXIMUM_BS_HOST + general_utils.MAXIMUM_BS_ENDPOINT_booking_second_step
 
-        error_exists = False
-
-        partner_id = book_second_step_request.booking_bs_info['partner_id']
-        event_id = book_second_step_request.booking_bs_info['']
-
-
-        quest_id = book_second_step_request.bs_config['room']
-        proposal_id = book_second_step_request.event_id
-        name = None
-        email = None
-        phone = None
-        playersCount = None
-        comment = None
-        gameLanguage = None
-        couponCode = None
-
-        url = general_utils.MAXIMUM_BS_HOST + general_utils.MAXIMUM_BS_ENDPOINT_booking_first_step
-        print("URL BOOK 1 IS: " + url)
-
-        error = ""
-
-        name_field = self.search_field(book_second_step_request.event_fields, 'name')
-        if name_field is None:
-            error += "Field 'name' not found in booking form\n"
-            error_exists = True
-        else:
-            user_input = json.loads(name_field['user_input'])
-            name = user_input['user_input_value']
-
-        email_field = self.search_field(book_second_step_request.event_fields, 'email')
-        if email_field is None:
-            error += "Field 'email' not found in booking form\n"
-            error_exists = True
-        else:
-            user_input = json.loads(name_field['user_input'])
-            email = user_input['user_input_value']
-
-        phone_field = self.search_field(book_second_step_request.event_fields, 'phone')
-        if phone_field is None:
-            error += "Field 'phone' not found in booking form\n"
-            error_exists = True
-        else:
-            user_input = json.loads(name_field['user_input'])
-            phone = user_input['user_input_value']
-
-        comment_field = self.search_field(book_second_step_request.event_fields, 'comment')
-        if comment_field is None:
-            error += "Field 'comment' not found in booking form\n"
-            error_exists = True
-        else:
-            user_input = json.loads(name_field['user_input'])
-            comment = user_input['user_input_value']
-
-        gameLanguage_field = self.search_field(book_second_step_request.event_fields, 'gameLanguage')
-        if gameLanguage_field is None:
-            error += "Field 'gameLanguage' not found in booking form\n"
-            error_exists = True
-        else:
-            user_input = json.loads(name_field['user_input'])
-            gameLanguage = user_input['user_input_value']
-
-        couponCode_field = self.search_field(book_second_step_request.event_fields, 'gameLanguage')
-        if couponCode_field is None:
-            couponCode = ""
-            # error += "Field 'couponCode' not found in booking form\n"
-        else:
-            user_input = json.loads(name_field['user_input'])
-            couponCode = user_input['user_input_value']
-
-        if error_exists:
-            print("Error in fields not found:")
-            print(error)
-            return self.__build_first_step_error(error)
-
-        #  PLAYERS COUNT comes from the selected ticket previously
-        playersCount = self.players_count_from_tickets(book_second_step_request.event_tickets)
-        if playersCount <= 0:
-            return self.__build_first_step_error("Tickets selected error")
-
-        date = ""
-
-        payload = json.dumps({
-            "partner_id": partner_id,
-            "quest_id": quest_id,
-            "proposal_id": int(proposal_id),
-            "date": date,  # "2022-08-15"
-            "name": name,
-            "email": email,
-            "phone": phone,
-            "playersCount": playersCount,
-            "comment": comment,
-            "gameLanguage": gameLanguage,
-            "couponCode": couponCode
-        })
+        payload = json.dumps(booking_info)
         headers = {
             'Content-Type': 'application/json'
         }
 
-        #  print("PAYLOAD TO BOOK STEP 1 MAXIMUM IS:")
-        #  print(payload)
+        print("PAYLOAD TO BOOK STEP 2 MAXIMUM IS:")
+        print(payload)
 
         response = requests.request("POST", url, headers=headers, data=payload)
 
-        #  print("MAXIMUM BOOK STEP 1 RESPONSE STATUS CODE:")
-        #  print(response.status_code)
-
         try:
-            if response.status_code == 200 and json.loads(response.text)['event'] is not None:
-                print("------- HAS 'EVENT' AND CODE IS 200")
-                print(response.text)
+            if response.status_code == 200 and json.loads(response.text)['result'] is not None:
 
-                try:
-                    print("------- JSON LOADS")
-                    maximum_first_step_result = json.loads(response.text)['event']
-                    print("------- ENCAPSULATE RESULT")
-                    return self.encapsulate_book_first_step_result(maximum_first_step_result, book_second_step_request)
-
-                except:
-                    return self.__build_first_step_error("Request error")
+                if json.loads(response.text)['result'] == "success":
+                    return self.encapsulate_book_second_step_result(True, "")  # All went ok
+                else:
+                    return self.encapsulate_book_second_step_result(False, "Request error")  # ERROR
 
             else:
-                return self.__build_first_step_error("Request error")
+                return self.encapsulate_book_second_step_result(False, "Request error")  # ERROR
         except:
-            return self.__build_first_step_error("Request error")
+            return self.encapsulate_book_second_step_result(False, "Request error")  # ERROR
+
+    def encapsulate_book_second_step_result(self, booked, error) -> BookSecondStepResponse:
+        return BookSecondStepResponse(booked, error, {})
