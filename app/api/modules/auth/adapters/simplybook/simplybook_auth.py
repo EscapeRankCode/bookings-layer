@@ -83,7 +83,7 @@ class SimplybookApiAuth(ApiAuthInterface):
         credentials_file = open(self.AUTH_FILE)
         simplybook_credentials = json.load(credentials_file)
 
-        url = general_utils.SIMPLYBOOK_BS_HOST + general_utils.SIMPLYBOOK_BS_authorize
+        url = general_utils.SIMPLYBOOK_BS_HOST + general_utils.SIMPLYBOOK_BS_refresh
 
         payload = json.dumps({
             "company": simplybook_credentials['company'],
