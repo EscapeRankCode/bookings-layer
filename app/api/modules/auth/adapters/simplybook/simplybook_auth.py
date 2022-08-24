@@ -93,6 +93,9 @@ class SimplybookApiAuth(ApiAuthInterface):
             'Content-Type': 'application/json'
         }
 
+        print("PAYLOAD TO -REFRESH-")
+        print(payload)
+
         response = requests.request("POST", url, headers=headers, data=payload)
         response_json = json.loads(response.text)
 
