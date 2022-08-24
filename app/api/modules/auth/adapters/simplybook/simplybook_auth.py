@@ -45,12 +45,6 @@ class SimplybookApiAuth(ApiAuthInterface):
         response = requests.request("POST", url, headers=headers, data=payload)
         response_json = json.loads(response.text)
 
-        print("RESPONSE OF -AUTHORIZE-")
-        print(response.text)
-
-        print("TOKEN: " + response_json['token'])
-        print("REFRESH TOKEN: " + response_json['refresh_token'])
-
         return {
             "company": simplybook_credentials['company'],
             "token": response_json['token'],
@@ -93,17 +87,8 @@ class SimplybookApiAuth(ApiAuthInterface):
             'Content-Type': 'application/json'
         }
 
-        print("PAYLOAD TO -REFRESH-")
-        print(payload)
-
         response = requests.request("POST", url, headers=headers, data=payload)
         response_json = json.loads(response.text)
-
-        print("RESPONSE OF -REFRESH-")
-        print(response.text)
-
-        print("TOKEN: " + response_json['token'])
-        print("REFRESH TOKEN: " + response_json['refresh_token'])
 
         return {
             "company": simplybook_credentials['company'],

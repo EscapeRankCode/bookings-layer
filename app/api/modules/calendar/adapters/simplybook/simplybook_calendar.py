@@ -135,7 +135,7 @@ class SimplybookApiCalendar(ApiCalendarInterface):
             return general_utils.EVENT_AVAILABILITY_CLOSED
         else:
             # session_datetime = datetime.strptime(day_string + ' ' + event['startTime'], '%Y-%m-%d %H:%M:%S')
-            now_datetime = datetime.now()
+            now_datetime = datetime.now().date()
             diff = date_x - now_datetime
             diff_hours = diff / timedelta(hours=1)
 
