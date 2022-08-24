@@ -46,7 +46,7 @@ class SimplybookApiAuth(ApiAuthInterface):
         response_json = json.loads(response.text)
 
         print("TOKEN: " + response_json['token'])
-        print("REFRESH TOKEN: " + response_json['refresh-token'])
+        print("REFRESH TOKEN: " + response_json['refresh_token'])
 
         return {
             "company": simplybook_credentials['company'],
