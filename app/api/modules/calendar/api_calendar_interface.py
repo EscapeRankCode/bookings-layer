@@ -5,7 +5,7 @@ from app.models.responses.calendar_availability_response import CalendarAvailabi
 
 
 class ApiCalendarInterface:
-    def get_calendar_availability(self, api_request: request):
+    def get_calendar_availability(self, api_request: CalendarAvailabilityRequest):
         pass
 
     def encapsulate_calendar_availability(self, availability, request: CalendarAvailabilityRequest) -> CalendarAvailabilityResponse:

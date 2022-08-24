@@ -6,8 +6,12 @@ from app.api.exceptions.general_exception import GeneralException
 ROUTES_FILE_PATH = "./app/api/routes.json"
 SCHEMES_FILE_PATH = "./app/api/schemes.json"
 
+# REQUEST CALENDAR FORMAT
+CALENDAR_REQUEST_DATE_FORMAT = "%d/%m/%Y"
+
 # DATE AND TIME_FORMAT
 MAXIMUM_DATE_FORMAT = "%d/%m/%Y"
+SIMPLYBOOK_DATE_FORMAT = "%Y-%m-%d"
 
 # EVENT AVAILABILITY CONSTANTS
 EVENT_AVAILABILITY_CLOSED = 1
@@ -24,6 +28,7 @@ DAY_AVAILABILITY_FREE = 3
 # BOOKING_SYSTEMS CONSTANTS
 BS_ID_TURITOP = 1
 BS_ID_MAXIMUM = 2
+BS_ID_SIMPLYBOOK = 3
 
 # MAXIMUM HOST
 MAXIMUM_BS_HOST = 'http://dev.terraquesta.com'
@@ -32,6 +37,14 @@ MAXIMUM_BS_ENDPOINT_time_table = '/api/time_table'
 MAXIMUM_BS_ENDPOINT_event_form = '/api/fields'
 MAXIMUM_BS_ENDPOINT_booking_first_step = '/api/process'
 MAXIMUM_BS_ENDPOINT_booking_second_step = '/api/update'
+
+# SIMPLYBOOK HOST
+SIMPLYBOOK_BS_HOST = 'https://user-api-v2.simplybook.me/admin'
+SIMPLYBOOK_BS_authorize = '/auth'
+SIMPLYBOOK_BS_refresh = '/auth/refresh-token'
+SIMPLYBOOK_BS_services_categories_list = '/categories'
+SIMPLYBOOK_BS_get_slots = '/schedule/slots'
+SIMPLYBOOK_BS_get_slots_available = '/schedule/available-slots'
 
 
 # METHODS

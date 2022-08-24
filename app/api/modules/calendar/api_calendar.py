@@ -3,6 +3,7 @@ import json
 from flask import request
 
 from app.api.modules.calendar.adapters.maximum.maximum_calendar import MaximumApiCalendar
+from app.api.modules.calendar.adapters.simplybook.simplybook_calendar import SimplybookApiCalendar
 from app.api.utils import general_utils
 from app.models.requests.calendar_availability_request import CalendarAvailabilityRequest
 from app.models.responses.calendar_availability_response import CalendarAvailabilityResponseEncoder
@@ -22,6 +23,7 @@ class ApiCalendar(metaclass=ApiCalendarMeta):
 
     def __init__(self):
         self.maximum_api_calendar = MaximumApiCalendar()
+        self.simplybook_api_calendar = SimplybookApiCalendar()
 
     """
     Endpoint: /calendar_availability
@@ -48,6 +50,10 @@ class ApiCalendar(metaclass=ApiCalendarMeta):
         # Depending on the booking system
         if calendar_availability_request.booking_system_id == general_utils.BS_ID_MAXIMUM:
             availability = self.maximum_api_calendar.get_calendar_availability(calendar_availability_request)
+            return json.dumps(availability, indent=4, cls=CalendarAvailabilityResponseEncoder)
+
+        elif calendar_availability_request.booking_system_id == general_utils.BS_ID_SIMPLYBOOK:
+            availability = self.simplybook_api_calendar.get_calendar_availability(calendar_availability_request)
             return json.dumps(availability, indent=4, cls=CalendarAvailabilityResponseEncoder)
 
         return "Calendar availability error", 400
