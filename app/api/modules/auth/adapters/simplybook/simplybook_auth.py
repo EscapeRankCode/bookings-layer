@@ -12,7 +12,7 @@ class SimplybookApiAuth(ApiAuthInterface):
 
     def authorize(self, auth_credentials):
         """
-        Returns a map with the token and the refresh-token
+        Returns a map with the token and the refresh_token
         :param auth_credentials: None
 
         Infomration is in a json file
@@ -51,12 +51,12 @@ class SimplybookApiAuth(ApiAuthInterface):
         return {
             "company": simplybook_credentials['company'],
             "token": response_json['token'],
-            "refresh-token": response_json['refresh_token']
+            "refresh_token": response_json['refresh_token']
         }
 
     def refresh(self, auth_credentials):
         """
-        Returns a map with the token and the refresh-token
+        Returns a map with the token and the refresh_token
         :param auth_credentials: {
             "company" : "xxxxxxxxxx",
             "token": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
@@ -94,10 +94,10 @@ class SimplybookApiAuth(ApiAuthInterface):
         response_json = json.loads(response.text)
 
         print("TOKEN: " + response_json['token'])
-        print("REFRESH TOKEN: " + response_json['refresh-token'])
+        print("REFRESH TOKEN: " + response_json['refresh_token'])
 
         return {
             "company": simplybook_credentials['company'],
             "token": response_json['token'],
-            "refresh-token": response_json['refresh-token']
+            "refresh_token": response_json['refresh_token']
         }
