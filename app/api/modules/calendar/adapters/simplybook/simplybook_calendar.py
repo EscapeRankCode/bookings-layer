@@ -77,7 +77,7 @@ class SimplybookApiCalendar(ApiCalendarInterface):
             slots_json = json.loads(response.text)
 
             # Call to get only available slots
-            url = general_utils.SIMPLYBOOK_BS_get_slots_available + \
+            url = general_utils.SIMPLYBOOK_BS_HOST + general_utils.SIMPLYBOOK_BS_get_slots_available + \
                   "?date=" + date_x.strftime(general_utils.SIMPLYBOOK_DATE_FORMAT) + \
                   "&provider_id=" + str(api_request.bs_config['provider_id']) + \
                   "&service_id=" + str(service)
