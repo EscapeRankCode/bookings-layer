@@ -8,7 +8,7 @@ from app.api.utils import general_utils
 
 class SimplybookApiAuth(ApiAuthInterface):
 
-    AUTH_FILE = "credentials.json"
+    AUTH_FILE = ".credentials.json"
 
     def authorize(self, auth_credentials):
         """
