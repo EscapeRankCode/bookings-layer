@@ -64,8 +64,8 @@ class SimplybookApiCalendar(ApiCalendarInterface):
             # Call to get all slots
             url = general_utils.SIMPLYBOOK_BS_get_slots + \
                   "?date_to=" + date_x.strftime(general_utils.SIMPLYBOOK_DATE_FORMAT) + \
-                  "&provider_id=" + api_request.bs_config['provider_id'] + \
-                  "&service_id=" + service
+                  "&provider_id=" + str(api_request.bs_config['provider_id']) + \
+                  "&service_id=" + str(service)
             payload = {}
             headers = {
                 'Content-Type': 'application/json',
@@ -79,8 +79,8 @@ class SimplybookApiCalendar(ApiCalendarInterface):
             # Call to get only available slots
             url = general_utils.SIMPLYBOOK_BS_get_slots_available + \
                   "?date=" + date_x.strftime(general_utils.SIMPLYBOOK_DATE_FORMAT) + \
-                  "&provider_id=" + api_request.bs_config['provider_id'] + \
-                  "&service_id=" + service
+                  "&provider_id=" + str(api_request.bs_config['provider_id']) + \
+                  "&service_id=" + str(service)
             payload = {}
             headers = {
                 'Content-Type': 'application/json',
