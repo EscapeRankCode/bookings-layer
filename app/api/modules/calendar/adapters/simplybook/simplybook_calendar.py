@@ -59,7 +59,7 @@ class SimplybookApiCalendar(ApiCalendarInterface):
 
         for date_x in self.daterange(start_date, end_date):
             # Refresh the token
-            credentials = self.auth_module.refresh(credentials)
+            # credentials = self.auth_module.refresh(credentials)
 
             # Call to get all slots
             url = general_utils.SIMPLYBOOK_BS_HOST + general_utils.SIMPLYBOOK_BS_get_slots + \
