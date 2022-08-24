@@ -28,7 +28,7 @@ class SimplybookApiCalendar(ApiCalendarInterface):
             'X-Token': credentials['token']
         }
 
-        response = requests.request("GET", url, headers, data=payload)
+        response = requests.request("GET", url, headers=headers, data=payload)
         response_json = json.loads(response.text)
 
         category_id_to_search = api_request.bs_config['category_id']
