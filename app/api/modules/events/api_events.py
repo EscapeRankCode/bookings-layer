@@ -34,6 +34,7 @@ class ApiEvents(metaclass=ApiEventsMeta):
             print(tickets.to_json())
             return json.dumps(tickets.to_json())
         elif event_tickets_request.booking_system_id == general_utils.BS_ID_SIMPLYBOOK:
+            print("BOOKING SYSTEM IS SIMPLYBOOK")
             tickets = self.simplybook_api_events.get_event_tickets(event_tickets_request)
             if tickets is not None:
                 print(tickets.to_json())
