@@ -62,9 +62,6 @@ class SimplybookApiEvents(ApiEventsInterface):
             response = requests.request("GET", url, headers=headers, data=payload)
             response_json = json.loads(response.text)
 
-            # print("-- RESPONSE FROM <GET SERVICES>")
-            # print(response.text)
-
             response_tickets = self.encapsulate_tickets(services, response_json, api_request)
             return response_tickets
 
@@ -125,17 +122,13 @@ class SimplybookApiEvents(ApiEventsInterface):
 
         response = requests.request("GET", url, headers=headers, data=payload)
         response_json = json.loads(response.text)
-        print("GET SERVICES RESPONSE\n")
-        print(response.text)
+
         service_id = -1
         for service in response_json['data']:
             if service['name'] == ticket_selected_name:
                 service_id = service['id']
                 break
 
-
-        print("Service is: " + str(service_id))
-        print("TICKET NAME: " + ticket_selected_name)
         if service_id == -1:
             return None
 
@@ -150,8 +143,7 @@ class SimplybookApiEvents(ApiEventsInterface):
 
         response = requests.request("GET", url, headers=headers, data=payload)
         response_json = json.loads(response.text)
-        print("GET ADDITIONAL FIELDS RESPONSE\n")
-        print(response.text)
+
 
         additional_json_fields = response_json['data']
 
@@ -167,7 +159,6 @@ class SimplybookApiEvents(ApiEventsInterface):
         fields = []
 
         client_fields = form['client_fields']
-        print(json.dumps(client_fields))
 
         for json_field in client_fields:
             field_type = self.translate_type(json_field['type'])
@@ -180,7 +171,6 @@ class SimplybookApiEvents(ApiEventsInterface):
 
 
         additional_fields = form['additional_fields']
-        print(json.dumps(client_fields))
 
         for json_field in additional_fields:
             field_type = self.translate_type(json_field['field_type'])
@@ -218,7 +208,6 @@ class SimplybookApiEvents(ApiEventsInterface):
 
     def encapsulate_field_type_select(self, bs_field, extra_info) -> Field:
         field_options = []
-        # json_field_options = json.loads()  ## TODO: ADDED
 
         for option in bs_field['field_options']:
             field_options.append(FieldOption(option, option, {}))
