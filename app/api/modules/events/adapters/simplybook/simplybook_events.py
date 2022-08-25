@@ -218,7 +218,7 @@ class SimplybookApiEvents(ApiEventsInterface):
 
     def encapsulate_field_type_select(self, bs_field, extra_info) -> Field:
         field_options = []
-        json_field_options = json.loads(bs_field['field_options'])
+        json_field_options = json.loads(bs_field['field_options'])  ## TODO: ADDED
 
         for option in json_field_options:
             field_options.append(FieldOption(option, option, {}))
