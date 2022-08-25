@@ -150,7 +150,7 @@ class SimplybookApiEvents(ApiEventsInterface):
 
         response = requests.request("GET", url, headers=headers, data=payload)
         response_json = json.loads(response.text)
-        print("GET SERVICES RESPONSE\n")
+        print("GET ADDITIONAL FIELDS RESPONSE\n")
         print(response.text)
 
         additional_json_fields = response_json['data']
@@ -160,7 +160,8 @@ class SimplybookApiEvents(ApiEventsInterface):
             "additional_fields": additional_json_fields
         }
 
-        client_fields = self.encapsulate_event_form(encapsulate_parameter, api_request)
+        form = self.encapsulate_event_form(encapsulate_parameter, api_request)
+        return form
 
     def encapsulate_event_form(self, form, event_form_request: EventFormRequest) -> EventFormResponse:
         fields = []
