@@ -168,15 +168,6 @@ class SimplybookApiEvents(ApiEventsInterface):
 
         client_fields = form['client_fields']
         print(json.dumps(client_fields))
-        """
-        "id": "name",
-        "title": "Nombre",
-        "default_value": "",
-        "values": [],
-        "is_visible": true,
-        "is_optional": false,
-        "type": "text"
-        """
 
         for json_field in client_fields:
             field_type = self.translate_type(json_field['type'])
@@ -189,21 +180,8 @@ class SimplybookApiEvents(ApiEventsInterface):
 
 
         additional_fields = form['additional_fields']
-        """
-        "id": 2,
-        "name": "264d813cfbd08d5af28f03cdd0bbd2c2",
-        "field_name": "Elige tu modo de juego",
-        "field_type": "select",
-        "field_options": [
-            "Fácil",
-            "Medio",
-            "Difícil"
-        ],
-        "default_value": "",
-        "optional": false,
-        "is_visible": true,
-        "show_for_all_services": true
-        """
+        print(json.dumps(client_fields))
+
         for json_field in additional_fields:
             field_type = self.translate_type(json_field['field_type'])
 
@@ -240,8 +218,9 @@ class SimplybookApiEvents(ApiEventsInterface):
 
     def encapsulate_field_type_select(self, bs_field, extra_info) -> Field:
         field_options = []
+        json_field_options = json.loads(bs_field['field_options'])
 
-        for option in bs_field['field_options']:
+        for option in json_field_options:
             field_options.append(FieldOption(option, option, {}))
 
         return Field(FieldType.select, not bs_field['optional'], bs_field['name'], bs_field['field_name'], bs_field['default_value'], [], None)
