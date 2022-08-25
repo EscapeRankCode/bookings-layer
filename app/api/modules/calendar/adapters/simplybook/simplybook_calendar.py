@@ -112,7 +112,7 @@ class SimplybookApiCalendar(ApiCalendarInterface):
         for slot in all_slots:
             status = self.event_availability(slot, available_slots, bs_config, date_x)
             time = self.build_time_var(slot['time'])
-            day_events.append(Event(time, slot['id'], status))
+            day_events.append(Event(time, slot['time'], status))
 
         day_availability = general_utils.DAY_AVAILABILITY_FREE
         if total_available_slots == 0:
