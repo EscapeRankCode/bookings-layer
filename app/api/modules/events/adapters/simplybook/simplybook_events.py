@@ -107,4 +107,6 @@ class SimplybookApiEvents(ApiEventsInterface):
         total_rules = TotalRules(0, 0, 0, 0, 1, 1)
         tickets_group = TicketsGroup(tickets, total_rules, TicketsSelection(0, 0, 0, []))
 
-        return EventTicketsResponse(event_tickets_request.event_id, tickets_group)
+        tickets_groups = [tickets_group]
+
+        return EventTicketsResponse(event_tickets_request.event_id, tickets_groups)
