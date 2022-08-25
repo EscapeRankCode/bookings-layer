@@ -30,6 +30,9 @@ class SimplybookApiEvents(ApiEventsInterface):
         response = requests.request("GET", url, headers=headers, data=payload)
         response_json = json.loads(response.text)
 
+        print("-- RESPONSE FROM <GET SERVICES CATEGORIES>")
+        print(response.text)
+
         category_id_to_search = api_request.bs_config['category_id']
         category_found = None
 
@@ -56,6 +59,9 @@ class SimplybookApiEvents(ApiEventsInterface):
 
             response = requests.request("GET", url, headers=headers, data=payload)
             response_json = json.loads(response.text)
+
+            print("-- RESPONSE FROM <GET SERVICES>")
+            print(response.text)
 
             response_tickets = self.encapsulate_tickets(services, response_json, api_request)
             return response_tickets
