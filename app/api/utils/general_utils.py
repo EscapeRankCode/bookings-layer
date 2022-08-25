@@ -46,6 +46,10 @@ SIMPLYBOOK_BS_services_categories_list = '/categories'
 SIMPLYBOOK_BS_get_slots = '/schedule/slots'
 SIMPLYBOOK_BS_get_slots_available = '/schedule/available-slots'
 SIMPLYBOOK_BS_get_services = '/services'
+SIMPLYBOOK_BS_get_client_fields = '/clients/fields'
+SIMPLYBOOK_BS_get_additional_fields = '/additional-fields'
+
+
 
 
 # METHODS

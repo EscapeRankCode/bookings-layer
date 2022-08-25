@@ -12,14 +12,14 @@ class ApiEventsInterface:
         pass
 
     #  -- EVENT TICKETS --
-    def get_event_tickets(self, api_request: request):
+    def get_event_tickets(self, api_request: EventTicketsRequest):
         pass
 
     def encapsulate_event_tickets(self, event, event_tickets_request: EventTicketsRequest) -> EventTicketsResponse:
         pass
 
     #  -- EVENT FORM --
-    def get_event_form(self, api_request: request):
+    def get_event_form(self, api_request: EventFormRequest):
         pass
 
     def encapsulate_event_form(self, form, event_form_request: EventFormRequest) -> EventFormResponse:

@@ -51,6 +51,11 @@ class ApiEvents(metaclass=ApiEventsMeta):
             return form.to_json()
             #  return json.dumps(form.to_json())
 
+        elif event_form_request.booking_system_id == general_utils.BS_ID_SIMPLYBOOK:
+            form = self.simplybook_api_events.get_event_form(event_form_request)
+            if form is not None:
+                return form.to_json()
+
         return "Event Form Error", 400
 
 
