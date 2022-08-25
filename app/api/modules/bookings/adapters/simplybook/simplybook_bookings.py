@@ -57,7 +57,7 @@ class SimplybookApiBookings(ApiBookingsInterface):
         if not found:
             return None
 
-        date_time_obj = datetime.strptime(book_request.event_date + " " + book_request.event_time, '%d/%m/%y %H:%M')
+        date_time_obj = datetime.strptime(book_request.event_date + " " + book_request.event_time, '%d/%m/%Y %H:%M')
 
 
         # Return always true because
