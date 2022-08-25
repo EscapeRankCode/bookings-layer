@@ -109,6 +109,9 @@ class SimplybookApiEvents(ApiEventsInterface):
 
         client_json_fields = response_json['data']
 
+        print("EVENT_TICKETS RECEIVED:\n")
+        print(json.dumps(api_request.event_tickets))
+
         # Get the service id
         ticket_selected_name = api_request.event_tickets[0]['tickets_selection']['selected_tickets'][0]['ticket_name']
         # Get the tickets ('services')
