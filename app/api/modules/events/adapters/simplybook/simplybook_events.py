@@ -162,6 +162,7 @@ class SimplybookApiEvents(ApiEventsInterface):
         fields = []
 
         client_fields = form['client_fields']
+        print(json.dumps(client_fields))
         """
         "id": "name",
         "title": "Nombre",
