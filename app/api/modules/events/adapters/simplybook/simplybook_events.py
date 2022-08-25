@@ -133,6 +133,9 @@ class SimplybookApiEvents(ApiEventsInterface):
                 service_id = service['id']
                 break
 
+
+        print("Service is: " + str(service_id))
+        print("TICKET NAME: " + ticket_selected_name)
         if service_id == -1:
             return None
 
