@@ -115,8 +115,8 @@ class SimplybookApiEvents(ApiEventsInterface):
         # Get the service id
         tickets_selection = json.loads(api_request.event_tickets[0]['tickets_selection'])
         selected_tickets = json.loads(tickets_selection['selected_tickets'])
-        ticket = json.loads(selected_tickets[0])
-        ticket_selected_name = ticket['ticket_name']
+        # ticket = json.loads()
+        ticket_selected_name = selected_tickets[0]['ticket_name']
         # Get the tickets ('services')
         url = general_utils.SIMPLYBOOK_BS_HOST + general_utils.SIMPLYBOOK_BS_get_services
         payload = {}
