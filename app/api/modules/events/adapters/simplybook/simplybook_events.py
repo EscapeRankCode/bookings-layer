@@ -93,10 +93,10 @@ class SimplybookApiEvents(ApiEventsInterface):
         return EventTicketsResponse(event_tickets_request.event_id, tickets_groups)
 
     def get_event_form(self, api_request: EventFormRequest) -> EventFormResponse:
-        # Get the client fields
+        # ----------------- Get the client fields
         credentials = self.auth_module.authorize(None)  # map with token and refresh_token
 
-        url = general_utils.SIMPLYBOOK_BS_HOST + general_utils.SIMPLYBOOK_BS_services_categories_list
+        url = general_utils.SIMPLYBOOK_BS_HOST + general_utils.SIMPLYBOOK_BS_get_client_fields
         payload = {}
         headers = {
             'Content-Type': 'application/json',
@@ -109,15 +109,12 @@ class SimplybookApiEvents(ApiEventsInterface):
 
         client_json_fields = response_json['data']
 
-        print("EVENT_TICKETS RECEIVED:\n")
-        print(json.dumps(api_request.event_tickets))
-
-        # Get the service id
+        # ----------------- Get the tickets ('services') TO FIND THE SERVICE ID
         tickets_selection = json.loads(api_request.event_tickets[0]['tickets_selection'])
         selected_tickets = json.loads(tickets_selection['selected_tickets'])
         # ticket = json.loads()
         ticket_selected_name = selected_tickets[0]['ticket_name']
-        # Get the tickets ('services')
+
         url = general_utils.SIMPLYBOOK_BS_HOST + general_utils.SIMPLYBOOK_BS_get_services
         payload = {}
         headers = {
@@ -128,6 +125,8 @@ class SimplybookApiEvents(ApiEventsInterface):
 
         response = requests.request("GET", url, headers=headers, data=payload)
         response_json = json.loads(response.text)
+        print("GET SERVICES RESPONSE\n")
+        print(response.text)
         service_id = -1
         for service in response_json['data']:
             if service['name'] == ticket_selected_name:
@@ -137,7 +136,7 @@ class SimplybookApiEvents(ApiEventsInterface):
         if service_id == -1:
             return None
 
-        # Get the additional fields for this service (ticket)
+        # ----------------- Get the additional fields for this service (ticket)
         url = general_utils.SIMPLYBOOK_BS_HOST + general_utils.SIMPLYBOOK_BS_get_additional_fields + "?filter[service_id]=" + str(service_id)
         payload = {}
         headers = {
@@ -148,6 +147,8 @@ class SimplybookApiEvents(ApiEventsInterface):
 
         response = requests.request("GET", url, headers=headers, data=payload)
         response_json = json.loads(response.text)
+        print("GET SERVICES RESPONSE\n")
+        print(response.text)
 
         additional_json_fields = response_json['data']
 
