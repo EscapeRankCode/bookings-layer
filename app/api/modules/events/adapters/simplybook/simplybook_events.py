@@ -214,7 +214,7 @@ class SimplybookApiEvents(ApiEventsInterface):
         if extra_info['client_field']:
             return Field(FieldType.text, not bs_field['is_optional'], bs_field['id'], bs_field['title'], bs_field['default_value'], [], None)
         else:
-            return Field(FieldType.text, not bs_field['optional'], bs_field['name'], bs_field['field_name'], bs_field['default_value'], [], None)
+            return Field(FieldType.text, not bs_field['optional'], bs_field['name'], bs_field['field_name'], "", [], None)
 
     def encapsulate_field_type_select(self, bs_field, extra_info) -> Field:
         field_options = []
