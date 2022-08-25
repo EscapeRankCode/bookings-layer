@@ -223,5 +223,5 @@ class SimplybookApiEvents(ApiEventsInterface):
         for option in bs_field['field_options']:
             field_options.append(FieldOption(option, option, {}))
 
-        return Field(FieldType.select, not bs_field['optional'], bs_field['name'], bs_field['field_name'], bs_field['default_value'], [], None)
+        return Field(FieldType.select, not bs_field['optional'], bs_field['name'], bs_field['field_name'], bs_field['default_value'], field_options, None)
 
