@@ -16,7 +16,7 @@ class SimplybookApiEvents(ApiEventsInterface):
     def __init__(self):
         self.auth_module = SimplybookApiAuth()
 
-    def get_event_tickets(self, api_request: EventTicketsRequest):
+    def get_event_tickets(self, api_request: EventTicketsRequest) -> EventTicketsResponse:
         credentials = self.auth_module.authorize(None)  # map with token and refresh_token
 
         url = general_utils.SIMPLYBOOK_BS_HOST + general_utils.SIMPLYBOOK_BS_services_categories_list
