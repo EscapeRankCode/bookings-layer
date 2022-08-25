@@ -48,8 +48,10 @@ SIMPLYBOOK_BS_get_slots_available = '/schedule/available-slots'
 SIMPLYBOOK_BS_get_services = '/services'
 SIMPLYBOOK_BS_get_client_fields = '/clients/fields'
 SIMPLYBOOK_BS_get_additional_fields = '/additional-fields'
-
-
+SIMPLYBOOK_BS_create_client = '/clients'
+SIMPLYBOOK_BS_get_clients = '/clients'
+SIMPLYBOOK_BS_update_clients = '/clients/field-values/'
+SIMPLYBOOK_BS_create_booking = '/bookings'
 
 
 # METHODS

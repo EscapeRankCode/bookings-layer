@@ -49,6 +49,10 @@ class ApiBookings(metaclass=ApiBookingsMeta):
             return second_step_result.to_json()
             #  return json.dumps(first_step_result.to_json())
 
+        elif book_second_step_request.booking_system_id == general_utils.BS_ID_SIMPLYBOOK:
+            second_step_result = self.simplybook_api_bookings.book_second_step(book_second_step_request)
+            if second_step_result is not None:
+                return second_step_result.to_json()
 
         return "Book First Step Error", 400
 
