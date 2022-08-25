@@ -177,38 +177,3 @@ class MaximumApiEvents(ApiEventsInterface):
 
         # return Field(FieldType.select, True, bs_field['key'], bs_field['name'], "", field_options)  # TODO: TEST ONLY
         return Field(FieldType.select, bs_field['required'], bs_field['key'], bs_field['name'], "", field_options, None)
-
-
-'''
-    def get_event_form(self, api_request: EventFormRequest):
-        event_date = datetime.strptime(api_request.event_date, general_utils.MAXIMUM_DATE_FORMAT)
-
-        event = self.get_event_info(api_request.bs_config['room'], get_event_info_date)
-
-        language_code = "es"
-
-        event_date_request = event_date.strftime("%Y-%m-%d")
-
-        quest_id = str(api_request.bs_config['room'])
-
-        proposal_id = api_request.event_id
-
-        url = general_utils.MAXIMUM_BS_HOST + general_utils.MAXIMUM_BS_ENDPOINT_event_form
-
-        payload = json.dumps({
-            "language_code": language_code,
-            "quest_id": quest_id,
-            "proposal_id": proposal_id,
-            "date": event_date_request
-        })
-        headers = {
-            'Content-Type': 'application/json'
-        }
-
-        response = requests.request("POST", url, headers=headers, data=payload)
-
-        maximum_event_form = json.loads(response.text)
-
-        response = self.encapsulate_event_form(maximum_event_form, api_request)
-        return response
-'''

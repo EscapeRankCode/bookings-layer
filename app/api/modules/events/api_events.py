@@ -3,6 +3,7 @@ import json
 from flask import request
 
 from app.api.modules.events.adapters.maximum.maximum_events import MaximumApiEvents
+from app.api.modules.events.adapters.simplybook.simplybook_events import SimplybookApiEvents
 from app.api.utils import general_utils
 from app.models.requests.event_form_request import EventFormRequest
 from app.models.requests.event_tickets_request import EventTicketsRequest
@@ -22,6 +23,7 @@ class ApiEventsMeta(type):
 class ApiEvents(metaclass=ApiEventsMeta):
     def __init__(self):
         self.maximum_api_events = MaximumApiEvents()
+        self.simplybook_api_events = SimplybookApiEvents()
 
     def get_event_tickets(self, api_request: request):
         event_tickets_request = EventTicketsRequest(api_request.json['data'])
@@ -31,6 +33,11 @@ class ApiEvents(metaclass=ApiEventsMeta):
             tickets = self.maximum_api_events.get_event_tickets(event_tickets_request)
             print(tickets.to_json())
             return json.dumps(tickets.to_json())
+        elif event_tickets_request.booking_system_id == general_utils.BS_ID_SIMPLYBOOK:
+            tickets = self.simplybook_api_events.get_event_tickets(event_tickets_request)
+            if tickets is not None:
+                print(tickets.to_json())
+                return json.dumps(tickets.to_json())
 
         return "Event Tickets Error", 400
 
