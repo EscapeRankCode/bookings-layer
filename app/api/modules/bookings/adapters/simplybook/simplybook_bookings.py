@@ -173,13 +173,14 @@ class SimplybookApiBookings(ApiBookingsInterface):
                     "value": json.loads(request_field['user_input'])['user_input_text']
                 })
 
+        booking_info = json.loads(book_request.booking_bs_info)
         payload = json.dumps({
             "count": 1,
-            "start_datetime": book_request.booking_bs_info['start_datetime'],
+            "start_datetime": booking_info['start_datetime'],
             "location_id": None,
-            "category_id": book_request.booking_bs_info['category_id'],
-            "provider_id": book_request.booking_bs_info['provider_id'],
-            "service_id": book_request.booking_bs_info['service_id'],
+            "category_id": booking_info['category_id'],
+            "provider_id": booking_info['provider_id'],
+            "service_id": booking_info['service_id'],
             "client_id": client_id,
             "additional_fields": json.dumps(additional_fields_booking)
         })
