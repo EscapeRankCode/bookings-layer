@@ -227,8 +227,8 @@ class SimplybookApiBookings(ApiBookingsInterface):
 
             response_json = json.loads(response.text)
             print("------ SEARCH CLIENT response: " + response.text)
-            response_data = json.loads(response_json['data'])
-            response_metadata = json.loads(response_json['metadata'])
+            response_data = response_json['data']
+            response_metadata = response_json['metadata']
 
             total_clients = response_metadata['items_count']
 
