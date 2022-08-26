@@ -66,7 +66,8 @@ class SimplybookApiBookings(ApiBookingsInterface):
             "start_datetime": date_time_obj.strftime("%y-%m-%d %H:%M:%S"),
             "category_id": book_request.bs_config['category_id'],
             "provider_id": book_request.bs_config['provider_id'],
-            "service_id": service_id
+            "service_id": service_id,
+            "price": price
         })
 
     def book_second_step(self, book_request: BookRequest):
@@ -179,7 +180,14 @@ class SimplybookApiBookings(ApiBookingsInterface):
 
         response_json = json.loads(response.text)
 
-        return BookSecondStepResponse(True, "", response_json['bookings'][0])
+        b_info_object = {
+            "price": book_request.booking_bs_info['price'],
+            "id": response_json['bookings'][0]['id'],
+            "code": response_json['bookings'][0]['code'],
+            "client_id": client_id
+        }
+
+        return BookSecondStepResponse(True, "", b_info_object)
 
     def search_client(self, credentials, email: str) -> int:
         end = False
