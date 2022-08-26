@@ -106,13 +106,13 @@ class SimplybookApiBookings(ApiBookingsInterface):
                     print("Field found: " + field['field_key'])
                     field_to_find = field
                     if field['field_key'] == 'email':
-                        email = json.loads(field['user_input'])['user_input_text']
+                        email = json.loads(field['user_input'])['user_input_value']
                     break
 
             if field_to_find is not None:
                 client_mandatory_fields.append({
                     "key": field_to_find['field_key'],
-                    "value": json.loads(field_to_find['user_input'])['user_input_text']
+                    "value": json.loads(field_to_find['user_input'])['user_input_value']
                 })
             else:
                 return None
