@@ -173,7 +173,7 @@ class SimplybookApiBookings(ApiBookingsInterface):
                 if request_field['field_type'] == FieldType.select:
                     additional_fields_booking.append({
                         "field": request_field['field_key'],
-                        "value": json.loads(request_field['user_input'])['user_input_others_map']['option_selected_text']
+                        "value": json.loads(json.loads(request_field['user_input'])['user_input_others_map'])['option_selected_text']
                     })
                 else:
                     additional_fields_booking.append({
