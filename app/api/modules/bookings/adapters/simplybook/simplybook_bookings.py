@@ -81,6 +81,7 @@ class SimplybookApiBookings(ApiBookingsInterface):
 
 
         # ------- 1. Get the required fields
+        print("--- SECOND STEP: 1- Get required fields")
         url = general_utils.SIMPLYBOOK_BS_HOST + general_utils.SIMPLYBOOK_BS_get_client_fields
         payload = {}
         headers = {
@@ -95,12 +96,14 @@ class SimplybookApiBookings(ApiBookingsInterface):
 
 
         # ------- 2. Search the required fields in form
+        print("--- SECOND STEP: 2- Search required fields in form")
         email = None
         client_mandatory_fields = []
         for json_field in client_json_fields:
             field_to_find = None
             for field in book_request.event_fields:
                 if field['field_key'] == json_field['id']:
+                    print("Field found: " + field['field_key'])
                     field_to_find = field
                     if field['field_key'] == 'email':
                         email = json.loads(field['user_input'])['user_input_text']
@@ -116,6 +119,7 @@ class SimplybookApiBookings(ApiBookingsInterface):
 
 
         # ------- 3. Make the request
+        print("--- SECOND STEP: 3- Create client")
         url = general_utils.SIMPLYBOOK_BS_HOST + general_utils.SIMPLYBOOK_BS_create_client
 
         create_client_fields = {}
@@ -135,6 +139,7 @@ class SimplybookApiBookings(ApiBookingsInterface):
         # --- If error, client exists so: search the existing client
         client_id = -1
         if response.status_code != 200:
+            print("--- SECOND STEP: 41- Edit the client")
             client_id = self.search_client(credentials, email)
             if client_id != -1:
                 updated = self.update_client(credentials, client_id, client_mandatory_fields)
@@ -144,10 +149,14 @@ class SimplybookApiBookings(ApiBookingsInterface):
                 return None
 
         else:
+            print("--- SECOND STEP: 4b- Client created")
             client_id = response_json['id']
 
 
+        print("--- SECOND STEP: 5- Client id is: " + str(client_id))
+
         # --- Create the booking and notify if it's ok
+        print("--- SECOND STEP: 6- Create the booking")
         url = general_utils.SIMPLYBOOK_BS_HOST + general_utils.SIMPLYBOOK_BS_create_booking
 
         additional_fields_booking = []
@@ -179,6 +188,7 @@ class SimplybookApiBookings(ApiBookingsInterface):
             return BookSecondStepResponse(False, "Unable to create the booking", {})
 
         response_json = json.loads(response.text)
+        print("Create booking response: " + response.text)
 
         b_info_object = {
             "price": book_request.booking_bs_info['price'],
