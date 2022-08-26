@@ -175,6 +175,8 @@ class SimplybookApiBookings(ApiBookingsInterface):
                 })
 
         booking_info = book_request.booking_bs_info
+        print("BOOKING INFO RECEIVED in the second step: " + json.dumps(booking_info))
+
         payload = json.dumps({
             "count": 1,
             "start_datetime": booking_info['start_datetime'],
