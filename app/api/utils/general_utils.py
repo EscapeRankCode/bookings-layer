@@ -30,6 +30,10 @@ BS_ID_TURITOP = 1
 BS_ID_MAXIMUM = 2
 BS_ID_SIMPLYBOOK = 3
 
+# BACKEND_HOST
+BACKEND_BASE = "http://devel.escaperank.com/api"
+BACKEND_URL_get_last_token = "/bookings_layer/auth"
+
 # MAXIMUM HOST
 MAXIMUM_BS_HOST = 'http://dev.terraquesta.com'
 MAXIMUM_BS_ENDPOINT_calendar_availability = '/api/schedule_with_offset'
