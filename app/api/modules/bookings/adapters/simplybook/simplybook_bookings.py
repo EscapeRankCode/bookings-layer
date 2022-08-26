@@ -171,7 +171,7 @@ class SimplybookApiBookings(ApiBookingsInterface):
             if not self.is_field_inside(request_field, client_mandatory_fields):
                 additional_fields_booking.append({
                     "field": request_field['field_key'],
-                    "value": json.loads(request_field['user_input'])['user_input_text']
+                    "value": json.loads(request_field['user_input'])['user_input_value']
                 })
 
         booking_info = book_request.booking_bs_info
