@@ -9,6 +9,7 @@ from app.api.utils import general_utils
 from app.models.requests.book_request import BookRequest
 from app.models.responses.book_first_step_response import BookFirstStepResponse
 from app.models.responses.book_second_step_response import BookSecondStepResponse
+from app.models.responses.event_form_response import FieldType
 
 
 class SimplybookApiBookings(ApiBookingsInterface):
@@ -169,10 +170,16 @@ class SimplybookApiBookings(ApiBookingsInterface):
         additional_fields_booking = []
         for request_field in book_request.event_fields:
             if not self.is_field_inside(request_field, client_mandatory_fields):
-                additional_fields_booking.append({
-                    "field": request_field['field_key'],
-                    "value": json.loads(request_field['user_input'])['user_input_value']
-                })
+                if request_field['field_type'] == FieldType.select:
+                    additional_fields_booking.append({
+                        "field": request_field['field_key'],
+                        "value": json.loads(request_field['user_input'])['user_input_map']['option_selected_text']
+                    })
+                else:
+                    additional_fields_booking.append({
+                        "field": request_field['field_key'],
+                        "value": json.loads(request_field['user_input'])['user_input_value']
+                    })
 
         booking_info = book_request.booking_bs_info
         print("BOOKING INFO RECEIVED in the second step: " + json.dumps(booking_info))
