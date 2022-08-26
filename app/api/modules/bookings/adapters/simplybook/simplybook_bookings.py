@@ -185,7 +185,7 @@ class SimplybookApiBookings(ApiBookingsInterface):
             "provider_id": booking_info['provider_id'],
             "service_id": booking_info['service_id'],
             "client_id": client_id,
-            "additional_fields": json.dumps(additional_fields_booking)
+            "additional_fields": additional_fields_booking
         })
 
         print("PAYLOAD TO CREATE THE BOOKING: " + payload)
