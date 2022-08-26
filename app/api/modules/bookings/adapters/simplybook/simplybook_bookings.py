@@ -126,6 +126,8 @@ class SimplybookApiBookings(ApiBookingsInterface):
         for client_mandatory_field in client_mandatory_fields:
             create_client_fields[client_mandatory_field['key']] = client_mandatory_field['value']
         payload = json.dumps(client_mandatory_fields)
+        print("--- CREATE CLIENT PAYLOAD")
+        print(payload)
         headers = {
             'Content-Type': 'application/json',
             'X-Company-Login': credentials['company'],
@@ -135,11 +137,14 @@ class SimplybookApiBookings(ApiBookingsInterface):
         response = requests.request("POST", url, headers=headers, data=payload)
         response_json = json.loads(response.text)
 
+        print("--- CREATE CLIENT RESPONSE")
+        print(response.text)
+
 
         # --- If error, client exists so: search the existing client
         client_id = -1
         if response.status_code != 200:
-            print("--- SECOND STEP: 41- Edit the client")
+            print("--- SECOND STEP: 4.a- Edit the client")
             client_id = self.search_client(credentials, email)
             if client_id != -1:
                 updated = self.update_client(credentials, client_id, client_mandatory_fields)
@@ -149,7 +154,7 @@ class SimplybookApiBookings(ApiBookingsInterface):
                 return None
 
         else:
-            print("--- SECOND STEP: 4b- Client created")
+            print("--- SECOND STEP: 4.b- Client created")
             client_id = response_json['id']
 
 
@@ -206,6 +211,7 @@ class SimplybookApiBookings(ApiBookingsInterface):
 
         while not end:
             url = general_utils.SIMPLYBOOK_BS_HOST + general_utils.SIMPLYBOOK_BS_get_clients + "?page=" + str(page) + "&on_page=" + str(elements_per_page)
+            print("------ SEARCH CLIENT URL: " + url)
             payload = {}
             headers = {
                 'Content-Type': 'application/json',
@@ -215,12 +221,14 @@ class SimplybookApiBookings(ApiBookingsInterface):
 
             response = requests.request("GET", url, headers=headers, data=payload)
 
+            print("------ SEARCH CLIENT status code: " + str(response.status_code))
             if response.status_code != 200:
                 return -1
 
             response_json = json.loads(response.text)
-            response_data = response_json['data']
-            response_metadata = response_json['metadata']
+            print("------ SEARCH CLIENT response: " + response.text)
+            response_data = json.loads(response_json['data'])
+            response_metadata = json.loads(response_json['metadata'])
 
             total_clients = response_metadata['items_count']
 
@@ -233,7 +241,7 @@ class SimplybookApiBookings(ApiBookingsInterface):
             else:
                 end = True
 
-            return -1
+        return -1
 
     def update_client(self, credentials, client_id, client_mandatory_fields) -> bool:
         fields = []
