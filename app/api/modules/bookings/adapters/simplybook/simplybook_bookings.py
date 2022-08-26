@@ -187,6 +187,9 @@ class SimplybookApiBookings(ApiBookingsInterface):
             "client_id": client_id,
             "additional_fields": json.dumps(additional_fields_booking)
         })
+
+        print("PAYLOAD TO CREATE THE BOOKING: " + payload)
+
         headers = {
             'Content-Type': 'application/json',
             'X-Company-Login': credentials['company'],
@@ -194,11 +197,13 @@ class SimplybookApiBookings(ApiBookingsInterface):
         }
 
         response = requests.request("POST", url, headers=headers, data=payload)
+
+        print("Create booking response: " + response.text)
+
         if response.status_code != 200:
             return BookSecondStepResponse(False, "Unable to create the booking", {})
 
         response_json = json.loads(response.text)
-        print("Create booking response: " + response.text)
 
         b_info_object = {
             "price": book_request.booking_bs_info['price'],
