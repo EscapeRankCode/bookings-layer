@@ -261,7 +261,7 @@ class SimplybookApiBookings(ApiBookingsInterface):
 
         payload = json.dumps({
             "id": client_id,
-            "fields": json.dumps(fields)
+            "fields": fields
         })
 
         print("------ UPDATE CLIENT PAYLOAD: " + payload)
