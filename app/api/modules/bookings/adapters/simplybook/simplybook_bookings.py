@@ -174,7 +174,7 @@ class SimplybookApiBookings(ApiBookingsInterface):
                     "value": json.loads(request_field['user_input'])['user_input_text']
                 })
 
-        booking_info = json.loads(book_request.booking_bs_info)
+        booking_info = book_request.booking_bs_info
         payload = json.dumps({
             "count": 1,
             "start_datetime": booking_info['start_datetime'],
