@@ -235,9 +235,9 @@ class SimplybookApiBookings(ApiBookingsInterface):
             total_clients = response_metadata['items_count']
 
             for client in response_data:
-                client_obj = json.loads(client)
-                if client_obj['email'] == email:
-                    return client_obj['id']
+                print("CLIENT LOOKING: " + json.dumps(client))
+                if client['email'] == email:
+                    return client['id']
 
             if total_clients > (page * elements_per_page):
                 page += 1
