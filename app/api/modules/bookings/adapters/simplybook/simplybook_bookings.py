@@ -148,6 +148,7 @@ class SimplybookApiBookings(ApiBookingsInterface):
             print("--- SECOND STEP: 4.a- Edit the client")
             client_id = self.search_client(credentials, email)
             if client_id != -1:
+                print("--- SECOND STEP: 4.a.1- Client found, now to update-client")
                 updated = self.update_client(credentials, client_id, client_mandatory_fields)
                 if not updated:
                     return None
@@ -237,6 +238,7 @@ class SimplybookApiBookings(ApiBookingsInterface):
             for client in response_data:
                 print("CLIENT LOOKING: " + json.dumps(client))
                 if client['email'] == email:
+                    print("CLIENT FOUND! - ID CLIENT IS " + str(client['id']))
                     return client['id']
 
             if total_clients > (page * elements_per_page):
@@ -261,6 +263,9 @@ class SimplybookApiBookings(ApiBookingsInterface):
             "id": client_id,
             "fields": json.dumps(fields)
         })
+
+        print("------ UPDATE CLIENT PAYLOAD: " + payload)
+
         headers = {
             'Content-Type': 'application/json',
             'X-Company-Login': credentials['company'],
@@ -268,6 +273,7 @@ class SimplybookApiBookings(ApiBookingsInterface):
         }
 
         response = requests.request("PUT", url, headers=headers, data=payload)
+        print("------ UPDATE CILENT RESPONSE: " + response.text)
         return response.status_code == 200
 
     def is_field_inside(self, request_field, client_mandatory_fields):
