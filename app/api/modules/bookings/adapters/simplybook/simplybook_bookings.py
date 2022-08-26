@@ -125,7 +125,8 @@ class SimplybookApiBookings(ApiBookingsInterface):
         create_client_fields = {}
         for client_mandatory_field in client_mandatory_fields:
             create_client_fields[client_mandatory_field['key']] = client_mandatory_field['value']
-        payload = json.dumps(client_mandatory_fields)
+
+        payload = json.dumps(create_client_fields)
         print("--- CREATE CLIENT PAYLOAD")
         print(payload)
         headers = {
