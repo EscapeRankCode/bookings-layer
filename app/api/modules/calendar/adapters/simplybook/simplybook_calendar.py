@@ -31,6 +31,8 @@ class SimplybookApiCalendar(ApiCalendarInterface):
         response = requests.request("GET", url, headers=headers, data=payload)
         response_json = json.loads(response.text)
 
+        print("calendar response: " + response.text)
+
         category_id_to_search = api_request.bs_config['category_id']
         category_found = None
 
