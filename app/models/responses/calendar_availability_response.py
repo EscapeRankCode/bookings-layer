@@ -16,10 +16,18 @@ class Event:
         }.items()
 
     def __str__(self):
-        return json.dumps(dict(self), ensure_ascii=False)
+        return json.dumps(self.to_json())
 
     def __repr__(self):
         return self.__str__()
+
+    def to_json(self):
+        return {
+            "time": self.time,
+            "event_id": self.event_id,
+            "availability": self.availability
+        }
+
 
 
 class Day:
@@ -40,10 +48,22 @@ class Day:
         }.items()
 
     def __str__(self):
-        return json.dumps(dict(self), ensure_ascii=False)
+        return json.dumps(self.to_json())
 
     def __repr__(self):
         return self.__str__()
+
+    def to_json(self):
+        events_json = []
+        for event in self.events:
+            events_json.append(event.to_json())
+        return {
+            "year": self.year,
+            "month": self.month,
+            "day": self.day,
+            "day_availability": self.day_availability,
+            "events": events_json
+        }
 
 
 class Calendar:
@@ -58,10 +78,20 @@ class Calendar:
         }.items()
 
     def __str__(self):
-        return json.dumps(dict(self), ensure_ascii=False)
+        return json.dumps(self.to_json())
 
     def __repr__(self):
         return self.__str__()
+
+    def to_json(self):
+        days_json = []
+        for day in self.days:
+            days_json.append(day.to_json())
+
+        return {
+            "timezone": self.timezone,
+            "days": days_json
+        }
 
 
 class CalendarAvailabilityResponse:
