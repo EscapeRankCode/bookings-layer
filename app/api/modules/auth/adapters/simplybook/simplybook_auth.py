@@ -109,11 +109,6 @@ class SimplybookApiAuth(ApiAuthInterface):
             print("Saving token to db: " + response_json['token'])
             self.save_token_in_db(simplybook_credentials, new_credentials['token'], new_credentials['refresh_token'], new_credentials['expiration_datetime'])
 
-            print("Elements to return:")
-            print("-- company: " + simplybook_credentials['company'])
-            print("-- token: " + new_credentials['token'])
-            print("-- refresh_token: " + new_credentials['refresh_token'])
-
             return {
                 "company": simplybook_credentials['company'],
                 "token": new_credentials['token'],
@@ -121,17 +116,11 @@ class SimplybookApiAuth(ApiAuthInterface):
             }
 
         elif case == 'B':  # Refresh
-            print("CASE B: REFRESH")
             new_credentials = self.refresh({
                 "company": simplybook_credentials['company'],
                 "token": last_token_response['token'],
                 "refresh_token": last_token_response['refresh_token']
             })
-
-            print("Refreshed elements to return:")
-            print("-- company: " + new_credentials['company'])
-            print("-- token: " + new_credentials['token'])
-            print("-- refresh_token: " + new_credentials['refresh_token'])
 
             # SAVE THE NEW TOKEN IN DB
             print("Saving refreshed data to db")

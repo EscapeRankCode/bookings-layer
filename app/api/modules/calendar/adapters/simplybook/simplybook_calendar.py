@@ -33,8 +33,6 @@ class SimplybookApiCalendar(ApiCalendarInterface):
         response = requests.request("GET", url, headers=headers, data=payload)
         response_json = json.loads(response.text)
 
-        print("calendar response: " + response.text)
-
         category_id_to_search = api_request.bs_config['category_id']
         category_found = None
 
@@ -62,8 +60,6 @@ class SimplybookApiCalendar(ApiCalendarInterface):
         calendar_days = []
 
         for date_x in self.daterange(start_date, end_date):
-            print("Demanded date")
-            print(str(date_x))
             # Refresh the token
             # credentials = self.auth_module.refresh(credentials)
 
@@ -81,10 +77,6 @@ class SimplybookApiCalendar(ApiCalendarInterface):
 
             response = requests.request("GET", url, headers=headers, data=payload)
             slots_json = json.loads(response.text)
-            print("All slots url is: " + url)
-            print("Token: " + credentials['token'])
-            print("All slots: ")
-            print(response.text)
 
             # Call to get only available slots
             url = general_utils.SIMPLYBOOK_BS_HOST + general_utils.SIMPLYBOOK_BS_get_slots_available + \
@@ -100,14 +92,11 @@ class SimplybookApiCalendar(ApiCalendarInterface):
 
             response = requests.request("GET", url, headers=headers, data=payload)
             available_slots_json = json.loads(response.text)
-            print("Available slots: ")
-            print(response.text)
 
             day = self.encapsulate_day(slots_json, available_slots_json, date_x, api_request.bs_config)
             calendar_days.append(day)
 
         calendar = Calendar(api_request.bs_config['timezone'], calendar_days)
-        print("CALENDAR FORMED = " + json.dumps(calendar.to_json()))
         return CalendarAvailabilityResponse(api_request.booking_system_id, api_request.bs_config['config_id'], calendar)
 
     # AUXILIARY FUNCTIONS
