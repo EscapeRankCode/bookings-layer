@@ -96,6 +96,8 @@ class SimplybookApiCalendar(ApiCalendarInterface):
 
             response = requests.request("GET", url, headers=headers, data=payload)
             available_slots_json = json.loads(response.text)
+            print("Available slots: ")
+            print(response.text)
 
             day = self.encapsulate_day(slots_json, available_slots_json, date_x, api_request.bs_config)
             calendar_days.append(day)
