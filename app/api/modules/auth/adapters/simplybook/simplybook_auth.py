@@ -55,7 +55,7 @@ class SimplybookApiAuth(ApiAuthInterface):
 
         if last_token_response['token'] is not None:
             # Check if token is usable (expiration_datetime)
-            expiration_datetime = datetime.datetime.strptime(last_token_response['expiration_datetime'], "")
+            expiration_datetime = datetime.datetime.strptime(last_token_response['expiration_datetime'], "%Y-%m-%d %H:%M:%S")
 
             if datetime_now > expiration_datetime:
                 case = 'A'  # Authorize
