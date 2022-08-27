@@ -71,6 +71,7 @@ class SimplybookApiAuth(ApiAuthInterface):
                         "refresh_token": last_token_response['refresh_token']
                     }
         else:
+            print("There is no token in db")
             case = 'A'  # Authorize because there was no token
 
         if case == 'A':  # Authorize
@@ -89,6 +90,8 @@ class SimplybookApiAuth(ApiAuthInterface):
             response = requests.request("POST", url, headers=headers, data=payload)
             response_json = json.loads(response.text)
 
+            print("Authorization token received from simplybook: " + response_json['token'])
+
             new_credentials = {
                 "company": simplybook_credentials['company'],
                 "token": response_json['token'],
@@ -100,10 +103,15 @@ class SimplybookApiAuth(ApiAuthInterface):
             print("Saving token to db: " + response_json['token'])
             self.save_token_in_db(simplybook_credentials, new_credentials['token'], new_credentials['refresh_token'], new_credentials['expiration_datetime'])
 
+            print("Elements to return:")
+            print("-- company: " + simplybook_credentials['company'])
+            print("-- token: " + new_credentials['token'])
+            print("-- refresh_token: " + new_credentials['refresh_token'])
+
             return {
                 "company": simplybook_credentials['company'],
-                "token": response_json['token'],
-                "refresh_token": response_json['refresh_token']
+                "token": new_credentials['token'],
+                "refresh_token": new_credentials['refresh_token']
             }
 
         elif case == 'B':  # Refresh
@@ -114,7 +122,13 @@ class SimplybookApiAuth(ApiAuthInterface):
                 "refresh_token": last_token_response['refresh_token']
             })
 
+            print("Refreshed elements to return:")
+            print("-- company: " + new_credentials['company'])
+            print("-- token: " + new_credentials['token'])
+            print("-- refresh_token: " + new_credentials['refresh_token'])
+
             # SAVE THE NEW TOKEN IN DB
+            print("Saving refreshed data to db")
             self.save_token_in_db(simplybook_credentials, new_credentials['token'], new_credentials['refresh_token'], datetime_now.strftime("%Y/%m/%d %H:%M:%S"))
 
             return new_credentials
@@ -137,6 +151,7 @@ class SimplybookApiAuth(ApiAuthInterface):
         }
 
         response = requests.request("POST", url, headers=headers, data=payload)
+        print("saved token to db. response is: " + response.text)
 
 
     def refresh(self, auth_credentials):
