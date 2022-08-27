@@ -137,11 +137,16 @@ class SimplybookApiAuth(ApiAuthInterface):
         # get the token from the backend
         url = general_utils.BACKEND_BASE + general_utils.BACKEND_URL_set_last_token
 
-        payload = json.dumps({
+        auth_info = {
             "company": simplybook_credentials['company'],
             "token": token,
             "refresh_token": refresh_token,
             "expiration_datetime": expiration_datetime
+        }
+
+        payload = json.dumps({
+            "booking_system_id": 3,
+            "auth_info": auth_info
         })
         headers = {
             'ApiKey': simplybook_credentials['backend_apikey'],
