@@ -74,6 +74,7 @@ class SimplybookApiAuth(ApiAuthInterface):
             case = 'A'  # Authorize because there was no token
 
         if case == 'A':  # Authorize
+            print("CASE A: AUTHORIZE")
             url = general_utils.SIMPLYBOOK_BS_HOST + general_utils.SIMPLYBOOK_BS_authorize
 
             payload = json.dumps({
@@ -96,6 +97,7 @@ class SimplybookApiAuth(ApiAuthInterface):
             }
 
             # SAVE THE NEW TOKEN IN DB
+            print("Saving token to db: " + response_json['token'])
             self.save_token_in_db(simplybook_credentials, new_credentials['token'], new_credentials['refresh_token'], new_credentials['expiration_datetime'])
 
             return {
@@ -105,15 +107,15 @@ class SimplybookApiAuth(ApiAuthInterface):
             }
 
         elif case == 'B':  # Refresh
+            print("CASE B: REFRESH")
             new_credentials = self.refresh({
                 "company": simplybook_credentials['company'],
                 "token": last_token_response['token'],
-                "refresh_token": last_token_response['refresh_token'],
-                "expiration_datetime": datetime_now.strftime("%Y/%m/%d %H:%M:%S")
+                "refresh_token": last_token_response['refresh_token']
             })
 
             # SAVE THE NEW TOKEN IN DB
-            self.save_token_in_db(simplybook_credentials, new_credentials['token'], new_credentials['refresh_token'], new_credentials['expiration_datetime'])
+            self.save_token_in_db(simplybook_credentials, new_credentials['token'], new_credentials['refresh_token'], datetime_now.strftime("%Y/%m/%d %H:%M:%S"))
 
             return new_credentials
 
