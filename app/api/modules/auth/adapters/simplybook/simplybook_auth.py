@@ -139,9 +139,11 @@ class SimplybookApiAuth(ApiAuthInterface):
 
             return new_credentials
 
-    def save_token_in_db(self, simplybook_credentials, token, refresh_token, expiration_datetime):
+    def save_token_in_db(self, simplybook_credentials, token, refresh_token, expiration_datetime: datetime):
         # get the token from the backend
         url = general_utils.BACKEND_BASE + general_utils.BACKEND_URL_set_last_token
+
+        expiration_datetime = expiration_datetime + datetime.timedelta(hours=1)
 
         auth_info = {
             "company": simplybook_credentials['company'],
