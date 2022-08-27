@@ -19,6 +19,8 @@ class SimplybookApiCalendar(ApiCalendarInterface):
     def get_calendar_availability(self, api_request: CalendarAvailabilityRequest):
         # GET THE TOKEN
         credentials = self.auth_module.authorize(None)  # map with token and refresh_token
+        print("Credentials in calendar availability:")
+        print(json.dumps(credentials))
 
         url = general_utils.SIMPLYBOOK_BS_HOST + general_utils.SIMPLYBOOK_BS_services_categories_list
         payload = {}
@@ -60,6 +62,8 @@ class SimplybookApiCalendar(ApiCalendarInterface):
         calendar_days = []
 
         for date_x in self.daterange(start_date, end_date):
+            print("Demanded date")
+            print(str(date_x))
             # Refresh the token
             # credentials = self.auth_module.refresh(credentials)
 
