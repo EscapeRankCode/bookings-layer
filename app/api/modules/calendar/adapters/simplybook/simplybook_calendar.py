@@ -81,6 +81,8 @@ class SimplybookApiCalendar(ApiCalendarInterface):
 
             response = requests.request("GET", url, headers=headers, data=payload)
             slots_json = json.loads(response.text)
+            print("All slots url is: " + url)
+            print("Token: " + credentials['token'])
             print("All slots: ")
             print(response.text)
 
