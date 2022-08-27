@@ -50,19 +50,25 @@ class SimplybookApiAuth(ApiAuthInterface):
         response = requests.request("POST", url, headers=headers, data=payload)
         last_token_response = json.loads(response.text)
         datetime_now = datetime.datetime.now()
+        print("PYTHON DATETIME NOW")
+        print(datetime_now.strftime("%d/%m/%Y %H:%M"))
 
         case = ''
 
         if last_token_response['token'] is not None:
             # Check if token is usable (expiration_datetime)
             expiration_datetime = datetime.datetime.strptime(last_token_response['expiration_datetime'], "%Y-%m-%d %H:%M:%S")
+            print("STORED DATETIME")
+            print(expiration_datetime.strftime("%d/%m/%Y %H:%M"))
 
             if datetime_now > expiration_datetime:
+                print("EXPIRATION TIME IS PAST")
                 case = 'A'  # Authorize
 
             else:
                 minutes_remaining = divmod((expiration_datetime - datetime_now).total_seconds(), 60)[0]
                 if minutes_remaining < self.EXPIRATION_TIME_LIMIT:
+                    print("REFRESH TOKEN IS NEEDED (TOKEN IS STILL VALID BUT REMAINS LESS THAN 20MIN")
                     case = 'B'  # Refresh
                 else:
                     return {
