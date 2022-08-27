@@ -121,7 +121,7 @@ class SimplybookApiAuth(ApiAuthInterface):
 
     def save_token_in_db(self, simplybook_credentials, token, refresh_token, expiration_datetime):
         # get the token from the backend
-        url = general_utils.BACKEND_BASE + general_utils.BACKEND_URL_get_last_token
+        url = general_utils.BACKEND_BASE + general_utils.BACKEND_URL_set_last_token
 
         payload = json.dumps({
             "company": simplybook_credentials['company'],
