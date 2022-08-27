@@ -103,6 +103,7 @@ class SimplybookApiCalendar(ApiCalendarInterface):
             calendar_days.append(day)
 
         calendar = Calendar(api_request.bs_config['timezone'], calendar_days)
+        print("CALENDAR FORMED = " + json.dumps(calendar))
         return CalendarAvailabilityResponse(api_request.booking_system_id, api_request.bs_config['config_id'], calendar)
 
     # AUXILIARY FUNCTIONS
