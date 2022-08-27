@@ -33,6 +33,7 @@ BS_ID_SIMPLYBOOK = 3
 # BACKEND_HOST
 BACKEND_BASE = "http://devel.escaperank.com/api"
 BACKEND_URL_get_last_token = "/bookings_layer/auth"
+BACKEND_URL_set_last_token = "/bookings_layer/new_auth"
 
 # MAXIMUM HOST
 MAXIMUM_BS_HOST = 'http://dev.terraquesta.com'
