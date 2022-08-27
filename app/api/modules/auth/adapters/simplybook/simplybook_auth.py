@@ -107,7 +107,7 @@ class SimplybookApiAuth(ApiAuthInterface):
 
             # SAVE THE NEW TOKEN IN DB
             print("Saving token to db: " + response_json['token'])
-            self.save_token_in_db(simplybook_credentials, new_credentials['token'], new_credentials['refresh_token'], new_credentials['expiration_datetime'])
+            self.save_token_in_db(simplybook_credentials, new_credentials['token'], new_credentials['refresh_token'], datetime_now)
 
             return {
                 "company": simplybook_credentials['company'],
@@ -124,7 +124,7 @@ class SimplybookApiAuth(ApiAuthInterface):
 
             # SAVE THE NEW TOKEN IN DB
             print("Saving refreshed data to db")
-            self.save_token_in_db(simplybook_credentials, new_credentials['token'], new_credentials['refresh_token'], datetime_now.strftime("%Y/%m/%d %H:%M:%S"))
+            self.save_token_in_db(simplybook_credentials, new_credentials['token'], new_credentials['refresh_token'], datetime_now)
 
             return new_credentials
 
@@ -138,7 +138,7 @@ class SimplybookApiAuth(ApiAuthInterface):
             "company": simplybook_credentials['company'],
             "token": token,
             "refresh_token": refresh_token,
-            "expiration_datetime": expiration_datetime
+            "expiration_datetime": expiration_datetime.strftime("%Y/%m/%d %H:%M:%S")
         }
 
         payload = json.dumps({
