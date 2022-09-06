@@ -10,3 +10,6 @@ class ApiBookingsInterface:
 
     def encapsulate_book_first_step_result(self, result, request: BookRequest) -> BookFirstStepResponse:
         pass
+
+    def book_second_step(self, book_second_step_request: BookRequest):
+        pass
