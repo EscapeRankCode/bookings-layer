@@ -23,6 +23,7 @@ bookings_module = ApiBookings()
 
 # CREATE FLASK APP
 rest = Flask(__name__)
+rest.logger.disabled = True
 
 
 # DEFINE ENDPOINTS FOR EACH MODULE
