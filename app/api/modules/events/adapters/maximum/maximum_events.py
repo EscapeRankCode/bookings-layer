@@ -35,6 +35,7 @@ class MaximumApiEvents(ApiEventsInterface):
 
         to_find_id = int(event_ticket_request.event_id)
 
+        print("SEND [maximum] - /api/time_table")
         response = requests.request("POST", url, headers=headers, data=payload)
 
         time_table = json.loads(response.text)
@@ -112,6 +113,7 @@ class MaximumApiEvents(ApiEventsInterface):
             'Content-Type': 'application/json'
         }
 
+        print("SEND [maximum] - /api/fields")
         response = requests.request("POST", url, headers=headers, data=payload)
 
         maximum_form = json.loads(response.text)['client_form']

@@ -43,6 +43,7 @@ class SimplybookApiBookings(ApiBookingsInterface):
             'X-Token': credentials['token']
         }
 
+        print("SEND [simplybook] - /services")
         response = requests.request("GET", url, headers=headers, data=payload)
         response_json = json.loads(response.text)
 
@@ -82,7 +83,7 @@ class SimplybookApiBookings(ApiBookingsInterface):
 
 
         # ------- 1. Get the required fields
-        print("--- SECOND STEP: 1- Get required fields")
+        # print("--- SECOND STEP: 1- Get required fields")
         url = general_utils.SIMPLYBOOK_BS_HOST + general_utils.SIMPLYBOOK_BS_get_client_fields
         payload = {}
         headers = {
@@ -91,20 +92,21 @@ class SimplybookApiBookings(ApiBookingsInterface):
             'X-Token': credentials['token']
         }
 
+        print("SEND [simplybook] - /clients/fields")
         response = requests.request("GET", url, headers=headers, data=payload)
         response_json = json.loads(response.text)
         client_json_fields = response_json['data']
 
 
         # ------- 2. Search the required fields in form
-        print("--- SECOND STEP: 2- Search required fields in form")
+        # print("--- SECOND STEP: 2- Search required fields in form")
         email = None
         client_mandatory_fields = []
         for json_field in client_json_fields:
             field_to_find = None
             for field in book_request.event_fields:
                 if field['field_key'] == json_field['id']:
-                    print("Field found: " + field['field_key'])
+                    # print("Field found: " + field['field_key'])
                     field_to_find = field
                     if field['field_key'] == 'email':
                         email = json.loads(field['user_input'])['user_input_value']
@@ -120,7 +122,7 @@ class SimplybookApiBookings(ApiBookingsInterface):
 
 
         # ------- 3. Make the request
-        print("--- SECOND STEP: 3- Create client")
+        # print("--- SECOND STEP: 3- Create client")
         url = general_utils.SIMPLYBOOK_BS_HOST + general_utils.SIMPLYBOOK_BS_create_client
 
         create_client_fields = {}
@@ -128,28 +130,26 @@ class SimplybookApiBookings(ApiBookingsInterface):
             create_client_fields[client_mandatory_field['key']] = client_mandatory_field['value']
 
         payload = json.dumps(create_client_fields)
-        print("--- CREATE CLIENT PAYLOAD")
-        print(payload)
+        # print("--- CREATE CLIENT PAYLOAD")
+        # print(payload)
         headers = {
             'Content-Type': 'application/json',
             'X-Company-Login': credentials['company'],
             'X-Token': credentials['token']
         }
 
+        print("SEND [simplybook] - /clients")
         response = requests.request("POST", url, headers=headers, data=payload)
         response_json = json.loads(response.text)
-
-        print("--- CREATE CLIENT RESPONSE")
-        print(response.text)
 
 
         # --- If error, client exists so: search the existing client
         client_id = -1
         if response.status_code != 200:
-            print("--- SECOND STEP: 4.a- Edit the client")
+            # print("--- SECOND STEP: 4.a- Edit the client")
             client_id = self.search_client(credentials, email)
             if client_id != -1:
-                print("--- SECOND STEP: 4.a.1- Client found, now to update-client")
+                # print("--- SECOND STEP: 4.a.1- Client found, now to update-client")
                 updated = self.update_client(credentials, client_id, client_mandatory_fields)
                 if not updated:
                     return None
@@ -157,14 +157,14 @@ class SimplybookApiBookings(ApiBookingsInterface):
                 return None
 
         else:
-            print("--- SECOND STEP: 4.b- Client created")
+            # print("--- SECOND STEP: 4.b- Client created")
             client_id = response_json['id']
 
 
-        print("--- SECOND STEP: 5- Client id is: " + str(client_id))
+        # print("--- SECOND STEP: 5- Client id is: " + str(client_id))
 
         # --- Create the booking and notify if it's ok
-        print("--- SECOND STEP: 6- Create the booking")
+        # print("--- SECOND STEP: 6- Create the booking")
         url = general_utils.SIMPLYBOOK_BS_HOST + general_utils.SIMPLYBOOK_BS_create_booking
 
         additional_fields_booking = []
@@ -182,7 +182,7 @@ class SimplybookApiBookings(ApiBookingsInterface):
                     })
 
         booking_info = book_request.booking_bs_info
-        print("BOOKING INFO RECEIVED in the second step: " + json.dumps(booking_info))
+        # print("BOOKING INFO RECEIVED in the second step: " + json.dumps(booking_info))
 
         payload = json.dumps({
             "count": 1,
@@ -195,7 +195,7 @@ class SimplybookApiBookings(ApiBookingsInterface):
             "additional_fields": additional_fields_booking
         })
 
-        print("PAYLOAD TO CREATE THE BOOKING: " + payload)
+        # print("PAYLOAD TO CREATE THE BOOKING: " + payload)
 
         headers = {
             'Content-Type': 'application/json',
@@ -203,9 +203,10 @@ class SimplybookApiBookings(ApiBookingsInterface):
             'X-Token': credentials['token']
         }
 
+        print("SEND [simplybook] - /bookings")
         response = requests.request("POST", url, headers=headers, data=payload)
 
-        print("Create booking response: " + response.text)
+        # print("Create booking response: " + response.text)
 
         if response.status_code != 200:
             return BookSecondStepResponse(False, "Unable to create the booking", {})
@@ -228,7 +229,7 @@ class SimplybookApiBookings(ApiBookingsInterface):
 
         while not end:
             url = general_utils.SIMPLYBOOK_BS_HOST + general_utils.SIMPLYBOOK_BS_get_clients + "?page=" + str(page) + "&on_page=" + str(elements_per_page)
-            print("------ SEARCH CLIENT URL: " + url)
+            # print("------ SEARCH CLIENT URL: " + url)
             payload = {}
             headers = {
                 'Content-Type': 'application/json',
@@ -238,21 +239,21 @@ class SimplybookApiBookings(ApiBookingsInterface):
 
             response = requests.request("GET", url, headers=headers, data=payload)
 
-            print("------ SEARCH CLIENT status code: " + str(response.status_code))
+            # print("------ SEARCH CLIENT status code: " + str(response.status_code))
             if response.status_code != 200:
                 return -1
 
             response_json = json.loads(response.text)
-            print("------ SEARCH CLIENT response: " + response.text)
+            # print("------ SEARCH CLIENT response: " + response.text)
             response_data = response_json['data']
             response_metadata = response_json['metadata']
 
             total_clients = response_metadata['items_count']
 
             for client in response_data:
-                print("CLIENT LOOKING: " + json.dumps(client))
+                # print("CLIENT LOOKING: " + json.dumps(client))
                 if client['email'] == email:
-                    print("CLIENT FOUND! - ID CLIENT IS " + str(client['id']))
+                    # print("CLIENT FOUND! - ID CLIENT IS " + str(client['id']))
                     return client['id']
 
             if total_clients > (page * elements_per_page):
@@ -278,7 +279,7 @@ class SimplybookApiBookings(ApiBookingsInterface):
             "fields": fields
         })
 
-        print("------ UPDATE CLIENT PAYLOAD: " + payload)
+        # print("------ UPDATE CLIENT PAYLOAD: " + payload)
 
         headers = {
             'Content-Type': 'application/json',
@@ -287,7 +288,7 @@ class SimplybookApiBookings(ApiBookingsInterface):
         }
 
         response = requests.request("PUT", url, headers=headers, data=payload)
-        print("------ UPDATE CILENT RESPONSE: " + response.text)
+        # print("------ UPDATE CILENT RESPONSE: " + response.text)
         return response.status_code == 200
 
     def is_field_inside(self, request_field, client_mandatory_fields):

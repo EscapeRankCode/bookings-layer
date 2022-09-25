@@ -29,23 +29,28 @@ rest = Flask(__name__)
 # -- CALENDAR MODULE
 @rest.route(routes['modules']['calendar']['getCalendarAvailability'], methods=['POST'])
 def get_calendar_availability():
+    print("\nRECEIVED: getCalendarAvailability")
     return calendar_module.get_calendar_availability(request)
 
 # -- EVENTS MODULE
 @rest.route(routes['modules']['events']['getEventTickets'], methods=['POST'])
 def get_event_tickets():
+    print("\nRECEIVED: getEventTickets")
     return events_module.get_event_tickets(request)
 
 @rest.route(routes['modules']['events']['getEventForm'], methods=['POST'])
 def get_event_form():
+    print("\nRECEIVED: getEventForm")
     return events_module.get_event_form(request)
 
 @rest.route(routes['modules']['booking']['bookFirstStep'], methods=['POST'])
 def book_first_step():
+    print("\nRECEIVED: bookFirstStep")
     return bookings_module.book_first_step(request)
 
 @rest.route(routes['modules']['booking']['bookSecondStep'], methods=['POST'])
 def book_second_step():
+    print("\nRECEIVED: bookSecondStep")
     return bookings_module.book_second_step(request)
 
 

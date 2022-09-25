@@ -50,25 +50,25 @@ class SimplybookApiAuth(ApiAuthInterface):
         response = requests.request("POST", url, headers=headers, data=payload)
         last_token_response = json.loads(response.text)
         datetime_now = datetime.datetime.now()
-        print("PYTHON DATETIME NOW")
-        print(datetime_now.strftime("%d/%m/%Y %H:%M"))
+        # print("PYTHON DATETIME NOW")
+        # print(datetime_now.strftime("%d/%m/%Y %H:%M"))
 
         case = ''
 
         if last_token_response['token'] is not None:
             # Check if token is usable (expiration_datetime)
             expiration_datetime = datetime.datetime.strptime(last_token_response['expiration_datetime'], "%Y-%m-%d %H:%M:%S")
-            print("STORED DATETIME")
-            print(expiration_datetime.strftime("%d/%m/%Y %H:%M"))
+            # print("STORED DATETIME")
+            # print(expiration_datetime.strftime("%d/%m/%Y %H:%M"))
 
             if datetime_now > expiration_datetime:
-                print("EXPIRATION TIME IS PAST")
+                # print("EXPIRATION TIME IS PAST")
                 case = 'A'  # Authorize
 
             else:
                 minutes_remaining = divmod((expiration_datetime - datetime_now).total_seconds(), 60)[0]
                 if minutes_remaining < self.EXPIRATION_TIME_LIMIT:
-                    print("REFRESH TOKEN IS NEEDED (TOKEN IS STILL VALID BUT REMAINS LESS THAN 20MIN")
+                    # print("REFRESH TOKEN IS NEEDED (TOKEN IS STILL VALID BUT REMAINS LESS THAN 20MIN")
                     case = 'B'  # Refresh
                 else:
                     return {
@@ -77,11 +77,11 @@ class SimplybookApiAuth(ApiAuthInterface):
                         "refresh_token": last_token_response['refresh_token']
                     }
         else:
-            print("There is no token in db")
+            # print("There is no token in db")
             case = 'A'  # Authorize because there was no token
 
         if case == 'A':  # Authorize
-            print("CASE A: AUTHORIZE")
+            # print("CASE A: AUTHORIZE")
             url = general_utils.SIMPLYBOOK_BS_HOST + general_utils.SIMPLYBOOK_BS_authorize
 
             payload = json.dumps({
@@ -96,7 +96,7 @@ class SimplybookApiAuth(ApiAuthInterface):
             response = requests.request("POST", url, headers=headers, data=payload)
             response_json = json.loads(response.text)
 
-            print("Authorization token received from simplybook: " + response_json['token'])
+            # print("Authorization token received from simplybook: " + response_json['token'])
 
             new_credentials = {
                 "company": simplybook_credentials['company'],
@@ -106,7 +106,7 @@ class SimplybookApiAuth(ApiAuthInterface):
             }
 
             # SAVE THE NEW TOKEN IN DB
-            print("Saving token to db: " + response_json['token'])
+            # print("Saving token to db: " + response_json['token'])
             self.save_token_in_db(simplybook_credentials, new_credentials['token'], new_credentials['refresh_token'], datetime_now)
 
             return {
@@ -123,7 +123,7 @@ class SimplybookApiAuth(ApiAuthInterface):
             })
 
             # SAVE THE NEW TOKEN IN DB
-            print("Saving refreshed data to db")
+            # print("Saving refreshed data to db")
             self.save_token_in_db(simplybook_credentials, new_credentials['token'], new_credentials['refresh_token'], datetime_now)
 
             return new_credentials
@@ -153,7 +153,7 @@ class SimplybookApiAuth(ApiAuthInterface):
         }
 
         response = requests.request("POST", url, headers=headers, data=payload)
-        print("saved token to db. response is: " + response.text)
+        # print("saved token to db. response is: " + response.text)
 
 
     def refresh(self, auth_credentials):

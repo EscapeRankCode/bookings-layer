@@ -50,10 +50,13 @@ class ApiCalendar(metaclass=ApiCalendarMeta):
         # Depending on the booking system
         if calendar_availability_request.booking_system_id == general_utils.BS_ID_MAXIMUM:
             availability = self.maximum_api_calendar.get_calendar_availability(calendar_availability_request)
+            print("RETURN: getCalendarAvailability")
             return json.dumps(availability, indent=4, cls=CalendarAvailabilityResponseEncoder)
 
         elif calendar_availability_request.booking_system_id == general_utils.BS_ID_SIMPLYBOOK:
             availability = self.simplybook_api_calendar.get_calendar_availability(calendar_availability_request)
+            print("RETURN: getCalendarAvailability")
             return json.dumps(availability, indent=4, cls=CalendarAvailabilityResponseEncoder)
 
+        print("RETURN error: getCalendarAvailability")
         return "Calendar availability error", 400

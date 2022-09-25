@@ -29,11 +29,9 @@ class SimplybookApiEvents(ApiEventsInterface):
             'X-Token': credentials['token']
         }
 
+        print("SEND [simplybook] - /categories")
         response = requests.request("GET", url, headers=headers, data=payload)
         response_json = json.loads(response.text)
-
-        # print("-- RESPONSE FROM <GET SERVICES CATEGORIES>")
-        # print(response.text)
 
         category_id_to_search = api_request.bs_config['category_id']
         category_found = None
@@ -59,6 +57,7 @@ class SimplybookApiEvents(ApiEventsInterface):
                 'X-Token': credentials['token']
             }
 
+            print("SEND [simplybook] - /services")
             response = requests.request("GET", url, headers=headers, data=payload)
             response_json = json.loads(response.text)
 
@@ -101,6 +100,7 @@ class SimplybookApiEvents(ApiEventsInterface):
             'X-Token': credentials['token']
         }
 
+        print("SEND [simplybook] - /clients/fields")
         response = requests.request("GET", url, headers=headers, data=payload)
         response_json = json.loads(response.text)
 
@@ -120,6 +120,7 @@ class SimplybookApiEvents(ApiEventsInterface):
             'X-Token': credentials['token']
         }
 
+        print("SEND [simplybook] - /services")
         response = requests.request("GET", url, headers=headers, data=payload)
         response_json = json.loads(response.text)
 
@@ -141,6 +142,7 @@ class SimplybookApiEvents(ApiEventsInterface):
             'X-Token': credentials['token']
         }
 
+        print("SEND [simplybook] - /additional-fields")
         response = requests.request("GET", url, headers=headers, data=payload)
         response_json = json.loads(response.text)
 

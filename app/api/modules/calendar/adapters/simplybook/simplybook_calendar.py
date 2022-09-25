@@ -19,8 +19,8 @@ class SimplybookApiCalendar(ApiCalendarInterface):
     def get_calendar_availability(self, api_request: CalendarAvailabilityRequest):
         # GET THE TOKEN
         credentials = self.auth_module.authorize(None)  # map with token and refresh_token
-        print("Credentials in calendar availability:")
-        print(json.dumps(credentials))
+        # print("Credentials in calendar availability:")
+        # print(json.dumps(credentials))
 
         url = general_utils.SIMPLYBOOK_BS_HOST + general_utils.SIMPLYBOOK_BS_services_categories_list
         payload = {}
@@ -30,6 +30,7 @@ class SimplybookApiCalendar(ApiCalendarInterface):
             'X-Token': credentials['token']
         }
 
+        print("SEND [simplybook] - /categories")
         response = requests.request("GET", url, headers=headers, data=payload)
         response_json = json.loads(response.text)
 
@@ -75,6 +76,7 @@ class SimplybookApiCalendar(ApiCalendarInterface):
                 'X-Token': credentials['token']
             }
 
+            print("SEND [simplybook] - " + date_x + " /schedule/slots")
             response = requests.request("GET", url, headers=headers, data=payload)
             slots_json = json.loads(response.text)
 
@@ -90,6 +92,7 @@ class SimplybookApiCalendar(ApiCalendarInterface):
                 'X-Token': credentials['token']
             }
 
+            print("SEND [simplybook] - " + date_x + " /schedule/available-slots")
             response = requests.request("GET", url, headers=headers, data=payload)
             available_slots_json = json.loads(response.text)
 

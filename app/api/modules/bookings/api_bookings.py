@@ -23,21 +23,24 @@ class ApiBookings(metaclass=ApiBookingsMeta):
         self.simplybook_api_bookings = SimplybookApiBookings()
 
     def book_first_step(self, api_request: request):
-        print("BOOK 1ST STEP REQUEST")
-        print(request.json)
+        # print("BOOK 1ST STEP REQUEST")
+        # print(request.json)
         book_first_step_request = BookRequest(api_request.json['data'])
 
         # Depending on the booking system
         if book_first_step_request.booking_system_id == general_utils.BS_ID_MAXIMUM:
             first_step_result = self.maximum_api_bookings.book_first_step(book_first_step_request)
+            print("RETURN: bookFirstStep")
             return first_step_result.to_json()
             #  return json.dumps(first_step_result.to_json())
 
         elif book_first_step_request.booking_system_id == general_utils.BS_ID_SIMPLYBOOK:
             first_step_result = self.simplybook_api_bookings.book_first_step(book_first_step_request)
             if first_step_result is not None:
+                print("RETURN: bookFirstStep")
                 return first_step_result.to_json()
 
+        print("RETURN ERROR: bookFirstStep")
         return "Book First Step Error", 400
 
     def book_second_step(self, api_request: request):
@@ -46,13 +49,15 @@ class ApiBookings(metaclass=ApiBookingsMeta):
         # Depending on the booking system
         if book_second_step_request.booking_system_id == general_utils.BS_ID_MAXIMUM:
             second_step_result = self.maximum_api_bookings.book_second_step(book_second_step_request)
+            print("RETURN: bookSecondStep")
             return second_step_result.to_json()
-            #  return json.dumps(first_step_result.to_json())
 
         elif book_second_step_request.booking_system_id == general_utils.BS_ID_SIMPLYBOOK:
             second_step_result = self.simplybook_api_bookings.book_second_step(book_second_step_request)
             if second_step_result is not None:
+                print("RETURN: bookSecondStep")
                 return second_step_result.to_json()
 
-        return "Book First Step Error", 400
+        print("RETURN ERROR: bookSecondStep")
+        return "Book Second Step Error", 400
 

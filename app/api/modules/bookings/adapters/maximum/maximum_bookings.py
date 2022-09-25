@@ -18,7 +18,7 @@ class MaximumApiBookings(ApiBookingsInterface):
         :return:
         """
 
-        print("MAXIMUM BOOK SETP 1 REQUEST: " + json.dumps(book_first_step_request.to_json()))
+        # print("MAXIMUM BOOK SETP 1 REQUEST: " + json.dumps(book_first_step_request.to_json()))
 
         error_exists = False
 
@@ -37,7 +37,7 @@ class MaximumApiBookings(ApiBookingsInterface):
         couponCode = None
 
         url = general_utils.MAXIMUM_BS_HOST + general_utils.MAXIMUM_BS_ENDPOINT_booking_first_step
-        print("URL BOOK 1 IS: " + url)
+        # print("URL BOOK 1 IS: " + url)
 
         error = ""
 
@@ -90,8 +90,8 @@ class MaximumApiBookings(ApiBookingsInterface):
             couponCode = user_input['user_input_value']
 
         if error_exists:
-            print("Error in fields not found:")
-            print(error)
+            # print("Error in fields not found:")
+            # print(error)
             return self.__build_first_step_error(error)
 
         #  PLAYERS COUNT comes from the selected ticket previously
@@ -116,23 +116,18 @@ class MaximumApiBookings(ApiBookingsInterface):
             'Content-Type': 'application/json'
         }
 
-        #  print("PAYLOAD TO BOOK STEP 1 MAXIMUM IS:")
-        #  print(payload)
-
+        print("SEND [maximum] - /api/process")
         response = requests.request("POST", url, headers=headers, data=payload)
-
-        #  print("MAXIMUM BOOK STEP 1 RESPONSE STATUS CODE:")
-        #  print(response.status_code)
 
         try:
             if response.status_code == 200 and json.loads(response.text)['event'] is not None:
-                print("------- HAS 'EVENT' AND CODE IS 200")
-                print(response.text)
+                # print("------- HAS 'EVENT' AND CODE IS 200")
+                # print(response.text)
 
                 try:
-                    print("------- JSON LOADS")
+                    # print("------- JSON LOADS")
                     maximum_first_step_result = json.loads(response.text)['event']
-                    print("------- ENCAPSULATE RESULT")
+                    # print("------- ENCAPSULATE RESULT")
                     return self.encapsulate_book_first_step_result(maximum_first_step_result, book_first_step_request)
 
                 except:
@@ -144,7 +139,7 @@ class MaximumApiBookings(ApiBookingsInterface):
             return self.__build_first_step_error("Request error")
 
     def encapsulate_book_first_step_result(self, result, request: BookRequest) -> BookFirstStepResponse:
-        print("------- JSON EVENT: " + json.dumps(result))
+        # print("------- JSON EVENT: " + json.dumps(result))
         pre_booked = True
         error = ""
         total_price = result['price']
@@ -155,7 +150,7 @@ class MaximumApiBookings(ApiBookingsInterface):
             "unicId": result['unicId'],
             'link': result['link']
         }
-        print("------- BOOKING INFO TO RETURN: " + json.dumps(booking_info))
+        # print("------- BOOKING INFO TO RETURN: " + json.dumps(booking_info))
         return BookFirstStepResponse(pre_booked, error, total_price, deposit_price, currency, booking_info)
 
     def __build_first_step_error(self, error: str) -> BookFirstStepResponse:
@@ -178,16 +173,16 @@ class MaximumApiBookings(ApiBookingsInterface):
                 selected.append(ticket_item)
 
         if len(selected) > 1:
-            print("So many tickets selected")
+            # print("So many tickets selected")
             return -1
         elif len(selected) == 0:
-            print("No ticket selected")
+            # print("No ticket selected")
             return -1
         else:
             ticket = selected[0]
-            print("selected ticket: " + json.dumps(ticket))
+            # print("selected ticket: " + json.dumps(ticket))
             ticket_name = ticket['ticket_name']
-            print("ticket selected was: " + ticket_name)
+            # print("ticket selected was: " + ticket_name)
             return int(ticket_name.split(' ')[0])
 
     # SECOND STEP BOOKING
@@ -216,9 +211,7 @@ class MaximumApiBookings(ApiBookingsInterface):
             'Content-Type': 'application/json'
         }
 
-        print("PAYLOAD TO BOOK STEP 2 MAXIMUM IS:")
-        print(payload)
-
+        print("SEND [maximum] - /api/update")
         response = requests.request("POST", url, headers=headers, data=payload)
 
         try:

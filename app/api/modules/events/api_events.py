@@ -31,14 +31,15 @@ class ApiEvents(metaclass=ApiEventsMeta):
         # Depending on the booking system
         if event_tickets_request.booking_system_id == general_utils.BS_ID_MAXIMUM:
             tickets = self.maximum_api_events.get_event_tickets(event_tickets_request)
-            print(tickets.to_json())
+            print("RETURN: getEventTickets")
             return json.dumps(tickets.to_json())
         elif event_tickets_request.booking_system_id == general_utils.BS_ID_SIMPLYBOOK:
             tickets = self.simplybook_api_events.get_event_tickets(event_tickets_request)
             if tickets is not None:
-                print(tickets.to_json())
+                print("RETURN: getEventTickets")
                 return json.dumps(tickets.to_json())
 
+        print("RETURN error: getEventTickets")
         return "Event Tickets Error", 400
 
     def get_event_form(self, api_request: request):
@@ -47,14 +48,17 @@ class ApiEvents(metaclass=ApiEventsMeta):
         # Depending on the booking system
         if event_form_request.booking_system_id == general_utils.BS_ID_MAXIMUM:
             form = self.maximum_api_events.get_event_form(event_form_request)
+            print("RETURN: getEventForm")
             return form.to_json()
             #  return json.dumps(form.to_json())
 
         elif event_form_request.booking_system_id == general_utils.BS_ID_SIMPLYBOOK:
             form = self.simplybook_api_events.get_event_form(event_form_request)
             if form is not None:
+                print("RETURN: getEventForm")
                 return form.to_json()
 
+        print("RETURN error: getEventForm")
         return "Event Form Error", 400
 
 

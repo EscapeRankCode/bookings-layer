@@ -28,6 +28,7 @@ class MaximumApiCalendar(ApiCalendarInterface):
             'Content-Type': 'application/json'
         }
 
+        print("SEND [maximum] - /api/schedule_with_offset")
         response = requests.request("POST", url, headers=headers, data=payload)
 
         maximum_availability = json.loads(response.text)
