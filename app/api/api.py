@@ -1,6 +1,7 @@
 # GENERAL IMPORTS
 from flask import Flask
 from flask import request
+import logging
 
 from app.api.modules.bookings.api_bookings import ApiBookings
 # MODULES IMPORT
@@ -21,9 +22,15 @@ bookings_module = ApiBookings()
 # calendar_module_middleware = ApiCalendarMiddleware()
 
 
+# disable logger
+log = logging.getLogger('werkzeug')
+log.setLevel(logging.ERROR)
+
+
 # CREATE FLASK APP
 rest = Flask(__name__)
 rest.logger.disabled = True
+log.disabled = True
 
 
 # DEFINE ENDPOINTS FOR EACH MODULE
