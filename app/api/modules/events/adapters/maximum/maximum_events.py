@@ -160,7 +160,7 @@ class MaximumApiEvents(ApiEventsInterface):
         if bs_field['key'] == "playersCount":
             return False
         if bs_field['disabled']:
-            return True  # False TODO
+            return False
         return True
 
     def encapsulate_field_type_check(self, bs_field, extra_info) -> Field:
