@@ -92,7 +92,7 @@ class SimplybookApiCalendar(ApiCalendarInterface):
                 'X-Token': credentials['token']
             }
 
-            print("SEND [simplybook] - " + date_x + " /schedule/available-slots")
+            print("SEND [simplybook] - " + str(date_x) + " /schedule/available-slots")
             response = requests.request("GET", url, headers=headers, data=payload)
             available_slots_json = json.loads(response.text)
 
